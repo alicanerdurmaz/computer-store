@@ -11,7 +11,7 @@ export class ProductService {
   ) {}
 
   async getProducts(filter: Record<string, any>): Promise<Product[]> {
-    const pageSize = 20;
+    const pageSize = 48;
     const result = (await this.productModel
       .find(filter.find)
       .sort(filter.sort)
