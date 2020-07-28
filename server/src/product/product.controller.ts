@@ -22,9 +22,7 @@ export class ProductController {
   @Get()
   async getProducts(
     @Query(ProductFiltersPipe)
-    filter: {
-      key: string;
-    },
+    filter: Record<string, string>,
   ): Promise<Product[]> {
     return await this.productService.getProducts(filter);
   }

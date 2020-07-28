@@ -10,14 +10,17 @@ export class ProductService {
     @InjectModel('product') private readonly productModel: Model<Product>,
   ) {}
 
-  async getProducts(filter: { key: string }): Promise<Product[]> {
+  async getProducts(filter: Record<string, any>): Promise<Product[]> {
+    const pageSize = 20;
     const result = (await this.productModel
-      .find(filter)
+      .find(filter.find)
+      .sort(filter.sort)
+      .skip(pageSize * (filter.page - 1))
+      .limit(pageSize)
+      .select('Part Price Name')
       .lean()
       .exec()) as Product[];
 
-    console.log(filter);
-    console.log(result.length);
     return result;
   }
 

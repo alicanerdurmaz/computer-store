@@ -21,21 +21,25 @@ export class ProductFiltersPipe implements PipeTransform {
     'SD Card Reader',
   ];
 
-  transform(query: { key: string }): Record<string, unknown> {
-    const result = {};
+  transform(query: Record<string, string>): Record<string, unknown> {
+    const find = {};
+    const sort = query.sort;
+    const page = parseInt(query.page) || 1;
+
     for (const [key, value] of Object.entries(query)) {
       if (this.shouldTransformToInArray.includes(key)) {
         const values = value.split(',');
-        result[key] = { $in: values };
+        find[key] = { $in: values };
       }
       if (this.shouldTransformToMinMax.includes(key)) {
         const values = value.split(',');
-        result[key] = {
+        find[key] = {
           $gte: values[0],
           $lte: values[1],
         };
       }
     }
-    return result;
+
+    return { find, sort, page };
   }
 }
