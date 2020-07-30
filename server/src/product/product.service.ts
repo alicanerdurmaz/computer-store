@@ -70,7 +70,7 @@ export class ProductService {
       _id: id,
       Seller: user.id,
     });
-    console.log(found);
+
     if (!found) {
       throw new NotFoundException(`Product with ID "${id}" not found`);
     }

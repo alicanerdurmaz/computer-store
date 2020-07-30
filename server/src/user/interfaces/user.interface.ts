@@ -18,7 +18,7 @@ export interface User extends mongoose.Document {
 
   phone: number;
 
-  shoppingCart: [{ type: mongoose.Schema.Types.ObjectId }];
+  shoppingCart: string[];
 
   validatePassword: (
     enteredPassword: string,
