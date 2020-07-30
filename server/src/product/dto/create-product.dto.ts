@@ -1,7 +1,14 @@
-import { IsNotEmpty, IsIn, IsNumber } from 'class-validator';
+import { IsNotEmpty, IsIn, IsNumber, IsOptional } from 'class-validator';
 import productFieldValues from '../product.field-values.js';
+import { Types } from 'mongoose';
 
 export class CreateProductDto {
+  @IsOptional()
+  SellerName: string;
+
+  @IsOptional()
+  Seller: Types.ObjectId;
+
   Part: string;
 
   @IsNotEmpty()

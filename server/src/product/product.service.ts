@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Product } from './interfaces/product.interface';
 import { CreateProductDto } from './dto/create-product.dto';
+import { User } from 'src/user/interfaces/user.interface';
 
 @Injectable()
 export class ProductService {
@@ -17,16 +18,10 @@ export class ProductService {
       .sort(filter.sort)
       .skip(pageSize * (filter.page - 1))
       .limit(pageSize)
-      .select('Part Price Name')
       .lean()
       .exec()) as Product[];
 
     return result;
-  }
-
-  async createProduct(createProductDto: CreateProductDto): Promise<Product> {
-    const createdProduct = new this.productModel(createProductDto);
-    return await createdProduct.save();
   }
 
   async getProductById(id: string): Promise<Product> {
@@ -42,20 +37,21 @@ export class ProductService {
     return found;
   }
 
-  async deleteProduct(id: string): Promise<Product> {
-    const result = await this.productModel.findOneAndRemove({ _id: id });
-
-    return result;
+  async createProduct(createProductDto: CreateProductDto): Promise<Product> {
+    const createdProduct = new this.productModel(createProductDto);
+    return await createdProduct.save();
   }
 
   async updateProduct(
     createProductDto: CreateProductDto,
     id: string,
+    user: User,
   ): Promise<Product> {
     const updatedProduct = (await this.productModel
       .findOneAndUpdate(
         {
           _id: id,
+          Seller: user.id,
         },
         createProductDto,
         { new: true },
@@ -63,6 +59,22 @@ export class ProductService {
       .lean()
       .exec()) as Product;
 
+    if (!updatedProduct) {
+      throw new NotFoundException(`Product with ID "${id}" not found`);
+    }
     return updatedProduct;
+  }
+
+  async deleteProduct(id: string, user: User): Promise<{ id: string }> {
+    const found = await this.productModel.findOneAndRemove({
+      _id: id,
+      Seller: user.id,
+    });
+    console.log(found);
+    if (!found) {
+      throw new NotFoundException(`Product with ID "${id}" not found`);
+    }
+
+    return { id };
   }
 }

@@ -9,6 +9,7 @@ export const productSchema = new mongoose.Schema({
   Part: {
     type: String,
   },
+  Seller: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
   'Screen Size': {
     type: Number,
     required: true,

@@ -3,6 +3,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { AuthCredentialsDto } from './dto/auth-credentials-dto';
 import { UserService } from 'src/user/user.service';
 import { JwtService } from '@nestjs/jwt';
+import { JwtPayload } from './interfaces/jwt-payload.interface';
 
 @Injectable()
 export class AuthService {
@@ -23,10 +24,12 @@ export class AuthService {
     const user = await this.userService.validateUserPassword(
       authCredentialsDto,
     );
+
     if (!user) {
       throw new UnauthorizedException('Invalid Credentials');
     }
-    const payload = { email: user.email };
+
+    const payload: JwtPayload = { email: user.email, id: user.id };
 
     const accessToken = this.jwtService.sign(payload);
 

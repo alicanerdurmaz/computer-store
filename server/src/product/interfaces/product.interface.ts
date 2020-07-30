@@ -1,8 +1,10 @@
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 
 export interface Product extends Document {
   Model: string;
   Part: string;
+  Seller: Types.ObjectId;
+  SellerName: string;
   'Screen Size': number;
   'Screen Panel Type': string;
   Resolution: string;
