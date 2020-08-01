@@ -35,10 +35,6 @@ export class ProductController {
   getFilters(): any {
     return this.productService.getFilters();
   }
-  @Get('/create-filters')
-  createFilters(): any {
-    return this.productService.createFilters();
-  }
 
   @Get('/user')
   @UseGuards(AuthGuard())
