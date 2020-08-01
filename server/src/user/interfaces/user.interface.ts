@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose';
+import { Product } from 'src/product/interfaces/product.interface';
 
 export interface User extends mongoose.Document {
   name: string;
@@ -19,6 +20,8 @@ export interface User extends mongoose.Document {
   phone: number;
 
   shoppingCart: string[];
+
+  orders: Product[];
 
   validatePassword: (
     enteredPassword: string,

@@ -5,7 +5,7 @@ export interface Product extends Document {
   Part: string;
   Seller: Types.ObjectId;
   SellerName: string;
-  'Screen Size': number;
+  'Screen Size': string;
   'Screen Panel Type': string;
   Resolution: string;
   'Refresh Rate': string;

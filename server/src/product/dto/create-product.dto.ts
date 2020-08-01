@@ -14,8 +14,7 @@ export class CreateProductDto {
   @IsNotEmpty()
   Model: string;
 
-  @IsNumber()
-  'Screen Size': number;
+  'Screen Size': string;
 
   @IsIn(productFieldValues.screenPanelType)
   'Screen Panel Type': string;

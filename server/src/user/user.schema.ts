@@ -1,5 +1,6 @@
 import * as mongoose from 'mongoose';
 import * as bcrypt from 'bcrypt';
+import { productSchema } from 'src/product/product.schema';
 
 export const userSchema = new mongoose.Schema({
   name: {
@@ -36,6 +37,8 @@ export const userSchema = new mongoose.Schema({
     type: Number,
   },
   shoppingCart: [{ type: mongoose.Schema.Types.ObjectId, ref: 'product' }],
+
+  orders: { type: [productSchema], select: false },
 });
 
 userSchema.methods.validatePassword = async function (

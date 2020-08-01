@@ -5,21 +5,22 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { User } from '../user/interfaces/user.interface';
 import { AuthCredentialsDto } from 'src/auth/dto/auth-credentials-dto';
 import * as bcrypt from 'bcrypt';
 import { UserDto } from './dto/user.dto';
+import { Product } from 'src/product/interfaces/product.interface';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel('user') private readonly userModel: Model<User>) {}
+  constructor(
+    @InjectModel('user') private readonly userModel: Model<User>,
+    @InjectModel('product') private readonly productModel: Model<Product>,
+  ) {}
 
   async getUser(userId: string): Promise<User> {
-    const found = (await this.userModel
-      .findOne({ _id: userId })
-      .lean()
-      .exec()) as User;
+    const found = (await this.userModel.findById(userId).lean().exec()) as User;
 
     if (!found) {
       throw new NotFoundException(`Product with ID "${userId}" not found`);
@@ -102,6 +103,37 @@ export class UserService {
       throw new NotFoundException(`Something went wrong when updating cart`);
     }
     return { data: updatedShoppingCart.shoppingCart };
+  }
+  async getOrder(userId: string): Promise<User> {
+    const found = (await this.userModel
+      .findById(userId)
+      .select('orders')
+      .lean()
+      .exec()) as User;
+
+    if (!found) {
+      throw new NotFoundException(`Product with ID "${userId}" not found`);
+    }
+
+    return found;
+  }
+  async addOrder(userId: string, productsId: string[]): Promise<any> {
+    const products = (await this.productModel
+      .find({
+        _id: {
+          $in: productsId,
+        },
+      })
+      .exec()) as Product[];
+
+    await this.userModel.findOneAndUpdate(
+      {
+        _id: userId,
+      },
+      { $push: { orders: { $each: products } } },
+      { new: true },
+    );
+    return { data: 'Purchased' };
   }
 
   async register(

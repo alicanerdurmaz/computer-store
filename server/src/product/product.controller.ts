@@ -25,11 +25,25 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Get()
-  async getProducts(
+  async getUserProducts(
     @Query(ProductFiltersPipe)
     filter: Record<string, string>,
   ): Promise<Product[]> {
     return await this.productService.getProducts(filter);
+  }
+  @Get('/filters')
+  getFilters(): any {
+    return this.productService.getFilters();
+  }
+  @Get('/create-filters')
+  createFilters(): any {
+    return this.productService.createFilters();
+  }
+
+  @Get('/user')
+  @UseGuards(AuthGuard())
+  async getProducts(@GetUser() user: User): Promise<Product[]> {
+    return await this.productService.getUserProducts(user.id);
   }
 
   @Get('/:id')

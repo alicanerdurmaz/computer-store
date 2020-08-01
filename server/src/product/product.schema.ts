@@ -10,8 +10,9 @@ export const productSchema = new mongoose.Schema({
     type: String,
   },
   Seller: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
+
   'Screen Size': {
-    type: Number,
+    type: String,
     required: true,
   },
   'Screen Panel Type': {

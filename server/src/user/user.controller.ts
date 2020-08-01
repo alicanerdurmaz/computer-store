@@ -56,4 +56,17 @@ export class UserController {
   ): Promise<{ data: string[] }> {
     return await this.userService.removeAllFromShoppingCart(user.id);
   }
+
+  @Get('/order')
+  async getOrder(@GetUser() user: User): Promise<User> {
+    return await this.userService.getOrder(user.id);
+  }
+
+  @Post('/order')
+  async addOrder(
+    @GetUser() user: User,
+    @Body() data: { productsId: string[] },
+  ): Promise<any> {
+    return await this.userService.addOrder(user.id, data.productsId);
+  }
 }
