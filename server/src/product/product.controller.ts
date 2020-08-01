@@ -36,6 +36,11 @@ export class ProductController {
     return this.productService.getFilters();
   }
 
+  @Get('/search')
+  async searchProducts(@Query('term') term: string): Promise<Product[]> {
+    return this.productService.searchProducts(term);
+  }
+
   @Get('/user')
   @UseGuards(AuthGuard())
   async getProducts(@GetUser() user: User): Promise<Product[]> {
