@@ -34,6 +34,7 @@ export class ProductService {
       .sort({ score: { $meta: 'textScore' } })
       .lean()
       .exec()) as Product[];
+
     return result;
   }
 

@@ -24,8 +24,8 @@ import { User } from 'src/user/interfaces/user.interface';
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
-  @Get()
-  async getUserProducts(
+  @Get('/')
+  async getProducts(
     @Query(ProductFiltersPipe)
     filter: Record<string, string>,
   ): Promise<Product[]> {
@@ -43,7 +43,7 @@ export class ProductController {
 
   @Get('/user')
   @UseGuards(AuthGuard())
-  async getProducts(@GetUser() user: User): Promise<Product[]> {
+  async getUserProducts(@GetUser() user: User): Promise<Product[]> {
     return await this.productService.getUserProducts(user.id);
   }
 
