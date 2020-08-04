@@ -24,8 +24,8 @@ import { User } from 'src/user/interfaces/user.interface';
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
-  @Get()
-  async getUserProducts(
+  @Get('/')
+  async getProducts(
     @Query(ProductFiltersPipe)
     filter: Record<string, string>,
   ): Promise<Product[]> {
@@ -35,14 +35,15 @@ export class ProductController {
   getFilters(): any {
     return this.productService.getFilters();
   }
-  @Get('/create-filters')
-  createFilters(): any {
-    return this.productService.createFilters();
+
+  @Get('/search')
+  async searchProducts(@Query('term') term: string): Promise<Product[]> {
+    return this.productService.searchProducts(term);
   }
 
   @Get('/user')
   @UseGuards(AuthGuard())
-  async getProducts(@GetUser() user: User): Promise<Product[]> {
+  async getUserProducts(@GetUser() user: User): Promise<Product[]> {
     return await this.productService.getUserProducts(user.id);
   }
 

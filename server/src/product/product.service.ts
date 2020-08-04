@@ -28,6 +28,16 @@ export class ProductService {
     return result;
   }
 
+  async searchProducts(search: string): Promise<Product[]> {
+    const result = (await this.productModel
+      .find({ $text: { $search: search } }, { score: { $meta: 'textScore' } })
+      .sort({ score: { $meta: 'textScore' } })
+      .lean()
+      .exec()) as Product[];
+
+    return result;
+  }
+
   async getUserProducts(userId: string): Promise<Product[]> {
     const result = (await this.productModel
       .find({ Seller: userId })

@@ -33,9 +33,16 @@ export class ProductFiltersPipe implements PipeTransform {
       }
       if (this.shouldTransformToMinMax.includes(key)) {
         const values = value.split(',');
+        // if (values[0]) {
+        //   find[key]['$gte'] = values[0];
+        // }
+        // if (values[1]) {
+        //   find[key]['$lte'] = values[1];
+        // }
+
         find[key] = {
-          $gte: values[0],
-          $lte: values[1],
+          $gte: values[0] || Number.MIN_SAFE_INTEGER,
+          $lte: values[1] || Number.MAX_SAFE_INTEGER,
         };
       }
     }

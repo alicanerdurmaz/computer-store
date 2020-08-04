@@ -5,6 +5,7 @@ export const productSchema = new mongoose.Schema({
   Model: {
     type: String,
     required: true,
+    text: true,
   },
   Part: {
     type: String,
@@ -106,6 +107,7 @@ export const productSchema = new mongoose.Schema({
   Name: {
     type: String,
     required: true,
+    text: true,
   },
   Price: {
     type: Number,
@@ -118,3 +120,5 @@ export const productSchema = new mongoose.Schema({
     required: true,
   },
 });
+
+productSchema.index({ Name: 'text', Model: 'text' });
