@@ -1,17 +1,17 @@
 :root {
-  --c-primary: #fff;
-  /* --c-primary-light: #fff;
-  --c-primary-dark: #fff; */
+  --c-primary: #00b4d8;
+  --c-primary-light: #48cae4;
+  --c-primary-dark: #0096c7;
 
-  --c-secondary: #ea4c89;
-  /* --c-secondary-light: #ea4c89; */
-  /* --c-secondary-dark: #fff; */
+  --c-secondary: #ff5d8f;
+  --c-secondary-light: #ffa6c1;
+  --c-pale-pink: #fadde1;
 
   --c-text-on-p: #0d0c22;
   --c-text-on-s: #ffffff;
 
   --c-text-primary: #0d0c22;
-  --c-text-secondary: #6e6d7a;
+  --c-text-secondary: #ffffff;
 
   --c-bg-primary: #ffffff;
   --c-bg-secondary: #6e6d7a;

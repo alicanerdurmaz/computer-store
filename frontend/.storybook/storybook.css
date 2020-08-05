@@ -1,0 +1,10 @@
+html,
+body {
+  width: unset;
+  height: unset;
+}
+
+body {
+  padding: 30px;
+  background: var(--c-bg-primary);
+}
