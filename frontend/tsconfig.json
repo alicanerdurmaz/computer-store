@@ -14,6 +14,14 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "../types.d.ts",
+    "../next-env.d.ts",
+    "../**/*.stories.ts",
+    "../**/*.stories.tsx"
+  ],
   "exclude": ["node_modules"]
 }

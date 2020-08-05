@@ -1,0 +1,18 @@
+:root {
+  --c-primary: #fff;
+  /* --c-primary-light: #fff;
+  --c-primary-dark: #fff; */
+
+  --c-secondary: #ea4c89;
+  /* --c-secondary-light: #ea4c89; */
+  /* --c-secondary-dark: #fff; */
+
+  --c-text-on-p: #0d0c22;
+  --c-text-on-s: #ffffff;
+
+  --c-text-primary: #0d0c22;
+  --c-text-secondary: #6e6d7a;
+
+  --c-bg-primary: #ffffff;
+  --c-bg-secondary: #6e6d7a;
+}

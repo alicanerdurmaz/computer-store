@@ -5,21 +5,33 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "classnames": "^2.2.6",
     "next": "9.5.1",
     "react": "16.13.1",
     "react-dom": "16.13.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "@storybook/addon-actions": "^5.3.19",
+    "@storybook/addon-links": "^5.3.19",
+    "@storybook/addons": "^5.3.19",
+    "@storybook/preset-typescript": "3.0.0",
+    "@storybook/react": "^5.3.19",
     "@types/node": "^14.0.27",
     "@types/react": "^16.9.44",
     "autoprefixer": "^9.8.6",
+    "babel-loader": "^8.0.5",
+    "fork-ts-checker-webpack-plugin": "5.0.4",
     "postcss-custom-properties": "^9.1.1",
     "postcss-flexbugs-fixes": "^4.2.1",
     "postcss-nested": "^4.2.3",
     "postcss-preset-env": "^6.7.0",
+    "ts-loader": "7.0.5",
     "typescript": "^3.9.7"
   }
 }
