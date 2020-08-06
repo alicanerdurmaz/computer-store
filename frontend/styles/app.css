@@ -1,5 +1,4 @@
 @import 'variables.css';
-@import 'normalize.css';
 
 * {
   margin: 0;
@@ -12,6 +11,7 @@ html {
   font-size: 16px;
   width: 100vw;
   height: 100vh;
+  line-height: 1;
 }
 
 body {
@@ -28,7 +28,7 @@ body {
     'Segoe UI Symbol';
 
   background-color: var(--c-bg-primary);
-  color: var(--c-text-primary);
+  color: var(--c-text);
 }
 
 #__next {

@@ -2,9 +2,9 @@ html,
 body {
   width: unset;
   height: unset;
+  padding: 1rem;
 }
 
 body {
-  padding: 1rem;
   background: var(--c-bg-primary);
 }

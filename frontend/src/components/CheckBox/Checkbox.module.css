@@ -1,9 +1,18 @@
 .label {
   text-align: center;
-  width: max-content;
+
+  width: 100%;
+
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+
+  transition: background-color var(--a-60-cubic);
+
+  &:hover,
+  &:focus-within {
+    background-color: var(--c-bg-secondary);
+  }
 }
 .input {
   appearance: none;
@@ -16,16 +25,15 @@
 
   outline: none;
 
+  transition: border var(--a-60-cubic);
+
   &:hover,
   &:focus {
-    border: 2px solid var(--c-primary);
+    border: 2px solid var(--c-bg-secondary-darker);
 
     + .text {
       color: black;
     }
-  }
-  &:checked {
-    border: 2px solid var(--c-pale-pink);
   }
 }
 

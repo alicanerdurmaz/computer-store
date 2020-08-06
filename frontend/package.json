@@ -18,6 +18,7 @@
   "devDependencies": {
     "@babel/core": "^7.11.1",
     "@storybook/addon-actions": "^5.3.19",
+    "@storybook/addon-knobs": "^5.3.19",
     "@storybook/addon-links": "^5.3.19",
     "@storybook/addons": "^5.3.19",
     "@storybook/preset-typescript": "3.0.0",
