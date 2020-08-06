@@ -26,7 +26,7 @@ const Header: React.FC<Props> = ({}: Props) => {
         <Button
           bgColor="bg-secondary"
           icon={<CartIcon iconWidth="30" iconHeight="30" />}
-          badge={<ButtonBadge count={5} />}
+          badge={<ButtonBadge count={0} />}
         ></Button>
       </div>
     </div>
