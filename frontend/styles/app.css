@@ -9,6 +9,7 @@
 }
 
 html {
+  -webkit-font-smoothing: subpixel-antialiased;
   font-size: 16px;
   width: 100vw;
   height: 100vh;
@@ -18,8 +19,10 @@ body {
   width: 100vw;
   height: 100vh;
   font-size: 1rem;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
-    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol';
 
   background-color: var(--c-bg-primary);
   color: var(--c-text-primary);

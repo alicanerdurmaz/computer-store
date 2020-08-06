@@ -1,0 +1,7 @@
+.logo {
+  color: var(--c-primary);
+  font-size: 2rem;
+  font-weight: 700;
+  width: max-content;
+  height: max-content;
+}

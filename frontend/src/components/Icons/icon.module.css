@@ -1,0 +1,5 @@
+.icon {
+  display: inline-block;
+
+  fill: var(--c-icon-color);
+}

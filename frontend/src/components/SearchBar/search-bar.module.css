@@ -1,0 +1,34 @@
+.form {
+  background-color: var(--c-bg-secondary);
+
+  width: 400px;
+  padding: 0.5rem 0.825rem;
+
+  border-radius: 8px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: 2px solid transparent;
+  &:focus-within {
+    border: 2px solid var(--c-primary-light);
+  }
+}
+
+.input {
+  outline: none;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+
+  &::-webkit-search-decoration,
+  &::-webkit-search-cancel-button,
+  &::-webkit-search-results-button,
+  &::-webkit-search-results-decoration {
+    display: none;
+  }
+  &::placeholder {
+    color: var(--c-text-secondary);
+  }
+}

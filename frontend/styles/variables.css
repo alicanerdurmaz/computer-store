@@ -1,18 +1,19 @@
 :root {
-  --c-primary: #00b4d8;
-  --c-primary-light: #48cae4;
-  --c-primary-dark: #0096c7;
+  --c-primary: #1b4965;
+  --c-primary-light: #62b6cb;
 
   --c-secondary: #ff5d8f;
-  --c-secondary-light: #ffa6c1;
+  --c-secondary-light: #ff87ab;
   --c-pale-pink: #fadde1;
 
   --c-text-on-p: #0d0c22;
   --c-text-on-s: #ffffff;
 
-  --c-text-primary: #0d0c22;
-  --c-text-secondary: #ffffff;
+  --c-text: #0d0c22;
+  --c-text-secondary: #6e6d7a;
+
+  --c-icon-color: #6e6d7a;
 
   --c-bg-primary: #ffffff;
-  --c-bg-secondary: #6e6d7a;
+  --c-bg-secondary: #f3f3f4;
 }
