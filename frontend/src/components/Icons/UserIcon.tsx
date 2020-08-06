@@ -3,10 +3,10 @@ import React from 'react'
 import styles from './icon.module.css'
 
 interface Props {
-  w?: string
-  h?: string
+  iconWidth?: string
+  iconHeight?: string
 }
-const UserIcon = ({w = '24', h = '24'}) => {
+const UserIcon = ({iconWidth = '24', iconHeight = '24'}) => {
   return (
     <svg
       aria-hidden="true"
@@ -18,6 +18,8 @@ const UserIcon = ({w = '24', h = '24'}) => {
       role="img"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 448 512"
+      width={iconWidth}
+      height={iconHeight}
     >
       <path
         fill="currentColor"

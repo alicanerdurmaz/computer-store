@@ -1,15 +1,16 @@
 .button {
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  cursor: pointer;
   border-radius: 8px;
   width: 3rem;
   height: 2rem;
 
   outline: none;
   border: 1px solid transparent;
+
   &:focus {
     border: 1px solid var(--c-primary-light);
   }
@@ -19,9 +20,4 @@
   }
 
   padding: 0.5rem 1rem;
-}
-
-.icon {
-  width: 1rem;
-  height: 1rem;
 }

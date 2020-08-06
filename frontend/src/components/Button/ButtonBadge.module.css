@@ -1,0 +1,21 @@
+.container {
+  position: relative;
+}
+.counter {
+  border: 1px solid var(--c-pale-pink);
+  position: absolute;
+
+  background-color: var(--c-bg-primary);
+  color: var(--c-secondary);
+
+  font-weight: 700;
+  text-align: center;
+
+  top: -22px;
+  right: -22px;
+
+  font-size: 0.825rem;
+  width: 1.25rem;
+  height: 1rem;
+  border-radius: 2rem;
+}
