@@ -3,9 +3,10 @@
   height: 100%;
 
   margin: 0 auto;
+  padding: 0 1rem;
 
   display: grid;
-  grid-template-rows: 0px 80px 1fr;
+  grid-template-rows: 0px minmax(80px, 100px) 1fr;
   grid-template-areas: '.' 'header' 'content';
   row-gap: 24px;
 }

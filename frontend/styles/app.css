@@ -9,13 +9,16 @@
 }
 
 html {
-  -webkit-font-smoothing: subpixel-antialiased;
   font-size: 16px;
   width: 100vw;
   height: 100vh;
 }
 
 body {
+  -webkit-font-smoothing: subpixel-antialiased;
+  font-kerning: normal;
+  text-rendering: optimizeLegibility;
+
   width: 100vw;
   height: 100vh;
   font-size: 1rem;

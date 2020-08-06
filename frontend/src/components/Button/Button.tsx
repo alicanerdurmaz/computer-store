@@ -18,7 +18,7 @@ const Button: React.FC<Props> = ({
 }: Props) => {
   return (
     <button className={cx(styles.button, styles[bgColor])}>
-      <span className={styles.icon}>{icon}</span>
+      {icon}
       {badge}
       {text ? (
         <span className={styles.text}>

@@ -4,7 +4,6 @@
   justify-content: center;
   align-items: center;
 
-  width: max-content;
   height: 50px;
   padding: 0.5rem 1rem;
 
@@ -12,6 +11,7 @@
   border: 1px solid transparent;
   border-radius: 8px;
 
+  transition: background-color 90ms ease-in;
   &:focus {
     border: 1px solid var(--c-primary-light);
   }

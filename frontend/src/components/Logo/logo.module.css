@@ -5,4 +5,8 @@
   width: max-content;
   height: max-content;
   cursor: pointer;
+  transition: color 90ms ease-in;
+  &:hover {
+    color: var(--c-primary-light);
+  }
 }

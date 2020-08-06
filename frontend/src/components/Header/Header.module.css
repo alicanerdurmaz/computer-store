@@ -1,12 +1,9 @@
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+  grid-area: header;
+  overflow: hidden;
 
-.btn_group {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -15,20 +12,37 @@
 }
 
 .search {
-  flex: 1;
-  margin: 0 1rem;
+  margin-left: auto;
 }
 
-@media only screen and (max-width: 700px) {
+.btn_group {
+  margin-left: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media only screen and (max-width: 800px) {
   .search {
     order: 5;
     flex-basis: 100%;
-    margin: 0.5rem 0;
+    margin-top: 8px;
   }
-
   .header {
     height: max-content;
     align-items: center;
     flex-wrap: wrap;
+  }
+}
+@media only screen and (max-width: 550px) {
+  .header {
+    justify-content: center;
+  }
+  .btn_group {
+    margin: 0.5rem 0;
+    padding-right: 1.2rem;
+  }
+  .logo {
+    margin: 0;
   }
 }
