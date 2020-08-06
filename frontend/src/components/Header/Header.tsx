@@ -1,6 +1,8 @@
 import React from 'react'
 
+import cx from 'classnames'
 import styles from './Header.module.css'
+
 import Logo from '../Logo/Logo'
 import SearchBar from '../SearchBar/SearchBar'
 import Button from '../Button/Button'
@@ -12,19 +14,21 @@ interface Props {}
 const Header: React.FC<Props> = ({}: Props) => {
   return (
     <div className={styles.header}>
-      <Logo></Logo>
+      <Logo className={styles.logo}></Logo>
 
-      <SearchBar></SearchBar>
+      <SearchBar className={styles.search}></SearchBar>
 
-      <Button
-        icon={<UserIcon iconWidth="36" iconHeight="36"></UserIcon>}
-      ></Button>
-
-      <Button
-        bgColor="bg-secondary"
-        icon={<CartIcon iconWidth="20" iconHeight="20" />}
-        badge={<ButtonBadge count={5} />}
-      ></Button>
+      <div className={styles.btn_group}>
+        <Button
+          text="Alican&nbsp;Erdurmaz"
+          icon={<UserIcon iconWidth="24" iconHeight="24"></UserIcon>}
+        ></Button>
+        <Button
+          bgColor="bg-secondary"
+          icon={<CartIcon iconWidth="30" iconHeight="30" />}
+          badge={<ButtonBadge count={5} />}
+        ></Button>
+      </div>
     </div>
   )
 }

@@ -3,15 +3,15 @@ import React from 'react'
 import styles from './icon.module.css'
 
 interface Props {
-  w?: string
-  h?: string
+  iconWidth?: string
+  iconHeight?: string
 }
-const SearchIcon = ({ w = '24', h = '24' }) => {
+const SearchIcon = ({ iconWidth = '24', iconHeight = '24' }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      height={h}
-      width={w}
+      height={iconHeight}
+      width={iconWidth}
       viewBox="0 0 24 24"
       fill="currentColor"
       className={styles.icon}

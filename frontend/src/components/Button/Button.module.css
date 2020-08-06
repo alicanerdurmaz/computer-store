@@ -4,8 +4,8 @@
   justify-content: center;
   align-items: center;
 
-  width: 3rem;
-  height: 2rem;
+  width: max-content;
+  height: 50px;
   padding: 0.5rem 1rem;
 
   outline: none;
@@ -19,6 +19,14 @@
     border: 1px solid transparent;
     background-color: var(--c-pale-pink);
   }
+
+  text-align: center;
+  font-size: 0.825rem;
+}
+
+.text {
+  text-align: start;
+  margin-left: 0.825rem;
 }
 
 .bg-primary {

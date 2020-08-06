@@ -6,25 +6,20 @@ interface Props {
   iconWidth?: string
   iconHeight?: string
 }
-const UserIcon = ({ iconWidth = '24', iconHeight = '24' }) => {
+const UserIcon = ({ iconWidth = '24', iconHeight = '24' }: Props) => {
   return (
     <svg
       aria-hidden="true"
       focusable="false"
-      data-prefix="fas"
-      data-icon="user"
       fill="currentColor"
-      className={styles.icon}
       role="img"
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 448 512"
+      className={styles.icon}
+      viewBox="0 0 24 24"
       width={iconWidth}
       height={iconHeight}
     >
-      <path
-        fill="currentColor"
-        d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"
-      ></path>
+      <path d="M19 7.001c0 3.865-3.134 7-7 7s-7-3.135-7-7c0-3.867 3.134-7.001 7-7.001s7 3.134 7 7.001zm-1.598 7.18c-1.506 1.137-3.374 1.82-5.402 1.82-2.03 0-3.899-.685-5.407-1.822-4.072 1.793-6.593 7.376-6.593 9.821h24c0-2.423-2.6-8.006-6.598-9.819z" />
     </svg>
   )
 }

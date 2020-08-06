@@ -15,7 +15,7 @@ const CartIcon = ({ iconWidth = '24', iconHeight = '24' }: Props) => {
         data-icon="shopping-cart"
         role="img"
         xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 22"
+        viewBox="0 0 24 24"
         className={styles.icon}
         height={iconHeight}
         width={iconWidth}
