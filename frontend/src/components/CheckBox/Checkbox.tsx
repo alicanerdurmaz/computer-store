@@ -3,19 +3,22 @@ import React from 'react'
 import styles from './Checkbox.module.css'
 
 interface Props {
-  label: string
+  value: string
+  isChecked: boolean
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
-const Checkbox: React.FC<Props> = ({ label, onChange }: Props) => {
+const Checkbox: React.FC<Props> = ({ value, onChange, isChecked }: Props) => {
   return (
     <label className={styles.label}>
       <input
+        aria-checked={isChecked}
         className={styles.input}
         type="checkbox"
-        name={label}
+        name={value}
+        checked={isChecked}
         onChange={onChange}
       />
-      <span className={styles.text}>{label}</span>
+      <span className={styles.text}>{value}</span>
     </label>
   )
 }

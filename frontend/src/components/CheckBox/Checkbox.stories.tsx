@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { withKnobs, number } from '@storybook/addon-knobs'
 import Checkbox from './Checkbox'
 import CheckboxList from './CheckboxList'
@@ -9,14 +9,18 @@ export default {
   decorators: [withKnobs],
 }
 
-export const Default = () => (
-  <Checkbox
-    label="Asus"
-    onChange={e => {
-      console.log(e.currentTarget.name, e.currentTarget.checked)
-    }}
-  />
-)
+export const Default = () => {
+  const [checked, setChecked] = useState(false)
+  return (
+    <Checkbox
+      value="Asus"
+      isChecked={checked}
+      onChange={e => {
+        setChecked(!checked)
+      }}
+    />
+  )
+}
 
 const Brands = [
   'Samsung',
@@ -45,25 +49,42 @@ const Brands = [
   'Dell',
 ]
 
-export const List = () => (
-  <div
-    style={{
-      width: '200px',
-    }}
-  >
-    <CheckboxList title="Brands">
-      {Brands.slice(
-        0,
-        number(`list-length (${Brands.length})`, Brands.length),
-      ).map(e => (
-        <Checkbox
-          key={e}
-          label={e}
-          onChange={e => {
-            console.log(e.currentTarget.name, e.currentTarget.checked)
-          }}
-        />
-      ))}
-    </CheckboxList>
-  </div>
-)
+const initCheckList = (): Record<string, boolean> => {
+  let newMap: Record<string, boolean> = {}
+  Brands.forEach(e => {
+    newMap[e] = false
+  })
+  return newMap
+}
+
+export const List = () => {
+  const [checkList, setCheckList] = useState(initCheckList())
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCheckList({ ...checkList, [event.target.name]: event.target.checked })
+  }
+
+  return (
+    <div
+      style={{
+        width: '200px',
+      }}
+    >
+      <CheckboxList title="Brands">
+        {Brands.slice(
+          0,
+          number(`list-length (${Brands.length})`, Brands.length),
+        ).map((e, i) => (
+          <Checkbox
+            key={i}
+            value={e}
+            isChecked={checkList.e}
+            onChange={e => {
+              handleChange(e)
+            }}
+          />
+        ))}
+      </CheckboxList>
+    </div>
+  )
+}
