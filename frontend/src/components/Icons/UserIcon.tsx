@@ -6,7 +6,7 @@ interface Props {
   iconWidth?: string
   iconHeight?: string
 }
-const UserIcon = ({iconWidth = '24', iconHeight = '24'}) => {
+const UserIcon = ({ iconWidth = '24', iconHeight = '24' }) => {
   return (
     <svg
       aria-hidden="true"

@@ -5,7 +5,7 @@ import styles from './ButtonBadge.module.css'
 interface Props {
   count: number
 }
-const ButtonBadge = ({count}: Props) => {
+const ButtonBadge = ({ count }: Props) => {
   return (
     <div className={styles.container}>
       <span className={styles.counter}>{count}</span>

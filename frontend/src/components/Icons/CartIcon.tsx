@@ -6,7 +6,7 @@ interface Props {
   iconWidth?: string
   iconHeight?: string
 }
-const CartIcon = ({iconWidth = '24', iconHeight = '24'}: Props) => {
+const CartIcon = ({ iconWidth = '24', iconHeight = '24' }: Props) => {
   return (
     <div>
       <svg

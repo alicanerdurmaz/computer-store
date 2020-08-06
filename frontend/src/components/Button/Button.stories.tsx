@@ -12,11 +12,12 @@ export default {
 }
 
 export const User = () => (
-  <Button icon={<UserIcon iconWidth="14" iconHeight="14"></UserIcon>}></Button>
+  <Button icon={<UserIcon iconWidth="36" iconHeight="36"></UserIcon>}></Button>
 )
 
 export const Cart = () => (
   <Button
+    bgColor="bg-secondary"
     icon={<CartIcon iconWidth="20" iconHeight="20" />}
     badge={<ButtonBadge count={5} />}
   ></Button>

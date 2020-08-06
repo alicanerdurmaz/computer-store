@@ -6,7 +6,7 @@ interface Props {
   w?: string
   h?: string
 }
-const SearchIcon = ({w = '24', h = '24'}) => {
+const SearchIcon = ({ w = '24', h = '24' }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
