@@ -35,22 +35,27 @@
       color: black;
     }
   }
+
+  &:checked {
+    background-color: var(--c-primary);
+    border: 2px solid var(--c-primary);
+  }
+  &:checked::after {
+    content: '';
+  }
 }
 
 .input::after {
   display: inline-block;
   position: relative;
-  top: -5px;
-  right: -4px;
+  top: -2px;
+  right: -2px;
 
-  height: 12px;
-  width: 6px;
+  height: 8px;
+  width: 4px;
   transform: rotate(45deg);
-  border-bottom: 3px solid var(--c-primary-light);
-  border-right: 3px solid var(--c-primary-light);
-}
-.input[type='checkbox']:checked::after {
-  content: '';
+  border-bottom: 3px solid var(--c-text-on-p);
+  border-right: 3px solid var(--c-text-on-p);
 }
 
 .text {
