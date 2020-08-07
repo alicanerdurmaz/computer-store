@@ -5,11 +5,26 @@ import styles from './CheckboxList.module.css'
 interface Props {
   children: React.ReactNode
   title: string
+  value: string
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
-const CheckboxList: React.FC<Props> = ({ children, title }: Props) => {
+const CheckboxList: React.FC<Props> = ({
+  value,
+  onChange,
+  children,
+  title,
+}: Props) => {
   return (
     <div className={styles.checkboxListContainer}>
-      <h6 className={styles.title}>{title}</h6>
+      <label className={styles.title}>{title}s</label>
+      <input
+        value={value}
+        className={styles.input}
+        type="search"
+        placeholder={`Search ${title}`}
+        aria-label={`search in ${title}s`}
+        onChange={onChange}
+      ></input>
       <div className={styles.list}>{children}</div>
     </div>
   )

@@ -8,12 +8,39 @@
 }
 
 .title {
-  margin: 1rem 0;
   font-size: 0.875rem;
   font-weight: 700;
   color: var(--c-text);
   letter-spacing: 0.25px;
 }
+
+.input {
+  font-size: 0.875rem;
+  height: 2rem;
+  width: 100%;
+  margin: 1rem 0;
+
+  padding: 0.5rem 0.825rem;
+
+  background-color: var(--c-bg-primary);
+  border: 2px solid var(--c-bg-secondary);
+  border-radius: 4px;
+  outline: none;
+  &:focus {
+    border: 2px solid var(--c-primary-light);
+  }
+
+  &::-webkit-search-decoration,
+  &::-webkit-search-cancel-button,
+  &::-webkit-search-results-button,
+  &::-webkit-search-results-decoration {
+    display: none;
+  }
+  &::placeholder {
+    color: var(--c-text-secondary);
+  }
+}
+
 .list {
   max-height: 200px;
   width: 100%;

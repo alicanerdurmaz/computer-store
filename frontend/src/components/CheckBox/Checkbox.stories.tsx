@@ -59,6 +59,7 @@ const initCheckList = (): Record<string, boolean> => {
 
 export const List = () => {
   const [checkList, setCheckList] = useState(initCheckList())
+  const [searchTerm, setSearchTerm] = useState('')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCheckList({ ...checkList, [event.target.name]: event.target.checked })
@@ -70,20 +71,28 @@ export const List = () => {
         width: '200px',
       }}
     >
-      <CheckboxList title="Brands">
+      <CheckboxList
+        value={searchTerm}
+        title="Brand"
+        onChange={e => setSearchTerm(e.currentTarget.value)}
+      >
         {Brands.slice(
           0,
           number(`list-length (${Brands.length})`, Brands.length),
-        ).map((e, i) => (
-          <Checkbox
-            key={i}
-            value={e}
-            isChecked={checkList.e}
-            onChange={e => {
-              handleChange(e)
-            }}
-          />
-        ))}
+        )
+          .filter(value =>
+            value.toLowerCase().includes(searchTerm.toLowerCase()),
+          )
+          .map((e, i) => (
+            <Checkbox
+              key={i}
+              value={e}
+              isChecked={checkList.e}
+              onChange={e => {
+                handleChange(e)
+              }}
+            />
+          ))}
       </CheckboxList>
     </div>
   )
