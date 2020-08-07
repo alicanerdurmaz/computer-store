@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
 import styles from './Slider.module.css'
 interface Props {
+  title: string
   rangeMin: number
   rangeMax: number
   value1: number
@@ -11,6 +12,7 @@ interface Props {
   value2_OnChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 const Slider = ({
+  title,
   rangeMin,
   rangeMax,
   value1,
@@ -48,6 +50,7 @@ const Slider = ({
 
   return (
     <div className={cx(styles.slider)}>
+      <h6 className={styles.title}>{title}</h6>
       <div className={cx(styles.text)}>
         <span id="range-slider-input-one" className={cx(styles.text_range1)}>
           ${minMax[0]}
@@ -74,7 +77,7 @@ const Slider = ({
           aria-valuemax={rangeMax}
           aria-valuenow={value1}
           aria-labelledby="range-slider-input-one"
-          data-testid="slider2"
+          data-testid="slider-1"
         />
         <input
           className={cx(styles.input)}
@@ -88,7 +91,7 @@ const Slider = ({
           aria-valuemax={rangeMax}
           aria-valuenow={value2}
           aria-labelledby="range-slider-input-two"
-          data-testid="slider1"
+          data-testid="slider-2"
         />
       </div>
     </div>

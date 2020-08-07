@@ -16,6 +16,7 @@ export const Default = () => {
 
   return (
     <Slider
+      title="Price"
       rangeMin={rangeMin}
       rangeMax={rangeMax}
       value1={rangeValue1}
