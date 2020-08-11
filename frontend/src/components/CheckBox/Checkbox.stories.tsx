@@ -10,81 +10,50 @@ export default {
 }
 
 export const Default = () => {
-  const [checked, setChecked] = useState(false)
-  return (
-    <Checkbox
-      value="Asus"
-      isChecked={checked}
-      onChange={e => {
-        setChecked(!checked)
-      }}
-    />
-  )
-}
-
-const Brands = [
-  'Samsung',
-  'Aorus',
-  'Asus',
-  'Acer',
-  'Razer',
-  'MSI',
-  'HP',
-  'Apple',
-  'Gigabyte',
-  'Lenovo',
-  'Microsoft',
-  'Dell',
-  'Samsung',
-  'Aorus',
-  'Asus',
-  'Acer',
-  'Razer',
-  'MSI',
-  'HP',
-  'Apple',
-  'Gigabyte',
-  'Lenovo',
-  'Microsoft',
-  'Dell',
-]
-
-const initCheckList = (): Record<string, boolean> => {
-  let newMap: Record<string, boolean> = {}
-  Brands.forEach(e => {
-    newMap[e] = false
-  })
-  return newMap
+  return <Checkbox value="Asus" count={12} />
 }
 
 export const List = () => {
-  const [checkList, setCheckList] = useState(initCheckList())
-  const [searchTerm, setSearchTerm] = useState('')
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCheckList({ ...checkList, [event.target.name]: event.target.checked })
-  }
-
   return (
     <div
       style={{
         width: '200px',
       }}
     >
-      <CheckboxList value={searchTerm} title="Brand" onChange={e => setSearchTerm(e.currentTarget.value)}>
-        {Brands.slice(0, number(`list-length (${Brands.length})`, Brands.length))
-          .filter(value => value.toLowerCase().includes(searchTerm.toLowerCase()))
-          .map((e, i) => (
-            <Checkbox
-              key={i}
-              value={e}
-              isChecked={checkList.e}
-              onChange={e => {
-                handleChange(e)
-              }}
-            />
-          ))}
-      </CheckboxList>
+      <CheckboxList title="Brand" checkboxList={getData()}></CheckboxList>
     </div>
   )
+}
+
+function getData() {
+  return [
+    {
+      name: 'Asus',
+      count: 39,
+    },
+    {
+      name: 'Acer',
+      count: 39,
+    },
+    {
+      name: 'Razer',
+      count: 14,
+    },
+    {
+      name: 'MSI',
+      count: 41,
+    },
+    {
+      name: 'HP',
+      count: 38,
+    },
+    {
+      name: 'Apple',
+      count: 12,
+    },
+    {
+      name: 'Gigabyte',
+      count: 24,
+    },
+  ]
 }

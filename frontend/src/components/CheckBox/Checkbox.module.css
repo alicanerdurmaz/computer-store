@@ -59,6 +59,18 @@
   border-right: 3px solid var(--c-text-on-p);
 }
 
+.info {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
 .text {
   margin-left: 0.5rem;
+}
+.count {
+  font-size: 0.825rem;
+  color: var(--c-text-secondary);
+  opacity: 0.8;
 }

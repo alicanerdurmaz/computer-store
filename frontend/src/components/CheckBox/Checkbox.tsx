@@ -1,24 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import styles from './Checkbox.module.css'
 
 interface Props {
   value: string
-  isChecked: boolean
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+  count: number
 }
-const Checkbox: React.FC<Props> = ({ value, onChange, isChecked }: Props) => {
+const Checkbox: React.FC<Props> = ({ value, count }: Props) => {
+  const [checked, setChecked] = useState(false)
   return (
     <label className={styles.label}>
       <input
-        aria-checked={isChecked}
+        aria-checked={checked}
         className={styles.input}
         type="checkbox"
         name={value}
-        checked={isChecked}
-        onChange={onChange}
+        checked={checked}
+        onChange={e => setChecked(!checked)}
       />
-      <span className={styles.text}>{value}</span>
+      <div className={styles.info}>
+        <span className={styles.text}>{value}</span>
+        <span className={styles.count}>({count})</span>
+      </div>
     </label>
   )
 }

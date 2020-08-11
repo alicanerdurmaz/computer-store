@@ -7,9 +7,10 @@ export default {
   title: 'Slider',
 }
 
-const rangeMin = 1000
-const rangeMax = 4331
-
 export const Default = () => {
-  return <Slider title="Price" minRange={1000} maxRange={4331}></Slider>
+  return (
+    <div style={{ width: '220px' }}>
+      <Slider title="Price" minRange={1000} maxRange={4331}></Slider>
+    </div>
+  )
 }

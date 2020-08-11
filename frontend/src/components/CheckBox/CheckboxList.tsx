@@ -1,26 +1,37 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import styles from './CheckboxList.module.css'
+import Checkbox from './Checkbox'
 
 interface Props {
-  children: React.ReactNode
   title: string
-  value: string
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+  checkboxList: {
+    name: string
+    count: number
+  }[]
 }
-const CheckboxList: React.FC<Props> = ({ value, onChange, children, title }: Props) => {
+const CheckboxList: React.FC<Props> = ({ title, checkboxList }: Props) => {
+  const [checkList, setCheckList] = useState(checkboxList)
+  const [searchTerm, setSearchTerm] = useState('')
+
   return (
     <div className={styles.checkboxListContainer}>
       <label className={styles.title}>{title}s</label>
       <input
-        value={value}
+        value={searchTerm}
         className={styles.input}
         type="search"
         placeholder={`Search ${title}`}
         aria-label={`search in ${title}s`}
-        onChange={onChange}
+        onChange={e => setSearchTerm(e.currentTarget.value)}
       ></input>
-      <div className={styles.list}>{children}</div>
+      <div className={styles.list}>
+        {checkList.map(e =>
+          e.name.toLowerCase().includes(searchTerm.toLowerCase()) ? (
+            <Checkbox value={e.name} count={e.count}></Checkbox>
+          ) : null,
+        )}
+      </div>
     </div>
   )
 }
