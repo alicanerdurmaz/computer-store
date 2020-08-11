@@ -5,10 +5,7 @@ import Checkbox from './Checkbox'
 
 interface Props {
   title: string
-  checkboxList: {
-    name: string
-    count: number
-  }[]
+  checkboxList: { [key: string]: number }
 }
 const CheckboxList: React.FC<Props> = ({ title, checkboxList }: Props) => {
   const [checkList, setCheckList] = useState(checkboxList)
@@ -26,11 +23,11 @@ const CheckboxList: React.FC<Props> = ({ title, checkboxList }: Props) => {
         onChange={e => setSearchTerm(e.currentTarget.value)}
       ></input>
       <div className={styles.list}>
-        {checkList.map(e =>
-          e.name.toLowerCase().includes(searchTerm.toLowerCase()) ? (
-            <Checkbox key={e.name} value={e.name} count={e.count}></Checkbox>
-          ) : null,
-        )}
+        {Object.keys(checkboxList).map((e: string) => {
+          if (e.toLowerCase().includes(searchTerm.toLowerCase())) {
+            return <Checkbox key={e} value={e} count={checkList[e]}></Checkbox>
+          } else null
+        })}
       </div>
     </div>
   )

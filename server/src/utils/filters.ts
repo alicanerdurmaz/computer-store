@@ -20,4 +20,6 @@ export const listOfNotCalculate = [
   'SellerName',
   'Seller',
   '0',
+  'CPU Boost Clock',
+  'CPU Core Clock',
 ];

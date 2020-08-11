@@ -109,16 +109,33 @@ export class ProductService {
   }
 
   async createFilters(): Promise<void> {
+    const filter: any = {};
+
     const result = (await this.productModel.find().lean().exec()) as Product[];
+
+    const sliders = ['Price', 'Weight'];
+    sliders.forEach((e) => {
+      filter[e] = [result[0][e], result[1][e]];
+    });
 
     if (!result.length) return;
 
-    const filter: any = {};
     result.forEach((e) => {
       for (const [key, value] of Object.entries(e)) {
         if (listOfNotCalculate.includes(key)) {
           continue;
         }
+
+        if (sliders.includes(key)) {
+          if (filter[key][0] > value) {
+            filter[key][0] = value;
+          }
+          if (filter[key][1] < value) {
+            filter[key][1] = value;
+          }
+          continue;
+        }
+
         if (filter.hasOwnProperty(key)) {
           if (filter[key].hasOwnProperty(value)) {
             filter[key][value] += 1;
@@ -131,12 +148,23 @@ export class ProductService {
         }
       }
     });
-    filter.Weight = Object.keys(filter.Weight);
-    filter.Price = Object.keys(filter.Price);
-    filter.Memory = Object.keys(filter.Memory);
-    filter['CPU Core Count'] = Object.keys(filter['CPU Core Count']);
-    filter['CPU Core Clock'] = Object.keys(filter['CPU Core Clock']);
-    filter['CPU Boost Clock'] = Object.keys(filter['CPU Boost Clock']);
+
+    filter['filterOrder'] = [
+      'Price',
+      'Manufacturer',
+      'CPU',
+      'GPU',
+      'CPU Core Count',
+      'Memory',
+      'Resolution',
+      'Refresh Rate',
+      'Screen Size',
+      'Screen Panel Type',
+      'Operating System',
+      'SD Card Reader',
+      'Weight',
+    ];
+    filter['sliders'] = sliders;
     this.filters = filter;
   }
 }
