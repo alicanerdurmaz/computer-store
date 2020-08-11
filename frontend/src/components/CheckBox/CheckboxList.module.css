@@ -11,14 +11,13 @@
   font-size: 0.875rem;
   font-weight: 700;
   color: var(--c-text);
-  letter-spacing: 0.25px;
 }
 
 .input {
   font-size: 0.875rem;
   height: 2rem;
   width: 100%;
-  margin: 1rem 0;
+  margin: 0.5rem 0;
 
   padding: 0.5rem 0.825rem;
 

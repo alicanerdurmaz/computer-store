@@ -6,21 +6,18 @@ import Slider from '../Slider/Slider'
 import CheckboxList from '../CheckBox/CheckboxList'
 import Checkbox from '../CheckBox/Checkbox'
 
-interface Filters {
-  [key: string]: Record<string, any>[] | string[]
-}
 const Sidebar = () => {
-  const filters: Filters = mockData
+  const filters: any = mockData
 
   return (
     <div className={styles.container}>
-      {/* {Object.keys(data).map(e => {
-        if (e === 'Price' || e === 'Weight') {
-          return <Slider key={e} title={e} minRange={parseFloat(data[e][0])} maxRange={parseFloat(data[e][1])}></Slider>
+      {filters.dataKeys.map((key: string) => {
+        if (filters.sliders.includes(key)) {
+          return <Slider key={key} title={key} minRange={filters[key][0]} maxRange={filters[key][1]}></Slider>
         } else {
-          data[e].map(v => console.log(v))
+          return <CheckboxList key={key} title={key} checkboxList={filters[key]}></CheckboxList>
         }
-      })} */}
+      })}
     </div>
   )
 }
@@ -28,6 +25,8 @@ const Sidebar = () => {
 export default Sidebar
 
 const mockData = {
+  dataKeys: ['Price', 'Manufacturer', 'Weight'],
+  sliders: ['Price', 'Weight'],
   Manufacturer: [
     {
       name: 'Asus',

@@ -28,7 +28,7 @@ const CheckboxList: React.FC<Props> = ({ title, checkboxList }: Props) => {
       <div className={styles.list}>
         {checkList.map(e =>
           e.name.toLowerCase().includes(searchTerm.toLowerCase()) ? (
-            <Checkbox value={e.name} count={e.count}></Checkbox>
+            <Checkbox key={e.name} value={e.name} count={e.count}></Checkbox>
           ) : null,
         )}
       </div>
