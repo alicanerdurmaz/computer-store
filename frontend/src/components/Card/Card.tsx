@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from '../Image/Image'
 
-import data from './data.json'
+import data from './product.json'
 import styles from './Card.module.css'
 
 const Card = () => {

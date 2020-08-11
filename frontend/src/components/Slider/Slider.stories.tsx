@@ -11,18 +11,5 @@ const rangeMin = 1000
 const rangeMax = 4331
 
 export const Default = () => {
-  const [rangeValue1, setRangeValue1] = useState(rangeMin)
-  const [rangeValue2, setRangeValue2] = useState(rangeMax)
-
-  return (
-    <Slider
-      title="Price"
-      rangeMin={rangeMin}
-      rangeMax={rangeMax}
-      value1={rangeValue1}
-      value2={rangeValue2}
-      value1_OnChange={e => setRangeValue1(parseFloat(e.target.value))}
-      value2_OnChange={e => setRangeValue2(parseFloat(e.target.value))}
-    ></Slider>
-  )
+  return <Slider title="Price" minRange={1000} maxRange={4331}></Slider>
 }
