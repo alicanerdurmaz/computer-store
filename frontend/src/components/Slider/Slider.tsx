@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from 'react'
+import React, { useReducer, useRef } from 'react'
 
 import cx from 'classnames'
 import styles from './Slider.module.css'
@@ -8,55 +8,46 @@ interface Props {
   maxRange: number
 }
 interface SliderState {
-  value1: number
-  value2: number
+  firstSliderValue: number
+  secondSliderValue: number
   minValue: number
   maxValue: number
   maxRange: number
   minRange: number
   sliderColor: string
 }
-type Action = { type: 'input-range-1' | 'input-range-2'; payload: any }
+type Action = {
+  type: 'input-range-1' | 'input-range-2' | 'changed'
+  payload: {
+    firstSliderValue: number
+    secondSliderValue: number
+  }
+}
 
 const sliderReducer = (state: SliderState, action: Action): SliderState => {
   switch (action.type) {
-    case 'input-range-1':
-      const newRange1Value = action.payload.value
+    case 'changed':
+      const { firstSliderValue, secondSliderValue } = action.payload
 
-      let newMin1 = newRange1Value
-      let newMax1 = state.value2
+      let minValue = firstSliderValue
+      let maxValue = secondSliderValue
 
-      if (newRange1Value > state.value2) {
-        newMin1 = state.value2
-        newMax1 = newRange1Value
+      if (firstSliderValue > secondSliderValue) {
+        minValue = secondSliderValue
+        maxValue = firstSliderValue
       }
 
-      return {
-        ...state,
-        minValue: newMin1,
-        maxValue: newMax1,
-        value1: newRange1Value,
-        sliderColor: calculateSliderColor(newMin1, newMax1, state.minRange, state.maxRange),
+      const sliderColor = calculateSliderColor(minValue, maxValue, state.minRange, state.maxRange)
+
+      const newState = {
+        firstSliderValue,
+        secondSliderValue,
+        minValue,
+        maxValue,
+        sliderColor,
       }
 
-    case 'input-range-2':
-      const newRange2Value = action.payload.value
-
-      let newMin2 = state.value1
-      let newMax2 = newRange2Value
-
-      if (newRange2Value < state.value1) {
-        newMin2 = newRange2Value
-        newMax2 = state.value1
-      }
-      return {
-        ...state,
-        minValue: newMin2,
-        maxValue: newMax2,
-        value2: newRange2Value,
-        sliderColor: calculateSliderColor(newMin2, newMax2, state.minRange, state.maxRange),
-      }
-
+      return { ...state, ...newState }
     default:
       return { ...state }
   }
@@ -73,24 +64,32 @@ function calculateSliderColor(minValue: number, maxValue: number, minRange: numb
 }
 
 const Slider = ({ title, minRange, maxRange }: Props) => {
+  const firstSlider = useRef<HTMLInputElement>(null)
+  const secondSlider = useRef<HTMLInputElement>(null)
+
   const [sliderState, dispatchSlider] = useReducer(sliderReducer, {
-    value1: minRange,
-    value2: maxRange,
+    firstSliderValue: minRange,
+    secondSliderValue: maxRange,
     minValue: minRange,
     maxValue: maxRange,
     minRange: minRange,
     maxRange: maxRange,
     sliderColor: calculateSliderColor(minRange, maxRange, minRange, maxRange),
   })
-  const { value1, value2, minValue, maxValue, sliderColor } = sliderState
+  const { firstSliderValue, secondSliderValue, minValue, maxValue, sliderColor } = sliderState
 
-  const dispatchChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const dispatchChanged = () => {
+    if (firstSlider.current === null || secondSlider.current === null) {
+      return
+    }
+
     dispatchSlider({
-      type: e.target.name,
+      type: 'changed',
       payload: {
-        value: e.target.value,
+        firstSliderValue: parseFloat(firstSlider.current.value),
+        secondSliderValue: parseFloat(secondSlider.current.value),
       },
-    } as Action)
+    })
   }
 
   return (
@@ -107,31 +106,33 @@ const Slider = ({ title, minRange, maxRange }: Props) => {
       <div className={cx(styles.slider_container)}>
         <span className={cx(styles.slider_bg)} style={{ background: sliderColor }}></span>
         <input
+          ref={firstSlider}
           tabIndex={0}
           className={cx(styles.input)}
-          value={value1}
+          value={firstSliderValue}
           min={minRange}
           max={maxRange}
           type="range"
           name="input-range-1"
-          onChange={e => dispatchChanged(e)}
+          onChange={dispatchChanged}
           aria-valuemin={minRange}
           aria-valuemax={maxRange}
-          aria-valuenow={value1}
+          aria-valuenow={firstSliderValue}
           aria-labelledby="range-slider-input-one"
           data-testid="slider-1"
         />
         <input
+          ref={secondSlider}
           className={cx(styles.input)}
-          value={value2}
+          value={secondSliderValue}
           min={minRange}
           max={maxRange}
           type="range"
           name="input-range-2"
-          onChange={e => dispatchChanged(e)}
+          onChange={dispatchChanged}
           aria-valuemin={minRange}
           aria-valuemax={maxRange}
-          aria-valuenow={value2}
+          aria-valuenow={secondSliderValue}
           aria-labelledby="range-slider-input-two"
           data-testid="slider-2"
         />
