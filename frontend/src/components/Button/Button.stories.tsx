@@ -12,10 +12,7 @@ export default {
 }
 
 export const User = () => (
-  <Button
-    text="User Full Name"
-    icon={<UserIcon iconWidth="24" iconHeight="24"></UserIcon>}
-  ></Button>
+  <Button text="User Full Name" icon={<UserIcon iconWidth="24" iconHeight="24"></UserIcon>}></Button>
 )
 
 export const Cart = () => (

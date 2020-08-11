@@ -71,18 +71,9 @@ export const List = () => {
         width: '200px',
       }}
     >
-      <CheckboxList
-        value={searchTerm}
-        title="Brand"
-        onChange={e => setSearchTerm(e.currentTarget.value)}
-      >
-        {Brands.slice(
-          0,
-          number(`list-length (${Brands.length})`, Brands.length),
-        )
-          .filter(value =>
-            value.toLowerCase().includes(searchTerm.toLowerCase()),
-          )
+      <CheckboxList value={searchTerm} title="Brand" onChange={e => setSearchTerm(e.currentTarget.value)}>
+        {Brands.slice(0, number(`list-length (${Brands.length})`, Brands.length))
+          .filter(value => value.toLowerCase().includes(searchTerm.toLowerCase()))
           .map((e, i) => (
             <Checkbox
               key={i}

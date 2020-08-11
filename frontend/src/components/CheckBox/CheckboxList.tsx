@@ -8,12 +8,7 @@ interface Props {
   value: string
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
-const CheckboxList: React.FC<Props> = ({
-  value,
-  onChange,
-  children,
-  title,
-}: Props) => {
+const CheckboxList: React.FC<Props> = ({ value, onChange, children, title }: Props) => {
   return (
     <div className={styles.checkboxListContainer}>
       <label className={styles.title}>{title}s</label>

@@ -15,11 +15,7 @@ const SearchBar: React.FC<Props> = ({ className }: Props) => {
       role="search"
       onSubmit={e => e.preventDefault()}
     >
-      <input
-        className={styles.input}
-        type="search"
-        placeholder="Search Product"
-      ></input>
+      <input className={styles.input} type="search" placeholder="Search Product"></input>
       <SearchIcon />
     </form>
   )

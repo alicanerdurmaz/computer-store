@@ -19,10 +19,7 @@ const Header: React.FC<Props> = ({}: Props) => {
       <SearchBar className={styles.search}></SearchBar>
 
       <div className={styles.btn_group}>
-        <Button
-          text="Alican&nbsp;Erdurmaz"
-          icon={<UserIcon iconWidth="24" iconHeight="24"></UserIcon>}
-        ></Button>
+        <Button text="Alican&nbsp;Erdurmaz" icon={<UserIcon iconWidth="24" iconHeight="24"></UserIcon>}></Button>
         <Button
           bgColor="bg-secondary"
           icon={<CartIcon iconWidth="30" iconHeight="30" />}

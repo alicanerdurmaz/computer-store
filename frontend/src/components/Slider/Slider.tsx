@@ -36,12 +36,7 @@ const sliderReducer = (state: SliderState, action: Action): SliderState => {
         minValue: newMin1,
         maxValue: newMax1,
         value1: newRange1Value,
-        sliderColor: calculateSliderColor(
-          newMin1,
-          newMax1,
-          state.minRange,
-          state.maxRange,
-        ),
+        sliderColor: calculateSliderColor(newMin1, newMax1, state.minRange, state.maxRange),
       }
 
     case 'input-range-2':
@@ -59,12 +54,7 @@ const sliderReducer = (state: SliderState, action: Action): SliderState => {
         minValue: newMin2,
         maxValue: newMax2,
         value2: newRange2Value,
-        sliderColor: calculateSliderColor(
-          newMin2,
-          newMax2,
-          state.minRange,
-          state.maxRange,
-        ),
+        sliderColor: calculateSliderColor(newMin2, newMax2, state.minRange, state.maxRange),
       }
 
     default:
@@ -72,17 +62,9 @@ const sliderReducer = (state: SliderState, action: Action): SliderState => {
   }
 }
 
-function calculateSliderColor(
-  minValue: number,
-  maxValue: number,
-  minRange: number,
-  maxRange: number,
-) {
-  let ratioInputMax: number =
-    (100 * (maxValue - minRange)) / (maxRange - minRange)
-  let ratioInputMin: number = Math.abs(
-    100 - (100 * (minValue - maxRange)) / (minRange - maxRange),
-  )
+function calculateSliderColor(minValue: number, maxValue: number, minRange: number, maxRange: number) {
+  let ratioInputMax: number = (100 * (maxValue - minRange)) / (maxRange - minRange)
+  let ratioInputMin: number = Math.abs(100 - (100 * (minValue - maxRange)) / (minRange - maxRange))
 
   const bgColor = '#f3f3f4'
   const rangeColor = '#1EA7FD'
@@ -123,10 +105,7 @@ const Slider = ({ title, minRange, maxRange }: Props) => {
         </span>
       </div>
       <div className={cx(styles.slider_container)}>
-        <span
-          className={cx(styles.slider_bg)}
-          style={{ background: sliderColor }}
-        ></span>
+        <span className={cx(styles.slider_bg)} style={{ background: sliderColor }}></span>
         <input
           tabIndex={0}
           className={cx(styles.input)}

@@ -10,12 +10,7 @@ interface Props {
   icon?: JSX.Element
   children?: React.ReactNode
 }
-const Button: React.FC<Props> = ({
-  icon,
-  badge,
-  bgColor = 'bg-primary',
-  text,
-}: Props) => {
+const Button: React.FC<Props> = ({ icon, badge, bgColor = 'bg-primary', text }: Props) => {
   return (
     <button className={cx(styles.button, styles[bgColor])}>
       {icon}
