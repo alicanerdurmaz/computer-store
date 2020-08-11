@@ -1,0 +1,11 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 300px);
+  grid-gap: 1rem;
+
+  justify-content: flex-end;
+
+  @media (max-width: 800px) {
+    justify-content: center;
+  }
+}

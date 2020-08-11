@@ -1,12 +1,14 @@
 .container {
   max-width: 1200px;
-  height: 100%;
 
   margin: 0 auto;
   padding: 0 1rem;
 
   display: grid;
-  grid-template-rows: 0px minmax(80px, 100px) 1fr;
-  grid-template-areas: '.' 'header' 'content';
+  grid-template-rows: minmax(80px, max-content) max;
+  grid-template-areas: 'header' 'body';
+
   row-gap: 24px;
+  column-gap: 24px;
+  margin-top: 24px;
 }

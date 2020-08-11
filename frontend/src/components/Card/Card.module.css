@@ -1,0 +1,47 @@
+.item {
+  cursor: pointer;
+  position: relative;
+  padding: 1rem;
+  padding-top: 0;
+
+  transition: border var(--a-60-cubic);
+  border: 2px solid var(--c-bg-secondary);
+  &:hover {
+    border: 2px solid var(--c-primary-light);
+  }
+  border-radius: 8px;
+}
+
+.container {
+  width: 100%;
+  height: max-content;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.img {
+  width: 100%;
+}
+
+.name {
+  width: 100%;
+  display: block;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  text-align: left;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+
+  margin-top: 1rem;
+}
+.price {
+  width: 100%;
+  text-align: left;
+  margin-top: 1rem;
+  font-weight: 700;
+  font-size: 1.125rem;
+
+  margin-top: 1rem;
+}

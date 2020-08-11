@@ -1,0 +1,19 @@
+.body {
+  grid-area: body;
+
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  grid-template-areas: 'sidebar content';
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    grid-template-areas: 'content';
+  }
+}
+
+.sidebar {
+  grid-area: sidebar;
+}
+.content {
+  grid-area: content;
+}
