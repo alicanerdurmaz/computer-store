@@ -65,9 +65,16 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  padding: 0 0.5rem;
 }
 .text {
-  margin-left: 0.5rem;
+  width: 100%;
+  display: block;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  text-align: left;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
 }
 .count {
   font-size: 0.825rem;

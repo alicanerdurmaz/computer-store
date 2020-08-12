@@ -20,40 +20,24 @@ export const List = () => {
         width: '200px',
       }}
     >
-      <CheckboxList title="Brand" checkboxList={getData()}></CheckboxList>
+      <CheckboxList title="Manufacturer" checkboxList={getData()}></CheckboxList>
     </div>
   )
 }
 
 function getData() {
-  return [
-    {
-      name: 'Asus',
-      count: 39,
-    },
-    {
-      name: 'Acer',
-      count: 39,
-    },
-    {
-      name: 'Razer',
-      count: 14,
-    },
-    {
-      name: 'MSI',
-      count: 41,
-    },
-    {
-      name: 'HP',
-      count: 38,
-    },
-    {
-      name: 'Apple',
-      count: 12,
-    },
-    {
-      name: 'Gigabyte',
-      count: 24,
-    },
-  ]
+  return {
+    Asus: 39,
+    Acer: 39,
+    Razer: 14,
+    MSI: 41,
+    HP: 18,
+    Apple: 10,
+    Gigabyte: 5,
+    Lenovo: 30,
+    Microsoft: 24,
+    Dell: 9,
+    Aorus: 3,
+    Samsung: 6,
+  }
 }

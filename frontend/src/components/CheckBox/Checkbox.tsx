@@ -19,7 +19,9 @@ const Checkbox: React.FC<Props> = ({ value, count }: Props) => {
         onChange={e => setChecked(!checked)}
       />
       <div className={styles.info}>
-        <span className={styles.text}>{value}</span>
+        <span className={styles.text} title={value}>
+          {value}
+        </span>
         <span className={styles.count}>({count})</span>
       </div>
     </label>
