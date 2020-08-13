@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import styles from './CheckboxList.module.css'
 import Checkbox from './Checkbox'
@@ -8,7 +8,6 @@ interface Props {
   checkboxList: { [key: string]: number }
 }
 const CheckboxList: React.FC<Props> = ({ title, checkboxList }: Props) => {
-  const [checkList, setCheckList] = useState(checkboxList)
   const [searchTerm, setSearchTerm] = useState('')
 
   return (
@@ -29,7 +28,7 @@ const CheckboxList: React.FC<Props> = ({ title, checkboxList }: Props) => {
       <div className={styles.list}>
         {Object.keys(checkboxList).map((e: string) => {
           if (e.toLowerCase().includes(searchTerm.toLowerCase())) {
-            return <Checkbox key={e} value={e} count={checkList[e]}></Checkbox>
+            return <Checkbox key={e} value={e} category={title} count={checkboxList[e]}></Checkbox>
           } else null
         })}
       </div>

@@ -2,6 +2,7 @@ import React, { useReducer, useRef } from 'react'
 
 import cx from 'classnames'
 import styles from './Slider.module.css'
+import { useFilterContext } from '../../context/FilterContext/FilterContext'
 interface Props {
   title: string
   minRange: number
@@ -64,6 +65,8 @@ function calculateSliderColor(minValue: number, maxValue: number, minRange: numb
 }
 
 const Slider = ({ title, minRange, maxRange }: Props) => {
+  const { filterDispatch } = useFilterContext()
+
   const firstSlider = useRef<HTMLInputElement>(null)
   const secondSlider = useRef<HTMLInputElement>(null)
 
@@ -82,6 +85,14 @@ const Slider = ({ title, minRange, maxRange }: Props) => {
     if (firstSlider.current === null || secondSlider.current === null) {
       return
     }
+
+    filterDispatch({
+      type: 'add-min-max',
+      payload: {
+        category: title,
+        value: `${sliderState.minValue},${sliderState.maxValue}`,
+      },
+    })
 
     dispatchSlider({
       type: 'changed',

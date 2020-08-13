@@ -8,6 +8,10 @@
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
     grid-template-areas: 'content';
+    .sidebar {
+      grid-area: none;
+      display: none;
+    }
   }
 }
 

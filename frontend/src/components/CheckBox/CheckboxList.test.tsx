@@ -1,7 +1,7 @@
 import React from 'react'
 
 import user from '@testing-library/user-event'
-import { render, queryAllByRole } from '@testing-library/react'
+import { render } from '@testing-library/react'
 
 import CheckboxList from './CheckboxList'
 
@@ -19,7 +19,7 @@ test('checkbox list renders properly, ', () => {
   expect(queryByPlaceholderText(/search/i)).not.toBeInTheDocument()
 })
 
-test('checkbox list search, ', async () => {
+test('checkbox list search, ', () => {
   const data = listTestData()
   const { getAllByRole, queryByPlaceholderText, queryAllByRole } = render(
     <CheckboxList title={data.title} checkboxList={data.list} />,
@@ -27,13 +27,13 @@ test('checkbox list search, ', async () => {
 
   const input = queryByPlaceholderText(/search/i) as HTMLInputElement
 
-  await user.type(input, 'Asus')
+  user.type(input, 'Asus')
   expect(getAllByRole('checkbox').length).toEqual(1)
 
-  await user.type(input, 'fgdfgsg')
+  user.type(input, 'fffffffffffffff')
   expect(queryAllByRole('checkbox').length).toEqual(0)
 
-  await user.clear(input)
+  user.clear(input)
   expect(getAllByRole('checkbox').length).toEqual(Object.keys(data.list).length)
 })
 

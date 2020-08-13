@@ -16,7 +16,7 @@ export const Default = () => {
         width: '200px',
       }}
     >
-      <Checkbox value="Asus" count={12} />
+      <Checkbox category={'Manufacturer'} value="Asus" count={12} />
     </div>
   )
 }

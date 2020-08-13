@@ -7,8 +7,12 @@ export default {
   title: 'Sidebar',
 }
 
-export const Default = () => (
-  <div style={{ width: '220px' }}>
-    <Sidebar />
-  </div>
-)
+export const Default = async () => {
+  const res = await fetch(`http://localhost:3001/product/filters`)
+  const data = await res.json()
+  return (
+    <div style={{ width: '220px' }}>
+      <Sidebar filters={data} />
+    </div>
+  )
+}
