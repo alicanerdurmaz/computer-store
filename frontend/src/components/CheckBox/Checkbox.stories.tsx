@@ -10,7 +10,15 @@ export default {
 }
 
 export const Default = () => {
-  return <Checkbox value="Asus" count={12} />
+  return (
+    <div
+      style={{
+        width: '200px',
+      }}
+    >
+      <Checkbox value="Asus" count={12} />
+    </div>
+  )
 }
 
 export const List = () => {
