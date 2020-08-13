@@ -1,18 +1,41 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 import styles from './Sidebar.module.css'
 
 import Slider from '../Slider/Slider'
 import CheckboxList from '../CheckBox/CheckboxList'
-import Checkbox from '../CheckBox/Checkbox'
 
 const Sidebar = () => {
-  const filters: any = mockData
+  const [filters, setFilters] = useState<Record<string, any>>({})
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        setLoading(true)
+        const response = await fetch('http://localhost:3001/product/filters')
+        const data = await response.json()
+        setFilters(data)
+        setLoading(false)
+      } catch (error) {
+        setError(true)
+      }
+    }
+    getData()
+  }, [])
+
+  if (loading) {
+    return <div>Loading...</div>
+  }
+  if (error) {
+    return <div>Loading...</div>
+  }
 
   return (
     <div className={styles.container}>
       {filters.filterOrder.map((key: string) => {
-        if (filters.sliders.includes(key)) {
+        if (filters?.sliders.includes(key)) {
           return <Slider key={key} title={key} minRange={filters[key][0]} maxRange={filters[key][1]}></Slider>
         } else {
           return <CheckboxList key={key} title={key} checkboxList={filters[key]}></CheckboxList>
@@ -23,202 +46,3 @@ const Sidebar = () => {
 }
 
 export default Sidebar
-
-const mockData = {
-  Price: [199, 6499],
-  Weight: [770, 4898.792],
-  Manufacturer: {
-    Asus: 39,
-    Acer: 39,
-    Razer: 14,
-    MSI: 41,
-    HP: 18,
-    Apple: 10,
-    Gigabyte: 5,
-    Lenovo: 30,
-    Microsoft: 24,
-    Dell: 9,
-    Aorus: 3,
-    Samsung: 6,
-  },
-  'Screen Size': {
-    '12': 2,
-    '13': 4,
-    '14': 40,
-    '15': 3,
-    '16': 2,
-    '17': 3,
-    '17.3': 29,
-    '15.6': 106,
-    '15.4': 2,
-    '13.3': 13,
-    '13.5': 7,
-    '12.3': 10,
-    '13.9': 2,
-    '11.6': 15,
-  },
-  'Screen Panel Type': {
-    IPS: 138,
-    OLED: 4,
-    'IPS ': 2,
-    TN: 8,
-    AHVA: 1,
-  },
-  Resolution: {
-    '1920 x 1080': 148,
-    '3840 x 2160': 19,
-    '1920 x 1080 ': 3,
-    '2880 x 1800': 2,
-    '3072 x 1920': 2,
-    '2560 x 1440': 5,
-    '2496 x 1664': 3,
-    '2256 x 1504': 7,
-    '2736 x 1824': 10,
-    '2880 x 1920': 4,
-    '2560 x 1600': 6,
-    '1366 x 768': 25,
-    '1366 x 912': 2,
-    '1400 x 900': 1,
-    '1366 x 768 ': 1,
-  },
-  'Refresh Rate': {
-    '60': 36,
-    '120': 14,
-    '144': 48,
-    '240': 10,
-    'Not Specified': 130,
-  },
-  'CPU Core Count': {
-    '2': 41,
-    '4': 83,
-    '6': 103,
-    '8': 11,
-  },
-  Memory: {
-    '4': 31,
-    '6': 2,
-    '8': 72,
-    '12': 1,
-    '16': 115,
-    '32': 16,
-    '64': 1,
-  },
-  CPU: {
-    'Intel Core i9-9980HK': 1,
-    'Intel Core i7-8750H': 22,
-    'Intel Core i7-9750H': 78,
-    'AMD Ryzen 7 2700': 1,
-    'Intel Core i9-9980H': 2,
-    'Intel Core i7-8650U': 2,
-    'AMD Ryzen 7 3780U': 1,
-    'Intel Core i7-1065G7': 9,
-    'Intel Core i5-9300H': 6,
-    'Intel Core i7-8565U': 12,
-    'Intel Core i5-8350U': 2,
-    'Intel Core i7-10710U': 3,
-    'Intel Core i5-8265U': 6,
-    'Microsoft SQ1': 4,
-    'AMD Ryzen 5 3580U': 3,
-    'Intel Core i7-8665U': 3,
-    'Intel Core i7-10510U': 2,
-    'Intel Core i5-8279U': 2,
-    'AMD Ryzen 7 3700U': 1,
-    'Intel Core i5-10210U': 3,
-    'Intel Core i7-8550U': 1,
-    'AMD Ryzen 5 3500U': 14,
-    'AMD Ryzen 7 4800HS': 1,
-    'Intel Core i5-1035G7': 3,
-    'Intel Core i5-1035G4': 5,
-    'Intel Core i5-8257U': 2,
-    'Intel Core i3-1005G1': 2,
-    'Intel Core i5-8250U': 1,
-    'Intel Core i7-8565U ': 2,
-    'Intel Core i5-8210Y': 2,
-    'Intel Core i5-1035G1': 1,
-    'AMD Ryzen 5 2500U': 1,
-    'AMD Ryzen 5 3350H': 1,
-    'Intel Core i3-8145U': 2,
-    'AMD Ryzen 3 3200U': 7,
-    'Intel Core i3-10110U': 1,
-    'Intel Celeron N4000': 25,
-    'Intel Celeron N3060': 2,
-    'Intel Core i9-9880H': 2,
-  },
-  GPU: {
-    'NVIDIA GeForce RTX 2080': 10,
-    'NVIDIA Quadro RTX 5000': 1,
-    'NVIDIA GeForce RTX 2080 Max-Q': 9,
-    'NVIDIA GeForce RTX 2070': 11,
-    'NVIDIA GeForce GTX 1060 6GB': 4,
-    'NVIDIA GeForce RTX 2060': 17,
-    'AMD Radeon RX VEGA 56': 1,
-    'NVIDIA GeForce RTX 2070 Max-Q': 7,
-    'NVIDIA GeForce GTX 1660 Ti': 20,
-    'AMD Radeon Pro 560 X': 1,
-    'NVIDIA Quadro RTX 3000': 1,
-    'AMD Radeon Pro 5500M': 1,
-    'AMD Radeon Pro 555 X': 1,
-    'Intel UHD Graphics 620': 24,
-    'AMD Radeon Pro 5300M': 1,
-    'AMD Radeon Vega 11': 1,
-    'NVIDIA GeForce GTX 1650': 13,
-    'NVIDIA Quadro T2000': 2,
-    'NVIDIA GeForce GTX 1650 Max-Q': 7,
-    'NVIDIA GeForce GTX 1050 Ti': 3,
-    'NVIDIA GeForce GTX 1070 ': 1,
-    'Intel Iris Plus Graphics': 15,
-    'NVIDIA GeForce GTX 1060 Max-Q': 1,
-    'Qualcomm Adreno 685': 4,
-    'AMD Radeon Vega 9': 3,
-    'NVIDIA GeForce MX150': 3,
-    'NVIDIA Quadro T1000': 1,
-    'NVIDIA GeForce MX250': 3,
-    'Intel Iris Plus 655': 2,
-    'AMD Radeon Vega 10': 1,
-    'Intel UHD Graphics': 6,
-    'NVIDIA Quadro P620': 1,
-    'AMD Radeon Vega 8': 14,
-    'NVIDIA GeForce GTX 1660 Ti Max-Q': 1,
-    'NVIDIA GeForce GTX 1060 3GB': 1,
-    'Intel Iris Plus 645': 2,
-    'NVIDIA GeForce GTX 1050': 2,
-    'Intel UHD Graphics 617': 2,
-    'NVIDIA GeForce GTX 1050 Ti ': 1,
-    'AMD Radeon RX 560 - 896': 2,
-    'Intel HD Graphics 620': 1,
-    'AMD Radeon Vega 3': 7,
-    'Intel UHD Graphics 600': 25,
-    'Intel HD Graphics 400': 2,
-    'NVIDIA GeForce GTX 1050 Ti Max-Q': 2,
-  },
-  'Operating System': {
-    'Windows 10 Pro': 55,
-    'Windows 10 Home': 145,
-    'Windows 10 Home ': 3,
-    'macOS 10.15 Catalina': 10,
-    'Windows 10 Pro ': 1,
-    'Google Chrome OS (64-bit)': 17,
-    'Windows 10 Pro Education': 2,
-    'Windows 10 S': 5,
-  },
-  'SD Card Reader': {
-    Yes: 72,
-    No: 166,
-  },
-  filterOrder: [
-    'Price',
-    'Manufacturer',
-    'CPU',
-    'GPU',
-    'CPU Core Count',
-    'Memory',
-    'Resolution',
-    'Refresh Rate',
-    'Screen Size',
-    'Screen Panel Type',
-    'Operating System',
-    'SD Card Reader',
-    'Weight',
-  ],
-  sliders: ['Price', 'Weight'],
-}
