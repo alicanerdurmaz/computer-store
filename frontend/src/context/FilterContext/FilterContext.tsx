@@ -3,7 +3,7 @@ import React, { createContext, useReducer, useContext } from 'react'
 export const FilterContext = createContext<Record<string, any>>({})
 
 interface Action {
-  type: 'add' | 'delete' | 'add-min-max'
+  type: 'add' | 'delete' | 'add-string'
   payload: {
     category: string
     value: string
@@ -30,10 +30,10 @@ const filterReducer = (state: any, action: Action) => {
       return { ...state }
     }
 
-    case 'add-min-max': {
+    case 'add-string': {
       const oldState = state
 
-      oldState[action.payload.category] = [action.payload.value]
+      oldState[action.payload.category] = action.payload.value
 
       return { ...oldState }
     }

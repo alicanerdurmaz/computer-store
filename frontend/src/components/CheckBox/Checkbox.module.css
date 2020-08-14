@@ -18,11 +18,11 @@
 .input {
   appearance: none;
   height: 1rem;
-  width: 1rem;
+  width: 1.125rem;
 
   background-color: var(--c-bg-primary);
   border: 2px solid var(--c-bg-secondary-dark);
-  border-radius: 4px;
+  border-radius: 2px;
 
   outline: none;
 

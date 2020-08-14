@@ -1,8 +1,9 @@
-import React, { useReducer, useRef } from 'react'
+import React, { useReducer, useRef, useEffect } from 'react'
 
 import cx from 'classnames'
 import styles from './Slider.module.css'
 import { useFilterContext } from '../../context/FilterContext/FilterContext'
+import { useDebounce } from '../../hooks/useDebounce'
 interface Props {
   title: string
   minRange: number
@@ -81,18 +82,12 @@ const Slider = ({ title, minRange, maxRange }: Props) => {
   })
   const { firstSliderValue, secondSliderValue, minValue, maxValue, sliderColor } = sliderState
 
+  const debouncedValue = useDebounce(`${sliderState.minValue},${sliderState.maxValue}`, 100)
+
   const dispatchChanged = () => {
     if (firstSlider.current === null || secondSlider.current === null) {
       return
     }
-
-    filterDispatch({
-      type: 'add-min-max',
-      payload: {
-        category: title,
-        value: `${sliderState.minValue},${sliderState.maxValue}`,
-      },
-    })
 
     dispatchSlider({
       type: 'changed',
@@ -102,6 +97,16 @@ const Slider = ({ title, minRange, maxRange }: Props) => {
       },
     })
   }
+
+  useEffect(() => {
+    filterDispatch({
+      type: 'add-string',
+      payload: {
+        category: title,
+        value: debouncedValue,
+      },
+    })
+  }, [debouncedValue])
 
   return (
     <div className={cx(styles.slider)}>
