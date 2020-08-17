@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, useContext } from 'react'
+import React, { createContext, useReducer, useContext, useState } from 'react'
 
 export const FilterContext = createContext<Record<string, any>>({})
 
@@ -41,7 +41,7 @@ const filterReducer = (state: any, action: Action) => {
     case 'delete-string': {
       const oldState = state
 
-      oldState[action.payload.category] = null
+      delete oldState[action.payload.category]
 
       return { ...oldState }
     }
@@ -58,8 +58,13 @@ const filterReducer = (state: any, action: Action) => {
 
 export const FilterProvider: React.FC = ({ children }) => {
   const [filterState, filterDispatch] = useReducer(filterReducer, {})
+  const [searchTerm, setSearchTerm] = useState('')
 
-  return <FilterContext.Provider value={{ filterState, filterDispatch }}>{children}</FilterContext.Provider>
+  return (
+    <FilterContext.Provider value={{ filterState, searchTerm, filterDispatch, setSearchTerm }}>
+      {children}
+    </FilterContext.Provider>
+  )
 }
 
 export const useFilterContext = () => {

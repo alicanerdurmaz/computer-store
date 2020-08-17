@@ -10,19 +10,7 @@ interface Props {
   className?: string
 }
 const SearchBar: React.FC<Props> = ({ className }: Props) => {
-  const { filterDispatch } = useFilterContext()
-  const [searchTerm, setSearchTerm] = useState('')
-  const debouncedValue = useDebounce(searchTerm, 500)
-
-  useEffect(() => {
-    filterDispatch({
-      type: 'add-string',
-      payload: {
-        category: 'search',
-        value: debouncedValue,
-      },
-    })
-  }, [debouncedValue])
+  const { searchTerm, setSearchTerm } = useFilterContext()
 
   return (
     <form
@@ -32,6 +20,7 @@ const SearchBar: React.FC<Props> = ({ className }: Props) => {
       onSubmit={e => e.preventDefault()}
     >
       <input
+        value={searchTerm}
         className={styles.input}
         type="search"
         placeholder="Search Product"

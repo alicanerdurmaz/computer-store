@@ -3,6 +3,7 @@ import { useFilterContext } from '../../context/FilterContext/FilterContext'
 
 import styles from './ProductListHeader.module.css'
 import Chip from '../Chip/Chip'
+import { object } from '@storybook/addon-knobs'
 
 const sliders = ['Price', 'Weight']
 const ProductListHeader = () => {
@@ -22,11 +23,13 @@ const ProductListHeader = () => {
       type: 'delete-all',
     })
   }
-
+  if (Object.keys(filterState).length < 1) {
+    return null
+  }
   return (
     <div className={styles.container}>
       {Object.keys(filterState).map((e: any) => {
-        if (!filterState[e]) return null
+        if (!filterState[e] || e === 'search') return null
 
         if (sliders.includes(e)) {
           return (
