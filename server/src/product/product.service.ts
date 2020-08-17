@@ -15,17 +15,39 @@ export class ProductService {
     this.createFilters();
   }
 
-  async getProducts(filter: Record<string, any>): Promise<Product[]> {
-    const pageSize = 48;
+  async getProducts(
+    filter: Record<string, any>,
+  ): Promise<{ products: Product[]; numberOfPages: number }> {
+    const pageSize = 20;
+    const numberOfPages = Math.ceil(
+      (await this.productModel.collection.countDocuments()) / 20,
+    );
+
+    if (!filter.search) {
+      const result = (await this.productModel
+        .find(filter.find)
+        .sort(filter.sort)
+        .skip(pageSize * (filter.page - 1))
+        .limit(pageSize)
+        .lean()
+        .exec()) as Product[];
+
+      return { products: result, numberOfPages };
+    }
     const result = (await this.productModel
-      .find(filter.find)
+      .find(
+        {
+          $and: [{ $text: { $search: filter.search } }, filter.find],
+        },
+        { score: { $meta: 'textScore' } },
+      )
       .sort(filter.sort)
       .skip(pageSize * (filter.page - 1))
       .limit(pageSize)
       .lean()
       .exec()) as Product[];
 
-    return result;
+    return { products: result, numberOfPages };
   }
 
   async searchProducts(search: string): Promise<Product[]> {

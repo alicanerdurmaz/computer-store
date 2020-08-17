@@ -28,7 +28,7 @@ export class ProductController {
   async getProducts(
     @Query(ProductFiltersPipe)
     filter: Record<string, string>,
-  ): Promise<Product[]> {
+  ): Promise<{ products: Product[]; numberOfPages: number }> {
     return await this.productService.getProducts(filter);
   }
   @Get('/filters')

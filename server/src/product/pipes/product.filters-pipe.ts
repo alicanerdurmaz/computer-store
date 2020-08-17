@@ -24,6 +24,9 @@ export class ProductFiltersPipe implements PipeTransform {
   transform(query: Record<string, string>): Record<string, unknown> {
     const find = {};
     const sort = query.sort;
+
+    const search = query.search?.length > 3 ? query.search : null;
+
     const page = parseInt(query.page) || 1;
 
     for (const [key, value] of Object.entries(query)) {
@@ -33,12 +36,6 @@ export class ProductFiltersPipe implements PipeTransform {
       }
       if (this.shouldTransformToMinMax.includes(key)) {
         const values = value.split(',');
-        // if (values[0]) {
-        //   find[key]['$gte'] = values[0];
-        // }
-        // if (values[1]) {
-        //   find[key]['$lte'] = values[1];
-        // }
 
         find[key] = {
           $gte: values[0] || Number.MIN_SAFE_INTEGER,
@@ -47,6 +44,6 @@ export class ProductFiltersPipe implements PipeTransform {
       }
     }
 
-    return { find, sort, page };
+    return { find, sort, page, search };
   }
 }
