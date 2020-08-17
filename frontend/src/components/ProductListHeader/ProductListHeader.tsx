@@ -3,18 +3,12 @@ import { useFilterContext } from '../../context/FilterContext/FilterContext'
 
 import styles from './ProductListHeader.module.css'
 import Chip from '../Chip/Chip'
-import Button from '../Button/Button'
 
 const sliders = ['Price', 'Weight']
 const ProductListHeader = () => {
   const { filterState, filterDispatch } = useFilterContext()
-  useEffect(() => {
-    console.log(filterState)
-  })
 
   const onClickHandler = (category: string, value: string, dispatchType: string) => {
-    console.log(category, value, dispatchType)
-
     filterDispatch({
       type: dispatchType,
       payload: {
@@ -45,7 +39,6 @@ const ProductListHeader = () => {
           )
         } else {
           return filterState[e].map((v: any) => {
-            console.log(v)
             return <Chip key={v} category={e} value={v} onClick={() => onClickHandler(e, v, 'delete')}></Chip>
           })
         }

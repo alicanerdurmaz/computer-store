@@ -76,7 +76,7 @@ const Slider = ({ title, minRange, maxRange }: Props) => {
     sliderColor: calculateSliderColor(minRange, maxRange, minRange, maxRange),
   })
 
-  const { filterDispatch } = useFilterContext()
+  const { filterState, filterDispatch } = useFilterContext()
 
   const firstSlider = useRef<HTMLInputElement>(null)
   const secondSlider = useRef<HTMLInputElement>(null)
@@ -98,6 +98,18 @@ const Slider = ({ title, minRange, maxRange }: Props) => {
       },
     })
   }
+
+  useEffect(() => {
+    if (!filterState[title]) {
+      dispatchSlider({
+        type: 'changed',
+        payload: {
+          firstSliderValue: minRange,
+          secondSliderValue: maxRange,
+        },
+      })
+    }
+  }, [filterState])
 
   useEffect(() => {
     const values = debouncedValue.split(',')

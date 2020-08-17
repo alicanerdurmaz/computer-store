@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import styles from './Checkbox.module.css'
 import { useFilterContext } from '../../context/FilterContext/FilterContext'
@@ -10,7 +10,15 @@ interface Props {
 }
 const Checkbox: React.FC<Props> = ({ value, count, category }: Props) => {
   const [checked, setChecked] = useState(false)
-  const { filterDispatch } = useFilterContext()
+  const { filterState, filterDispatch } = useFilterContext()
+
+  useEffect(() => {
+    if (filterState[category]?.includes(value)) {
+      setChecked(true)
+    } else {
+      setChecked(false)
+    }
+  }, [filterState])
 
   const onChangeHandler = () => {
     if (checked) {
@@ -30,7 +38,6 @@ const Checkbox: React.FC<Props> = ({ value, count, category }: Props) => {
         },
       })
     }
-    setChecked(!checked)
   }
   return (
     <label className={styles.label}>
