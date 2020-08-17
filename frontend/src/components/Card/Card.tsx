@@ -4,7 +4,7 @@ import Image from '../Image/Image'
 import data from './product.json'
 import styles from './Card.module.css'
 
-const Card = () => {
+const Card = React.memo(function Card() {
   return (
     <div className={styles.item} tabIndex={0} onClick={() => alert('clicked product')}>
       <div className={styles.container}>
@@ -25,6 +25,6 @@ const Card = () => {
       </div>
     </div>
   )
-}
+})
 
 export default Card

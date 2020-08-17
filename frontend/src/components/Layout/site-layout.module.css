@@ -9,6 +9,6 @@
   grid-template-areas: 'header' 'body';
 
   row-gap: 24px;
-  column-gap: 24px;
+
   margin-top: 24px;
 }
