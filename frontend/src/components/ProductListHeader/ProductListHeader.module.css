@@ -1,9 +1,38 @@
 .container {
-  max-width: 875px;
-  height: 36px;
+  max-width: 850px;
+  height: max-content;
   margin: 0 auto;
   margin-bottom: 1rem;
+  padding: 0.5rem;
 
   border: 2px solid var(--c-border);
   border-radius: 8px;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+
+  & > div {
+    margin: 0.25rem 0.25rem;
+  }
+  .button {
+    cursor: pointer;
+    margin-left: 1rem;
+    font-weight: 700;
+    font-size: 0.75rem;
+
+    padding: 0.5rem;
+    border-radius: 4px;
+
+    color: var(--c-primary);
+    background: var(--c-bg-secondary);
+
+    transition: border var(--a-60-cubic);
+    border: 2px solid var(--c-bg-secondary);
+    &:hover {
+      color: var(--c-text-on-p);
+      background: var(--c-primary-light);
+    }
+  }
 }

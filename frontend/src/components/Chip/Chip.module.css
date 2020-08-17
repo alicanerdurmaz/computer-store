@@ -1,0 +1,47 @@
+.container {
+  width: max-content;
+  height: 0.75rem;
+  background: var(--c-bg-secondary);
+  margin: 0 0.25rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 0.75rem;
+  padding: 0.725rem 0.5rem;
+  padding-right: 1rem;
+  border-radius: 1rem;
+}
+.button {
+  appearance: none;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: var(--c-bg-primary);
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0.5rem;
+
+  margin-right: 0.5rem;
+  font-size: 0.825rem;
+  border-radius: 50%;
+
+  &:hover {
+    background: var(--c-primary-light);
+    color: var(--c-text-on-p);
+  }
+}
+.text {
+  display: flex;
+  flex-direction: column;
+}
+.category {
+  color: var(--c-text-secondary);
+}
+.value {
+  color: var(--c-text-dark);
+}

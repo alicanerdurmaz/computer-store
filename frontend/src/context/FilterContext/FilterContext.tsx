@@ -3,7 +3,7 @@ import React, { createContext, useReducer, useContext } from 'react'
 export const FilterContext = createContext<Record<string, any>>({})
 
 interface Action {
-  type: 'add' | 'delete' | 'add-string'
+  type: 'add' | 'delete' | 'add-string' | 'delete-string' | 'delete-all'
   payload: {
     category: string
     value: string
@@ -36,6 +36,18 @@ const filterReducer = (state: any, action: Action) => {
       oldState[action.payload.category] = action.payload.value
 
       return { ...oldState }
+    }
+
+    case 'delete-string': {
+      const oldState = state
+
+      oldState[action.payload.category] = null
+
+      return { ...oldState }
+    }
+
+    case 'delete-all': {
+      return {}
     }
 
     default: {

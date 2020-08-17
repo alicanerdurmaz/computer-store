@@ -66,11 +66,6 @@ function calculateSliderColor(minValue: number, maxValue: number, minRange: numb
 }
 
 const Slider = ({ title, minRange, maxRange }: Props) => {
-  const { filterDispatch } = useFilterContext()
-
-  const firstSlider = useRef<HTMLInputElement>(null)
-  const secondSlider = useRef<HTMLInputElement>(null)
-
   const [sliderState, dispatchSlider] = useReducer(sliderReducer, {
     firstSliderValue: minRange,
     secondSliderValue: maxRange,
@@ -80,6 +75,12 @@ const Slider = ({ title, minRange, maxRange }: Props) => {
     maxRange: maxRange,
     sliderColor: calculateSliderColor(minRange, maxRange, minRange, maxRange),
   })
+
+  const { filterDispatch } = useFilterContext()
+
+  const firstSlider = useRef<HTMLInputElement>(null)
+  const secondSlider = useRef<HTMLInputElement>(null)
+
   const { firstSliderValue, secondSliderValue, minValue, maxValue, sliderColor } = sliderState
 
   const debouncedValue = useDebounce(`${sliderState.minValue},${sliderState.maxValue}`, 100)
@@ -99,6 +100,19 @@ const Slider = ({ title, minRange, maxRange }: Props) => {
   }
 
   useEffect(() => {
+    const values = debouncedValue.split(',')
+
+    if (parseFloat(values[0]) === minRange && parseFloat(values[1]) === maxRange) {
+      filterDispatch({
+        type: 'delete-string',
+        payload: {
+          category: title,
+          value: debouncedValue,
+        },
+      })
+      return
+    }
+
     filterDispatch({
       type: 'add-string',
       payload: {
