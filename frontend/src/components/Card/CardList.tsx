@@ -10,12 +10,14 @@ const CardList: React.FC = () => {
   const { searchTerm, filterState, sortBy } = useFilterContext()
   const [filters, setFilters] = useState('')
 
-  const { isLoading, error, data } = useQuery('productsData', () =>
+  const { isLoading, error, data, refetch } = useQuery('productsData', () =>
     fetch(`http://localhost:3001/product${filters}`).then(res => res.json()),
   )
 
   useEffect(() => {
-    const getFiltersQuery = () => {
+    setFilters(getFiltersQuery())
+
+    function getFiltersQuery() {
       let filtersQuery = '?'
       Object.keys(filterState).forEach((e: any) => {
         filtersQuery += '&' + e + '=' + filterState[e].toString()
@@ -26,17 +28,20 @@ const CardList: React.FC = () => {
 
       return filtersQuery
     }
-
-    setFilters(getFiltersQuery())
   }, [searchTerm, filterState, sortBy])
+
+  useEffect(() => {
+    console.log(data)
+    refetch()
+  }, [filters])
 
   if (isLoading) return <div>'Loading...'</div>
   if (error) return <div>'An error has occurred: ' + error.message</div>
 
   return (
     <div className={styles.container}>
-      {Array.from({ length: 50 }).map((e, i) => {
-        return <Card key={i}></Card>
+      {data.products.map((e: any) => {
+        return <Card key={e._id} name={e.Name} price={e.Price} image={e.Images[0]}></Card>
       })}
 
       <ReactQueryDevtools initialIsOpen />
