@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, useContext, useState } from 'react'
+import React, { createContext, useReducer, useContext, useState, useEffect } from 'react'
 
 export const FilterContext = createContext<Record<string, any>>({})
 
@@ -13,7 +13,7 @@ interface Action {
 const filterReducer = (state: any, action: Action) => {
   switch (action.type) {
     case 'add': {
-      const oldState = state
+      const oldState = { ...state }
 
       if (!oldState.hasOwnProperty(action.payload.category)) {
         oldState[action.payload.category] = []
@@ -25,13 +25,17 @@ const filterReducer = (state: any, action: Action) => {
     case 'delete': {
       const newArray = state[action.payload.category].filter((e: string) => e !== action.payload.value)
 
-      state[action.payload.category] = newArray
+      if (!newArray.length) {
+        delete state[action.payload.category]
+      } else {
+        state[action.payload.category] = newArray
+      }
 
       return { ...state }
     }
 
     case 'add-string': {
-      const oldState = state
+      const oldState = { ...state }
 
       oldState[action.payload.category] = action.payload.value
 
@@ -39,7 +43,7 @@ const filterReducer = (state: any, action: Action) => {
     }
 
     case 'delete-string': {
-      const oldState = state
+      const oldState = { ...state }
 
       delete oldState[action.payload.category]
 
@@ -59,9 +63,10 @@ const filterReducer = (state: any, action: Action) => {
 export const FilterProvider: React.FC = ({ children }) => {
   const [filterState, filterDispatch] = useReducer(filterReducer, {})
   const [searchTerm, setSearchTerm] = useState('')
+  const [sortBy, setSortBy] = useState('')
 
   return (
-    <FilterContext.Provider value={{ filterState, searchTerm, filterDispatch, setSearchTerm }}>
+    <FilterContext.Provider value={{ filterState, searchTerm, sortBy, setSortBy, filterDispatch, setSearchTerm }}>
       {children}
     </FilterContext.Provider>
   )

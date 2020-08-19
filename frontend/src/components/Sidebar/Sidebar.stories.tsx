@@ -1,7 +1,6 @@
 import React from 'react'
 
 import Sidebar from './Sidebar'
-import filters from '../../test/data/filters.json'
 
 export default {
   component: Sidebar,
@@ -9,9 +8,5 @@ export default {
 }
 
 export const Default = () => {
-  return (
-    <div style={{ width: '220px' }}>
-      <Sidebar filters={filters} />
-    </div>
-  )
+  return <div style={{ width: '220px' }}>{/* <Sidebar filters={getData()}></Sidebar> */}</div>
 }
