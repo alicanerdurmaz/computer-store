@@ -6,32 +6,33 @@ import { useFilterContext } from '../../context/FilterContext/FilterContext'
 import { useQuery } from 'react-query'
 import { ReactQueryDevtools } from 'react-query-devtools'
 
+function getFiltersQuery(filterState: any, sortBy: any, searchTerm: string) {
+  let filtersQuery = '?'
+  Object.keys(filterState).forEach((e: any) => {
+    filtersQuery += '&' + e + '=' + filterState[e].toString()
+  })
+
+  if (searchTerm.length > 3) filtersQuery += `&search=${searchTerm}`
+  if (sortBy) filtersQuery += `&sort=${sortBy}`
+
+  return filtersQuery
+}
+
 const CardList: React.FC = () => {
   const { searchTerm, filterState, sortBy } = useFilterContext()
-  const [filters, setFilters] = useState('')
+  const [filters, setFilters] = useState(getFiltersQuery(filterState, sortBy, searchTerm))
 
   const { isLoading, error, data, refetch } = useQuery('productsData', () =>
     fetch(`http://localhost:3001/product${filters}`).then(res => res.json()),
   )
-
   useEffect(() => {
-    setFilters(getFiltersQuery())
-
-    function getFiltersQuery() {
-      let filtersQuery = '?'
-      Object.keys(filterState).forEach((e: any) => {
-        filtersQuery += '&' + e + '=' + filterState[e].toString()
-      })
-
-      if (searchTerm.length > 3) filtersQuery += `&search=${searchTerm}`
-      if (sortBy) filtersQuery += `&sort=${sortBy}`
-
-      return filtersQuery
-    }
+    console.log(data)
+  }, [data])
+  useEffect(() => {
+    setFilters(getFiltersQuery(filterState, sortBy, searchTerm))
   }, [searchTerm, filterState, sortBy])
 
   useEffect(() => {
-    console.log(data)
     refetch()
   }, [filters])
 
