@@ -1,6 +1,6 @@
 const path = require('path')
 
 module.exports = {
-  addons: ['@storybook/preset-typescript'],
   presets: [path.resolve(__dirname, './post-css.js')],
+  addons: ['@storybook/addon-actions', '@storybook/addon-links', '@storybook/addon-knobs'],
 }
