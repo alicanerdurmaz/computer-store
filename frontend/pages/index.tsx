@@ -1,9 +1,8 @@
+import React, { useState } from 'react'
 import CardList from '../src/components/Card/CardList'
-
 import styles from './index.module.css'
 import Sidebar from '../src/components/Sidebar/Sidebar'
 import ProductListHeader from '../src/components/ProductListHeader/ProductListHeader'
-import { useState } from 'react'
 import cx from 'classnames'
 
 interface Props {

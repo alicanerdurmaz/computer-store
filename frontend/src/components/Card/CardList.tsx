@@ -5,6 +5,8 @@ import styles from './CardList.module.css'
 import { useFilterContext } from '../../context/FilterContext/FilterContext'
 import { useQuery } from 'react-query'
 import { ReactQueryDevtools } from 'react-query-devtools'
+import Spinner from 'components/Spinner/Spinner'
+import NotFoundIcon from 'components/Icons/NotFoundIcon'
 
 function getFiltersQuery(filterState: any, sortBy: any, searchTerm: string) {
   let filtersQuery = '?'
@@ -22,12 +24,10 @@ const CardList: React.FC = () => {
   const { searchTerm, filterState, sortBy } = useFilterContext()
   const [filters, setFilters] = useState(getFiltersQuery(filterState, sortBy, searchTerm))
 
-  const { isLoading, error, data, refetch } = useQuery('productsData', () =>
+  const { isLoading, error, data, refetch, isFetching, status } = useQuery('productsData', () =>
     fetch(`http://localhost:3001/product${filters}`).then(res => res.json()),
   )
-  useEffect(() => {
-    console.log(data)
-  }, [data])
+
   useEffect(() => {
     setFilters(getFiltersQuery(filterState, sortBy, searchTerm))
   }, [searchTerm, filterState, sortBy])
@@ -36,13 +36,22 @@ const CardList: React.FC = () => {
     refetch()
   }, [filters])
 
-  if (isLoading) return <div>'Loading...'</div>
   if (error) return <div>'An error has occurred: ' + error.message</div>
+  if (isLoading || isFetching) return <Spinner />
 
+  if (!data.products.length) return <NotFoundIcon text="Product not found" />
   return (
     <div className={styles.container}>
-      {data.products.map((e: any) => {
-        return <Card key={e._id} name={e.Name} price={e.Price} image={e.Images[0]}></Card>
+      {data.products.map((e: any, i: number) => {
+        return (
+          <Card
+            key={e._id}
+            name={e.Name}
+            price={e.Price}
+            image={e.Images[0]}
+            imageIsLazy={i > 5 ? 'lazy' : 'eager'}
+          ></Card>
+        )
       })}
 
       <ReactQueryDevtools initialIsOpen />

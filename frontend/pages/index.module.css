@@ -73,7 +73,7 @@
 }
 
 .btn_set_sidebar {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   padding: 0.5rem;
@@ -83,7 +83,7 @@
   border-bottom-right-radius: 1rem;
 
   display: none;
-
+  z-index: 3;
   @media (max-width: 900px) {
     display: inline-block;
   }

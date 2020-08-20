@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { useFilterContext } from '../../context/FilterContext/FilterContext'
-
 import styles from './ProductListHeader.module.css'
 import Chip from '../Chip/Chip'
 

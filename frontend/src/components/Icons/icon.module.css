@@ -2,3 +2,14 @@
   display: inline-block;
   fill: var(--c-icon-color);
 }
+
+.NotFoundIcon {
+  width: 100%;
+  height: 200px;
+  margin: 0 auto;
+  text-align: center;
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+}
