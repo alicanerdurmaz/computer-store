@@ -1,10 +1,11 @@
 .container {
   display: grid;
   grid-template-columns: repeat(auto-fit, 280px);
-  grid-gap: 1.25rem;
+  grid-gap: 1.5rem;
 
   justify-content: center;
 
-  @media (max-width: 800px) {
+  & > * {
+    border-top: 2px solid #00000010;
   }
 }

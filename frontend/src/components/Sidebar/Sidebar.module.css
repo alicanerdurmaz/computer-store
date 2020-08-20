@@ -1,11 +1,13 @@
 .container {
+  background: var(--c-bg-secondary);
   border-radius: 8px;
   border: 2px solid var(--c-border);
+  box-shadow: 0px 1px 2px var(--shadow);
 
   display: flex;
   flex-direction: column;
-  padding: 1rem;
 
+  padding: 1rem;
   & > * {
     margin: 1rem 0 !important;
   }

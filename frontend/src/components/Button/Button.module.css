@@ -40,4 +40,5 @@
 
 .bg-secondary {
   background: var(--c-bg-secondary);
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }

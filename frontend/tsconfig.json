@@ -12,7 +12,11 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "baseUrl": "src",
+    "paths": {
+      "test-utils": ["./test-utils"]
+    }
   },
   "include": [
     "next-env.d.ts",
@@ -21,7 +25,8 @@
     "../types.d.ts",
     "../next-env.d.ts",
     "../**/*.stories.ts",
-    "../**/*.stories.tsx"
+    "../**/*.stories.tsx",
+    "./test-utils.js"
   ],
   "exclude": ["node_modules"]
 }

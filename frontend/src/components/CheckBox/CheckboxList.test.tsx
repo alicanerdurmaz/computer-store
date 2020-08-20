@@ -1,7 +1,8 @@
 import React from 'react'
 
 import user from '@testing-library/user-event'
-import { render } from '@testing-library/react'
+// @ts-ignore
+import { render } from 'test-utils'
 
 import CheckboxList from './CheckboxList'
 
