@@ -5,8 +5,8 @@ import styles from './CardList.module.css'
 import { useFilterContext } from '../../context/FilterContext/FilterContext'
 import { useQuery } from 'react-query'
 import { ReactQueryDevtools } from 'react-query-devtools'
-import Spinner from 'components/Spinner/Spinner'
-import NotFoundIcon from 'components/Icons/NotFoundIcon'
+import Spinner from '../Spinner/Spinner'
+import NotFoundIcon from '../Icons/NotFoundIcon'
 
 function getFiltersQuery(filterState: any, sortBy: any, searchTerm: string) {
   let filtersQuery = '?'

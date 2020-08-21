@@ -17,6 +17,7 @@ export const Default = () => {
     </div>
   )
 }
+
 export const List = () => {
   return <CardList></CardList>
 }

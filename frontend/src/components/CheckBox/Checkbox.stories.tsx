@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { withKnobs, number } from '@storybook/addon-knobs'
 import Checkbox from './Checkbox'
 import CheckboxList from './CheckboxList'
@@ -16,7 +16,7 @@ export const Default = () => {
         width: '200px',
       }}
     >
-      <Checkbox category={'Manufacturer'} value="Asus" count={12} />
+      <Checkbox category="Manufacturer" value="Asus" count={12} />
     </div>
   )
 }
