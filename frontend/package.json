@@ -5,11 +5,22 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next build && next start",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "test": "jest",
-    "prettier": "prettier --write '**/*.{ts,js,tsx,jsx,css,html}'"
+    "prettier": "prettier --write '**/*.{ts,js,tsx,jsx,css,html}'",
+    "cy:run": "cypress run",
+    "cy:open": "cypress open",
+    "test:e2e": "is-ci \"test:e2e:run\" \"test:e2e:dev\"",
+    "pretest:e2e:run": "yarn build",
+    "test:e2e:run": "start-server-and-test start http://localhost:3000 cy:run",
+    "test:e2e:dev": "start-server-and-test dev http://localhost:3000 cy:open"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn test && yarn test:e2e:run"
+    }
   },
   "dependencies": {
     "classnames": "^2.2.6",
@@ -17,7 +28,8 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-query": "^2.5.14",
-    "react-query-devtools": "^2.4.2"
+    "react-query-devtools": "^2.4.2",
+    "start-server-and-test": "^1.11.3"
   },
   "devDependencies": {
     "@babel/core": "^7.11.1",
@@ -27,6 +39,7 @@
     "@storybook/addons": "^6.0.13",
     "@storybook/preset-typescript": "3.0.0",
     "@storybook/react": "^6.0.13",
+    "@testing-library/cypress": "^6.0.0",
     "@testing-library/dom": "^7.22.1",
     "@testing-library/jest-dom": "^5.11.3",
     "@testing-library/react": "^10.4.8",
@@ -42,20 +55,23 @@
     "babel-jest": "^26.3.0",
     "babel-loader": "^8.0.5",
     "css-loader": "^4.2.1",
+    "cypress": "^5.0.0",
     "fork-ts-checker-webpack-plugin": "5.1.0",
+    "husky": "^4.2.5",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^26.4.0",
     "jest-watch-typeahead": "^0.6.0",
     "msw": "^0.20.5",
+    "node-fetch": "^2.6.0",
     "postcss-custom-properties": "^9.1.1",
     "postcss-flexbugs-fixes": "^4.2.1",
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
     "postcss-nested": "^4.2.3",
     "postcss-preset-env": "^6.7.0",
+    "react-test-renderer": "^16.13.1",
     "style-loader": "^1.2.1",
     "ts-loader": "8.0.2",
-    "typescript": "^3.9.7",
-    "whatwg-fetch": "^3.4.0"
+    "typescript": "^3.9.7"
   }
 }

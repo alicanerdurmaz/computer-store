@@ -4,7 +4,6 @@ import Card from './Card'
 import styles from './CardList.module.css'
 import { useFilterContext } from '../../context/FilterContext/FilterContext'
 import { useQuery } from 'react-query'
-import { ReactQueryDevtools } from 'react-query-devtools'
 import Spinner from '../Spinner/Spinner'
 import NotFoundIcon from '../Icons/NotFoundIcon'
 
@@ -24,7 +23,7 @@ const CardList: React.FC = () => {
   const { searchTerm, filterState, sortBy } = useFilterContext()
   const [filters, setFilters] = useState(getFiltersQuery(filterState, sortBy, searchTerm))
 
-  const { isLoading, error, data, refetch, isFetching, status } = useQuery('productsData', () =>
+  const { isLoading, error, data, refetch, isFetching } = useQuery('productsData', () =>
     fetch(`http://localhost:3001/product${filters}`).then(res => res.json()),
   )
 
@@ -41,7 +40,7 @@ const CardList: React.FC = () => {
 
   if (!data.products.length) return <NotFoundIcon text="Product not found" />
   return (
-    <div className={styles.container}>
+    <div className={styles.container} aria-label="product list">
       {data.products.map((e: any, i: number) => {
         return (
           <Card
@@ -53,8 +52,6 @@ const CardList: React.FC = () => {
           ></Card>
         )
       })}
-
-      <ReactQueryDevtools initialIsOpen />
     </div>
   )
 }

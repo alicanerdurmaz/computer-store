@@ -34,6 +34,7 @@ const ProductListHeader = () => {
         if (sliders.includes(e)) {
           return (
             <Chip
+              aria-label={`select ${filterState[e]}`}
               key={filterState[e]}
               category={e}
               value={filterState[e]}

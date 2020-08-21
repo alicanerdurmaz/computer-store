@@ -14,7 +14,9 @@ const Card = React.memo(function Card({ name, price, image, imageIsLazy }: Props
     <div className={styles.item} tabIndex={0} onClick={() => alert('clicked product')}>
       <div className={styles.container}>
         <Image url={image} imageIsLazy={imageIsLazy}></Image>
-        <h1 className={styles.name}> {name}</h1>
+        <h1 className={styles.name} aria-label="product name">
+          {name}
+        </h1>
         <div className={styles.footer}>
           <h1 className={styles.price}>${price}</h1>
           <button

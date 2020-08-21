@@ -5,6 +5,7 @@
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
+    "types": ["cypress", "@types/testing-library__cypress"],
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
@@ -26,7 +27,8 @@
     "../next-env.d.ts",
     "../**/*.stories.ts",
     "../**/*.stories.tsx",
-    "./test-utils.js"
+    "./test-utils.js",
+    "cypress/e2e/home-page.js"
   ],
   "exclude": ["node_modules"]
 }
