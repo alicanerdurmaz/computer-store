@@ -131,6 +131,11 @@ export class ProductService {
     return { id };
   }
 
+  async getAllIds(): Promise<any[]> {
+    const list = await this.productModel.distinct('_id');
+    return list;
+  }
+
   getFilters(): any {
     return this.filters;
   }

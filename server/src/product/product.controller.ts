@@ -36,6 +36,10 @@ export class ProductController {
     return this.productService.getFilters();
   }
 
+  @Get('/get-all-ids')
+  async getAllIds(): Promise<any[]> {
+    return this.productService.getAllIds();
+  }
   @Get('/search')
   async searchProducts(@Query('term') term: string): Promise<Product[]> {
     return this.productService.searchProducts(term);
