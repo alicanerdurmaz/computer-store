@@ -65,7 +65,7 @@ const filterReducer = (state: any, action: Action) => {
 }
 
 const init = (query: any) => {
-  if (!query) return
+  if (!query || typeof query === 'undefined') return {}
   const shouldBeString = ['Weight', 'Price']
   const ignore = ['search', 'page']
 
@@ -91,7 +91,7 @@ interface IFilterProvider {
 }
 export const FilterProvider: React.FC<IFilterProvider> = ({ children, query }: IFilterProvider) => {
   const [filterState, filterDispatch] = useReducer(filterReducer, {}, () => init(query))
-  const [searchTerm, setSearchTerm] = useState(query.search || '')
+  const [searchTerm, setSearchTerm] = useState(query?.search || '')
   const [sortBy, setSortBy] = useState('')
 
   return (
