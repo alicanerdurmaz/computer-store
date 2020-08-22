@@ -1,12 +1,12 @@
 import React from 'react'
 import styles from './Dropdown.module.css'
-import { useFilterContext } from '../../context/FilterContext/FilterContext'
+import { addToQuery } from 'src/utils/changeQuery'
+import { useRouter } from 'next/router'
 
 const Dropdown = () => {
-  const { setSortBy } = useFilterContext()
-
+  const router = useRouter()
   const handleChangeSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSortBy(event.currentTarget.value)
+    router.push(addToQuery(router.query, 'sort', event.currentTarget.value), undefined, { shallow: true })
   }
   return (
     <label className={styles.title}>

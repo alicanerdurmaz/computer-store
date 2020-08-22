@@ -1,31 +1,14 @@
 import React, { useEffect } from 'react'
-import { useFilterContext } from '../../context/FilterContext/FilterContext'
+
 import styles from './ProductListHeader.module.css'
 import Chip from '../Chip/Chip'
 import { AnimatePresence, motion } from 'framer-motion'
 
 const sliders = ['Price', 'Weight']
 const ProductListHeader = () => {
-  const { filterState, filterDispatch } = useFilterContext()
-
-  const onClickHandler = (category: string, value: string, dispatchType: string) => {
-    filterDispatch({
-      type: dispatchType,
-      payload: {
-        category,
-        value,
-      },
-    })
-  }
-  const deleteFilters = () => {
-    filterDispatch({
-      type: 'delete-all',
-    })
-  }
-
   return (
     <AnimatePresence>
-      {Object.keys(filterState).length < 1 ? null : (
+      {/* {Object.keys(filterState).length < 1 ? null : (
         <motion.div
           className={styles.container}
           exit={{ opacity: 0, x: 1250 }}
@@ -53,7 +36,7 @@ const ProductListHeader = () => {
             Delete Filters
           </button>
         </motion.div>
-      )}
+      )} */}
     </AnimatePresence>
   )
 }

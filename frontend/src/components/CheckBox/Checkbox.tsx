@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 
 import styles from './Checkbox.module.css'
-import { useFilterContext } from '../../context/FilterContext/FilterContext'
+import { useRouter } from 'next/router'
+import { addToQuery, deleteFromQuery } from '../../utils/changeQuery'
 
 interface Props {
   value: string
@@ -9,34 +10,16 @@ interface Props {
   category: string
 }
 const Checkbox: React.FC<Props> = ({ value, count, category }: Props) => {
+  const router = useRouter()
   const [checked, setChecked] = useState(false)
-  const { filterState, filterDispatch } = useFilterContext()
-
-  useEffect(() => {
-    if (filterState[category]?.includes(value)) {
-      setChecked(true)
-    } else {
-      setChecked(false)
-    }
-  }, [filterState])
 
   const onChangeHandler = () => {
     if (checked) {
-      filterDispatch({
-        type: 'delete',
-        payload: {
-          category,
-          value,
-        },
-      })
+      router.push(deleteFromQuery(router.query, category, value), undefined, { shallow: true })
+      setChecked(false)
     } else {
-      filterDispatch({
-        type: 'add',
-        payload: {
-          category,
-          value,
-        },
-      })
+      router.push(addToQuery(router.query, category, value), undefined, { shallow: true })
+      setChecked(true)
     }
   }
   return (

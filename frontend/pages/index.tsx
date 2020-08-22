@@ -4,7 +4,6 @@ import styles from './index.module.css'
 import Sidebar from '../src/components/Sidebar/Sidebar'
 import ProductListHeader from '../src/components/ProductListHeader/ProductListHeader'
 import cx from 'classnames'
-import { useRouter } from 'next/dist/client/router'
 
 interface Props {
   filters: Record<string, any>

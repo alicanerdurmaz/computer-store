@@ -2,41 +2,23 @@ import React, { useEffect, useState } from 'react'
 
 import Card from './Card'
 import styles from './CardList.module.css'
-import { useFilterContext } from '../../context/FilterContext/FilterContext'
 import { useQuery } from 'react-query'
 import Spinner from '../Spinner/Spinner'
 import NotFoundIcon from '../Icons/NotFoundIcon'
 import { AnimatePresence, motion } from 'framer-motion'
-
-function getFiltersQuery(filterState: any, sortBy: any, searchTerm: string, page: number) {
-  let filtersQuery = `?page=${page}`
-  Object.keys(filterState).forEach((e: any) => {
-    filtersQuery += '&' + e + '=' + filterState[e].toString()
-  })
-
-  if (searchTerm.length > 3) filtersQuery += `&search=${searchTerm}`
-  if (sortBy) filtersQuery += `&sort=${sortBy}`
-
-  return filtersQuery
-}
+import { useRouter } from 'next/router'
 
 const CardList: React.FC = () => {
-  const { searchTerm, filterState, sortBy } = useFilterContext()
-  const [page, setPage] = useState(1)
-  const [filters, setFilters] = useState(getFiltersQuery(filterState, sortBy, searchTerm, page))
+  const router = useRouter()
 
   const { isLoading, error, data, refetch, isFetching } = useQuery('productsData', () =>
-    fetch(`http://localhost:3001/product${filters}`).then(res => res.json()),
+    fetch(`http://localhost:3001/product${router.asPath}`).then(res => res.json()),
   )
 
   useEffect(() => {
-    setFilters(getFiltersQuery(filterState, sortBy, searchTerm, page))
-  }, [searchTerm, filterState, sortBy, page])
-
-  useEffect(() => {
+    console.log(router.asPath)
     refetch()
-    window.history.pushState(undefined, 'Computer Store', filters)
-  }, [filters])
+  }, [router.query])
 
   if (error) return <div>'An error has occurred: ' + error.message</div>
   if (data && !data.products.length) return <NotFoundIcon text="Product not found" />
@@ -63,7 +45,7 @@ const CardList: React.FC = () => {
           const pageNumber = i + 1
           return (
             <button
-              className={page === pageNumber ? styles.button_selected : styles.button_not_selected}
+              // className={page === pageNumber ? styles.button_selected : styles.button_not_selected}
               aria-label="page number"
               key={pageNumber}
               onClick={() => {
@@ -71,7 +53,7 @@ const CardList: React.FC = () => {
                   top: 0,
                   behavior: 'smooth',
                 })
-                setPage(pageNumber)
+                // setPage(pageNumber)
               }}
             >
               {pageNumber}
