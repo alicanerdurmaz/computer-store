@@ -2,9 +2,9 @@ import React, { useEffect } from 'react'
 import { useFilterContext } from '../../context/FilterContext/FilterContext'
 import styles from './ProductListHeader.module.css'
 import Chip from '../Chip/Chip'
+import { AnimatePresence, motion } from 'framer-motion'
 
 const sliders = ['Price', 'Weight']
-
 const ProductListHeader = () => {
   const { filterState, filterDispatch } = useFilterContext()
 
@@ -23,34 +23,38 @@ const ProductListHeader = () => {
     })
   }
 
-  if (Object.keys(filterState).length < 1) {
-    return null
-  }
   return (
-    <div className={styles.container}>
-      {Object.keys(filterState).map((e: any) => {
-        if (!filterState[e]) return null
+    <AnimatePresence>
+      {Object.keys(filterState).length < 1 ? null : (
+        <motion.div
+          className={styles.container}
+          exit={{ opacity: 0, x: 1250 }}
+          transition={{ delay: 0, duration: 0.25 }}
+        >
+          {Object.keys(filterState).map((e: any) => {
+            if (sliders.includes(e)) {
+              return (
+                <Chip
+                  aria-label={`select ${filterState[e]}`}
+                  key={filterState[e]}
+                  category={e}
+                  value={filterState[e]}
+                  onClick={() => onClickHandler(e, filterState[e], 'delete-string')}
+                ></Chip>
+              )
+            } else {
+              return filterState[e].map((v: any) => {
+                return <Chip key={v} category={e} value={v} onClick={() => onClickHandler(e, v, 'delete')}></Chip>
+              })
+            }
+          })}
 
-        if (sliders.includes(e)) {
-          return (
-            <Chip
-              aria-label={`select ${filterState[e]}`}
-              key={filterState[e]}
-              category={e}
-              value={filterState[e]}
-              onClick={() => onClickHandler(e, filterState[e], 'delete-string')}
-            ></Chip>
-          )
-        } else {
-          return filterState[e].map((v: any) => {
-            return <Chip key={v} category={e} value={v} onClick={() => onClickHandler(e, v, 'delete')}></Chip>
-          })
-        }
-      })}
-      <button className={styles.button} aria-label="delete filters" onClick={deleteFilters}>
-        Delete Filters
-      </button>
-    </div>
+          <button className={styles.button} aria-label="delete filters" onClick={deleteFilters}>
+            Delete Filters
+          </button>
+        </motion.div>
+      )}
+    </AnimatePresence>
   )
 }
 

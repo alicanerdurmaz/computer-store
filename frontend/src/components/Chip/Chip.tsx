@@ -1,6 +1,7 @@
 import React from 'react'
 
 import styles from './Chip.module.css'
+
 interface Props {
   category: string
   value: string

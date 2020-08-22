@@ -6,6 +6,7 @@ import { useFilterContext } from '../../context/FilterContext/FilterContext'
 import { useQuery } from 'react-query'
 import Spinner from '../Spinner/Spinner'
 import NotFoundIcon from '../Icons/NotFoundIcon'
+import { AnimatePresence, motion } from 'framer-motion'
 
 function getFiltersQuery(filterState: any, sortBy: any, searchTerm: string, page: number) {
   let filtersQuery = `?page=${page}`
@@ -45,19 +46,17 @@ const CardList: React.FC = () => {
       {isLoading || isFetching ? (
         <Spinner />
       ) : (
-        <div className={styles.container} aria-label="product list">
-          {data.products.map((e: any, i: number) => {
-            return (
-              <Card
-                key={e._id}
-                name={e.Name}
-                price={e.Price}
-                image={e.Images[0]}
-                imageIsLazy={i > 5 ? 'lazy' : 'eager'}
-              ></Card>
-            )
-          })}
-        </div>
+        <AnimatePresence>
+          <div className={styles.container} aria-label="product list">
+            {data.products.map((e: any, i: number) => {
+              return (
+                <motion.div key={e._id} animate={{ opacity: 1 }} initial={{ opacity: 0 }}>
+                  <Card name={e.Name} price={e.Price} image={e.Images[0]} imageIsLazy={i > 5 ? 'lazy' : 'eager'}></Card>
+                </motion.div>
+              )
+            })}
+          </div>
+        </AnimatePresence>
       )}
       <div className={styles.pagination_container}>
         {Array.from({ length: data?.numberOfPages }).map((e, i) => {

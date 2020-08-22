@@ -24,6 +24,7 @@
   margin: 0 auto;
 
   margin-top: 10%;
+  margin-bottom: 100%;
 }
 .spinner:after {
   border-radius: 50%;
