@@ -19,9 +19,6 @@ export class ProductService {
     filter: Record<string, any>,
   ): Promise<{ products: Product[]; numberOfPages: number }> {
     const pageSize = 20;
-    const numberOfPages = Math.ceil(
-      (await this.productModel.collection.countDocuments()) / 20,
-    );
 
     if (!filter.search) {
       const result = (await this.productModel
@@ -32,8 +29,16 @@ export class ProductService {
         .lean()
         .exec()) as Product[];
 
+      const documentCount = ((await this.productModel
+        .find(filter.find)
+        .countDocuments()
+        .lean()
+        .exec()) as unknown) as number;
+
+      const numberOfPages = Math.ceil(documentCount / pageSize);
       return { products: result, numberOfPages };
     }
+
     const result = (await this.productModel
       .find(
         {
@@ -47,7 +52,7 @@ export class ProductService {
       .lean()
       .exec()) as Product[];
 
-    return { products: result, numberOfPages };
+    return { products: result, numberOfPages: null };
   }
 
   async searchProducts(search: string): Promise<Product[]> {

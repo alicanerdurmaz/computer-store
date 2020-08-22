@@ -16,7 +16,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn test && yarn test:e2e:run"
+      "pre-commit": "yarn test"
     }
   },
   "dependencies": {

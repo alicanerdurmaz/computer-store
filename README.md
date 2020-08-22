@@ -14,7 +14,6 @@ Frontend
 - Typescript 
 - PostCSS
 - Storybook
-- Jest / React Testing Library
  
  Backend
 - Nest.js / Express

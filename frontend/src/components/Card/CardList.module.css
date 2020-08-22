@@ -4,8 +4,41 @@
   grid-gap: 1.5rem;
 
   justify-content: center;
+}
 
-  & > * {
-    border-top: 2px solid #00000010;
+.pagination_container {
+  flex: 1;
+  flex-basis: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3rem;
+
+  & > button {
+    cursor: pointer;
+    border: 1px solid var(--c-border);
+
+    width: 2rem;
+    height: 2rem;
+    text-align: center;
+
+    margin: 0 1rem;
+
+    font-weight: 600;
+    border-radius: 0.5rem;
+    transition: box-shadow, border-color 100ms ease-in;
+    &:hover {
+      border-color: var(--c-border-dark);
+      box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.302), 0 1px 3px 1px rgba(60, 64, 67, 0.149);
+    }
   }
+}
+.button_not_selected {
+  background: var(--c-bg-secondary);
+  color: var(--c-text-on-s) !important;
+}
+.button_selected {
+  background: var(--c-primary) !important;
+  color: var(--c-text-on-p) !important;
 }
