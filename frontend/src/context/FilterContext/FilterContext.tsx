@@ -1,4 +1,8 @@
 import React, { createContext, useReducer, useContext, useState, useEffect } from 'react'
+import { useRouter } from 'next/dist/client/router'
+import { initial } from 'cypress/types/lodash'
+import { ParsedUrlQuery } from 'querystring'
+import { networkInterfaces } from 'os'
 
 export const FilterContext = createContext<Record<string, any>>({})
 
@@ -60,9 +64,34 @@ const filterReducer = (state: any, action: Action) => {
   }
 }
 
-export const FilterProvider: React.FC = ({ children }) => {
-  const [filterState, filterDispatch] = useReducer(filterReducer, {})
-  const [searchTerm, setSearchTerm] = useState('')
+const init = (query: any) => {
+  if (!query) return
+  const shouldBeString = ['Weight', 'Price']
+  const ignore = ['search', 'page']
+
+  const newObject: Record<string, string | string[]> = {}
+
+  Object.keys(query).map((e: string) => {
+    if (ignore.includes(e)) return
+
+    if (shouldBeString.includes(e)) {
+      newObject[e] = query[e]
+      return
+    } else {
+      newObject[e] = query[e].split(',')
+    }
+  })
+
+  return newObject
+}
+
+interface IFilterProvider {
+  children: React.ReactNode
+  query: any
+}
+export const FilterProvider: React.FC<IFilterProvider> = ({ children, query }: IFilterProvider) => {
+  const [filterState, filterDispatch] = useReducer(filterReducer, {}, () => init(query))
+  const [searchTerm, setSearchTerm] = useState(query.search || '')
   const [sortBy, setSortBy] = useState('')
 
   return (

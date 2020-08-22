@@ -65,18 +65,26 @@ function calculateSliderColor(minValue: number, maxValue: number, minRange: numb
   return `linear-gradient(to right, ${bgColor} 0%, ${bgColor} ${ratioInputMin}%, ${rangeColor} ${ratioInputMin}%, ${rangeColor} ${ratioInputMax}%, ${bgColor} ${ratioInputMax}%, ${bgColor} 100%)`
 }
 
-const Slider = ({ title, minRange, maxRange }: Props) => {
-  const [sliderState, dispatchSlider] = useReducer(sliderReducer, {
-    firstSliderValue: minRange,
-    secondSliderValue: maxRange,
-    minValue: minRange,
-    maxValue: maxRange,
+const init = (value: string, minRange: number, maxRange: number) => {
+  const firstValue = parseFloat(value?.split(',')[0]) || minRange
+  const secondValue = parseFloat(value?.split(',')[1]) || maxRange
+
+  return {
+    firstSliderValue: firstValue,
+    secondSliderValue: secondValue,
+    minValue: firstValue,
+    maxValue: secondValue,
     minRange: minRange,
     maxRange: maxRange,
-    sliderColor: calculateSliderColor(minRange, maxRange, minRange, maxRange),
-  })
-
+    sliderColor: calculateSliderColor(firstValue, secondValue, minRange, maxRange),
+  }
+}
+const Slider = ({ title, minRange, maxRange }: Props) => {
   const { filterState, filterDispatch } = useFilterContext()
+
+  const [sliderState, dispatchSlider] = useReducer(sliderReducer, {}, () =>
+    init(filterState[title], minRange, maxRange),
+  )
 
   const firstSlider = useRef<HTMLInputElement>(null)
   const secondSlider = useRef<HTMLInputElement>(null)

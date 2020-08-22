@@ -34,6 +34,7 @@ const CardList: React.FC = () => {
 
   useEffect(() => {
     refetch()
+    window.history.pushState(undefined, 'Computer Store', filters)
   }, [filters])
 
   if (error) return <div>'An error has occurred: ' + error.message</div>
