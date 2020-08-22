@@ -8,7 +8,6 @@
 }
 
 html {
-  overflow-x: hidden;
   font-size: 16px;
   line-height: 1;
 }
@@ -36,4 +35,16 @@ input[type='checkbox'] {
 label {
   cursor: pointer;
   user-select: none;
+}
+a {
+  color: unset;
+  text-decoration: none;
+  appearance: none;
+}
+a:focus {
+  outline: none;
+}
+a:active,
+a:hover {
+  outline: 0;
 }

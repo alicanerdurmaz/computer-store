@@ -10,9 +10,10 @@ jest.mock('next/router', () => ({
 }))
 
 jest.mock('../../utils/changeQuery', () => ({
-  deleteFromQuery: jest.fn(),
-  addToQuery: jest.fn(),
+  deleteFromQuery: jest.fn().mockResolvedValue('?&test=test'),
+  addToQuery: jest.fn().mockResolvedValue('?'),
 }))
+
 test('checkbox renders properly, state works', () => {
   const testData = { value: 'test', count: 5, category: 'test' }
   const { getByLabelText, getByText } = render(

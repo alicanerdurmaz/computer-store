@@ -16,7 +16,6 @@ const CardList: React.FC = () => {
   )
 
   useEffect(() => {
-    console.log(router.asPath)
     refetch()
   }, [router.query])
 
@@ -33,7 +32,13 @@ const CardList: React.FC = () => {
             {data.products.map((e: any, i: number) => {
               return (
                 <motion.div key={e._id} animate={{ opacity: 1 }} initial={{ opacity: 0 }}>
-                  <Card name={e.Name} price={e.Price} image={e.Images[0]} imageIsLazy={i > 5 ? 'lazy' : 'eager'}></Card>
+                  <Card
+                    id={e._id}
+                    name={e.Name}
+                    price={e.Price}
+                    image={e.Images[0]}
+                    imageIsLazy={i > 5 ? 'lazy' : 'eager'}
+                  ></Card>
                 </motion.div>
               )
             })}
