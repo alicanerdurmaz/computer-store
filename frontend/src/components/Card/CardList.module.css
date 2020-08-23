@@ -9,11 +9,13 @@
 .pagination_container {
   flex: 1;
   flex-basis: 100%;
-  width: 100%;
+  width: fit-content;
   display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
+  justify-content: flex-start;
   align-items: center;
-  margin-top: 3rem;
+  margin: 0 auto;
+  margin-top: 2rem;
   margin-bottom: auto;
 
   & > button {
@@ -25,6 +27,7 @@
     text-align: center;
 
     margin: 0 1rem;
+    margin-top: 1rem;
 
     font-weight: 600;
     border-radius: 0.5rem;
