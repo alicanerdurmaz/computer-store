@@ -7,6 +7,7 @@ import Spinner from '../Spinner/Spinner'
 import NotFoundIcon from '../Icons/NotFoundIcon'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useRouter } from 'next/router'
+import { addToQuery } from 'src/utils/changeQuery'
 
 const CardList: React.FC = () => {
   const router = useRouter()
@@ -50,7 +51,7 @@ const CardList: React.FC = () => {
           const pageNumber = i + 1
           return (
             <button
-              // className={page === pageNumber ? styles.button_selected : styles.button_not_selected}
+              className={styles.button_not_selected}
               aria-label="page number"
               key={pageNumber}
               onClick={() => {
@@ -58,7 +59,7 @@ const CardList: React.FC = () => {
                   top: 0,
                   behavior: 'smooth',
                 })
-                // setPage(pageNumber)
+                router.push(addToQuery(router.query, 'page', pageNumber.toString()), undefined, { shallow: true })
               }}
             >
               {pageNumber}

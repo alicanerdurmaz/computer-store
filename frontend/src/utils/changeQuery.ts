@@ -5,6 +5,10 @@ const shouldBeString = ['Weight', 'Price', 'page', 'search', 'sort']
 export const addToQuery = (queryObj: ParsedUrlQuery, category: string, value: string) => {
   const copyQueryObj = { ...queryObj }
 
+  if (category !== 'page') {
+    delete copyQueryObj['page']
+  }
+
   if (shouldBeString.includes(category)) {
     copyQueryObj[category] = value
   } else {
@@ -20,6 +24,10 @@ export const addToQuery = (queryObj: ParsedUrlQuery, category: string, value: st
 
 export const deleteFromQuery = (queryObj: any, category: string, value: string) => {
   const copyQueryObj = { ...queryObj }
+
+  if (category !== 'page') {
+    delete copyQueryObj['page']
+  }
 
   if (shouldBeString.includes(category)) {
     delete copyQueryObj[category]
