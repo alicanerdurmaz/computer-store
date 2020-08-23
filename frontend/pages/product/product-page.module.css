@@ -1,0 +1,116 @@
+.container {
+  grid-area: body;
+  max-width: 1200px;
+  height: 1000px;
+
+  display: grid;
+  grid-template-rows: max-content 1fr;
+  grid-template-areas: 'summary' 'specs';
+}
+
+.summary_container {
+  box-shadow: 0 1px 2px var(--shadow);
+  border-radius: 8px;
+
+  grid-area: summary;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: 'image info';
+
+  .image_container {
+    grid-area: image;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    & > img {
+      width: 100%;
+    }
+  }
+
+  .info_container {
+    grid-area: info;
+    background: var(--c-bg-primary);
+    padding: 2rem 1rem;
+    padding-right: 0;
+    border-radius: 0;
+    border-left: 2px solid var(--c-border);
+    .name {
+      font-weight: 600;
+      font-size: 1.25rem;
+    }
+    .link {
+      margin-bottom: 0.25rem;
+      color: #537ecf;
+      font-weight: 600;
+    }
+    .seller {
+      border: 2px solid var(--c-border);
+      padding: 0.5rem;
+      margin: 2rem 0;
+      margin-right: 1rem;
+
+      background: var(--c-bg-secondary);
+
+      & > span {
+        font-weight: 600;
+        color: var(--c-text-secondary);
+      }
+    }
+    .price_button {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      .price {
+        font-size: 2rem;
+        font-weight: 600;
+        margin-left: 0.25rem;
+      }
+      .button {
+        margin-left: 1rem;
+        cursor: pointer;
+        font-weight: 700;
+        font-size: 13px;
+        padding: 0.5rem;
+        border-radius: 4px;
+
+        color: var(--c-text-on-p);
+        background: var(--c-primary);
+
+        transition: border var(--a-60-cubic);
+        border: 2px solid var(--c-bg-secondary);
+        &:hover {
+          color: var(--c-text-on-p);
+          background: var(--c-primary-light);
+        }
+      }
+    }
+  }
+}
+.specs_container {
+  grid-area: specs;
+  border-top: 2px solid var(--c-border);
+  background: var(--c-bg-secondary);
+  padding: 1rem;
+  table {
+    border-collapse: collapse;
+  }
+  tr {
+    border-bottom: 1px solid var(--c-border);
+    border-radius: 8px;
+    &:hover {
+      background: var(--c-bg-primary-dark);
+    }
+  }
+  td {
+    vertical-align: baseline;
+    text-align: start;
+    padding: 1rem 0;
+  }
+  .category {
+    display: inline-block;
+    width: max-content;
+  }
+  .value {
+    padding-left: 2rem;
+  }
+}

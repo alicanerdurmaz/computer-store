@@ -16,8 +16,8 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <ReactQueryConfigProvider config={queryConfig}>
         <Component {...pageProps} />
+        <ReactQueryDevtools initialIsOpen />
       </ReactQueryConfigProvider>
-      <ReactQueryDevtools initialIsOpen />
     </SiteLayout>
   )
 }

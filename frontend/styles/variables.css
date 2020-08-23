@@ -15,7 +15,9 @@
 
   --c-icon-color: #6e6d7a;
 
-  --c-bg-primary: #f7fbfc;
+  --c-bg-primary: #fafafa;
+  --c-bg-primary-dark: #c7c7c7;
+
   --c-bg-secondary: #ffffff;
   --c-bg-secondary-dark: #bfbfbf;
   --c-bg-secondary-darker: #919191;
