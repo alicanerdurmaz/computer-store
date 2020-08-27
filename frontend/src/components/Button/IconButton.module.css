@@ -1,0 +1,45 @@
+.button {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 50px;
+  padding: 0.5rem 1rem;
+
+  outline: none;
+  border: 1px solid transparent;
+  border-radius: 8px;
+
+  transition: background-color 90ms ease-in;
+  &:focus {
+    border: 1px solid var(--c-primary-light);
+  }
+  &:hover {
+    border: 1px solid transparent;
+    background-color: var(--c-primary-light);
+    color: var(--c-text-on-p);
+    & > svg,
+    div > svg {
+      fill: var(--c-text-on-p);
+    }
+  }
+  & > svg {
+    margin-right: 0.725rem;
+  }
+  text-align: center;
+  font-size: 0.825rem;
+}
+
+.text {
+  text-align: start;
+}
+
+.bg-primary {
+  background: var(--c-bg-primary);
+}
+
+.bg-secondary {
+  background: var(--c-bg-secondary);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}

@@ -7,7 +7,8 @@ import Spinner from '../Spinner/Spinner'
 import NotFoundIcon from '../Icons/NotFoundIcon'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useRouter } from 'next/router'
-import { addToQuery } from 'src/utils/changeQuery'
+import { addToQuery } from '../../utils/changeQuery'
+import CardSkeleton from './CardSkeleton'
 
 const CardList: React.FC = () => {
   const router = useRouter()
@@ -17,19 +18,22 @@ const CardList: React.FC = () => {
   )
 
   useEffect(() => {
+    if (router.route !== '/') return
     refetch()
   }, [router.query])
 
   if (error) return <div>'An error has occurred: ' + error.message</div>
-  if (data && !data.products.length) return <NotFoundIcon text="Product not found" />
+  if (data && !data.products?.length) return <NotFoundIcon text="Product not found" />
 
   return (
     <>
-      {isLoading || isFetching ? (
-        <Spinner />
-      ) : (
-        <AnimatePresence>
-          <div className={styles.container} aria-label="product list">
+      <div className={styles.container} aria-label="product list">
+        {isLoading || isFetching ? (
+          Array.from({ length: 10 }).map((e, i) => {
+            return <CardSkeleton key={i} />
+          })
+        ) : (
+          <AnimatePresence>
             {data.products.map((e: any, i: number) => {
               return (
                 <motion.div key={e._id} animate={{ opacity: 1 }} initial={{ opacity: 0 }}>
@@ -43,9 +47,9 @@ const CardList: React.FC = () => {
                 </motion.div>
               )
             })}
-          </div>
-        </AnimatePresence>
-      )}
+          </AnimatePresence>
+        )}
+      </div>
       <div className={styles.pagination_container}>
         {Array.from({ length: data?.numberOfPages }).map((e, i) => {
           const pageNumber = i + 1

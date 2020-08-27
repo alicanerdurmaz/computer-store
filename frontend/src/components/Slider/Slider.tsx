@@ -4,7 +4,7 @@ import cx from 'classnames'
 import styles from './Slider.module.css'
 import { useDebounce } from '../../hooks/useDebounce'
 import { useRouter } from 'next/router'
-import { deleteFromQuery, addToQuery } from 'src/utils/changeQuery'
+import { deleteFromQuery, addToQuery } from '../../utils/changeQuery'
 interface Props {
   title: string
   minRange: number
@@ -84,7 +84,7 @@ const Slider = ({ title, minRange, maxRange }: Props) => {
   const router = useRouter()
 
   const [sliderState, dispatchSlider] = useReducer(sliderReducer, {}, () =>
-    init(router.query[title] as string, minRange, maxRange),
+    init(router?.query[title] as string, minRange, maxRange),
   )
 
   const firstSlider = useRef<HTMLInputElement>(null)

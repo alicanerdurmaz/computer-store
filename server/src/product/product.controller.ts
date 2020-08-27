@@ -19,6 +19,7 @@ import { ProductFiltersPipe } from './pipes/product.filters-pipe';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/auth/decorators/get-user.decorator';
 import { User } from 'src/user/interfaces/user.interface';
+import { query } from 'express';
 
 @Controller('product')
 export class ProductController {
@@ -43,6 +44,11 @@ export class ProductController {
   @Get('/search')
   async searchProducts(@Query('term') term: string): Promise<Product[]> {
     return this.productService.searchProducts(term);
+  }
+  @Get('/test')
+  async test(@Query() query: string): Promise<any> {
+    console.log(query);
+    return;
   }
 
   @Get('/user')

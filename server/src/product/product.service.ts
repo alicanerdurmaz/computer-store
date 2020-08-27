@@ -160,10 +160,10 @@ export class ProductService {
 
         if (sliders.includes(key)) {
           if (filter[key][0] > value) {
-            filter[key][0] = value;
+            filter[key][0] = Math.ceil(value);
           }
           if (filter[key][1] < value) {
-            filter[key][1] = value;
+            filter[key][1] = Math.ceil(value);
           }
           continue;
         }

@@ -5,16 +5,19 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
+import { Model } from 'mongoose';
 import { User } from '../user/interfaces/user.interface';
 import { AuthCredentialsDto } from 'src/auth/dto/auth-credentials-dto';
 import * as bcrypt from 'bcrypt';
 import { UserDto } from './dto/user.dto';
 import { Product } from 'src/product/interfaces/product.interface';
+import { JwtPayload } from 'src/auth/interfaces/jwt-payload.interface';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UserService {
   constructor(
+    private readonly jwtService: JwtService,
     @InjectModel('user') private readonly userModel: Model<User>,
     @InjectModel('product') private readonly productModel: Model<Product>,
   ) {}
@@ -138,7 +141,7 @@ export class UserService {
 
   async register(
     authCredentialsDto: AuthCredentialsDto,
-  ): Promise<{ data: string }> {
+  ): Promise<{ accessToken: string }> {
     authCredentialsDto.password = await this.hashPassword(
       authCredentialsDto.password,
       10,
@@ -147,7 +150,15 @@ export class UserService {
 
     try {
       await newUser.save();
-      return { data: 'User Successfully Created' };
+
+      const payload: JwtPayload = {
+        email: authCredentialsDto.email,
+        id: newUser.id,
+      };
+
+      const accessToken = this.jwtService.sign(payload);
+
+      return { accessToken: accessToken };
     } catch (error) {
       // duplicate
       if (error.code === 11000) {
@@ -158,20 +169,15 @@ export class UserService {
     }
   }
 
-  async validateUserPassword(
-    authCredentialsDto: AuthCredentialsDto,
-  ): Promise<User> {
+  async validateUserPassword(password: string, email: string): Promise<User> {
     const user = await this.userModel
       .findOne({
-        email: authCredentialsDto.email,
+        email: email,
       })
       .select('password email')
       .exec();
 
-    if (
-      user &&
-      (await user.validatePassword(authCredentialsDto.password, user.password))
-    ) {
+    if (user && (await user.validatePassword(password, user.password))) {
       return user;
     } else {
       return null;

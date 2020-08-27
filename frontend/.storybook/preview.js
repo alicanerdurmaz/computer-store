@@ -1,14 +1,30 @@
-import { configure, addParameters, addDecorator } from '@storybook/react'
+import React from 'react'
+import { addDecorator } from '@storybook/react'
 
-addParameters({
-  options: {
-    storySort: (a, b) => (a[1].kind === b[1].kind ? 0 : a[1].id.localeCompare(b[1].id, undefined, { numeric: true })),
-  },
-})
+import Router from 'next/router'
+import { RouterContext } from 'next/dist/next-server/lib/router-context'
+
+export const parameters = {
+  actions: { argTypesRegex: '^on[A-Z].*' },
+}
 
 import '../styles/app.css'
 import './storybook.css'
 
-const loadStories = require.context('../src/components/', true, /.stories.tsx?$/)
-
-configure(loadStories, module)
+addDecorator(Story => {
+  Router.router = {
+    route: '/',
+    pathname: '/',
+    query: {},
+    asPath: '/',
+    push: () => {},
+    prefetch: () => new Promise((resolve, reject) => {}),
+  }
+  return (
+    <RouterContext.Provider value={Router.router}>
+      <div style={{ width: 'max-content', padding: '1rem' }}>
+        <Story />
+      </div>
+    </RouterContext.Provider>
+  )
+})

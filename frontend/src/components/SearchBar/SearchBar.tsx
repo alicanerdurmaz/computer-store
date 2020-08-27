@@ -5,7 +5,7 @@ import styles from './SearchBar.module.css'
 import SearchIcon from '../Icons/SearchIcon'
 import { useDebounce } from '../../hooks/useDebounce'
 import { useRouter } from 'next/router'
-import { addToQuery, deleteFromQuery } from 'src/utils/changeQuery'
+import { addToQuery, deleteFromQuery } from '../../utils/changeQuery'
 
 interface Props {
   className?: string
@@ -29,12 +29,21 @@ const SearchBar: React.FC<Props> = ({ className }: Props) => {
     }
   }, [])
 
+  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (inputValue.length >= 3) {
+      router.push(addToQuery(router.query, 'search', debouncedValue), undefined, { shallow: true })
+    } else {
+      router.push(deleteFromQuery(router.query, 'search', debouncedValue), undefined, { shallow: true })
+    }
+  }
+
   return (
     <form
       className={cx(styles.form, className)}
       aria-label="search products"
       role="search"
-      onSubmit={e => e.preventDefault()}
+      onSubmit={e => submitHandler(e)}
     >
       <input
         value={inputValue}

@@ -5,10 +5,13 @@ module.exports = {
     // Modify or replace config. Mutating the original reference object can cause unexpected bugs.
     const { module = {} } = baseConfig
 
+    baseConfig.resolve.modules = [...(baseConfig.resolve.modules || []), path.resolve('./')]
+
     const newConfig = {
       ...baseConfig,
       module: {
         ...module,
+
         rules: [...(module.rules || [])],
       },
     }

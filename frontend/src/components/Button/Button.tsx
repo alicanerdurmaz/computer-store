@@ -1,27 +1,19 @@
 import React from 'react'
+import styles from './Button.module.css'
 import cx from 'classnames'
 
-import styles from './Button.module.css'
-
 interface Props {
-  text?: string
-  bgColor?: string
-  badge?: JSX.Element
-  icon?: JSX.Element
   children?: React.ReactNode
+  className?: string | null
+  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+  type?: 'button' | 'submit' | 'reset' | undefined
+  disabled?: boolean
+  style?: React.CSSProperties | undefined
 }
-const Button: React.FC<Props> = ({ icon, badge, bgColor = 'bg-primary', text }: Props) => {
+const Button = ({ children, className, type = 'button', onClick, disabled, style }: Props) => {
   return (
-    <button className={cx(styles.button, styles[bgColor])}>
-      {icon}
-      {badge}
-      {text ? (
-        <span className={styles.text}>
-          <span>Hello,</span>
-          <br></br>
-          {text}
-        </span>
-      ) : null}
+    <button style={style} disabled={disabled} type={type} className={cx(className, styles.button)} onClick={onClick}>
+      {children}
     </button>
   )
 }

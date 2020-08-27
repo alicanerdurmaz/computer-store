@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './Dropdown.module.css'
-import { addToQuery } from 'src/utils/changeQuery'
+import { addToQuery } from '../../utils/changeQuery'
 import { useRouter } from 'next/router'
 
 const Dropdown = () => {

@@ -1,12 +1,13 @@
 .container {
   position: relative;
+  right: 0;
 }
 .counter {
-  border: 1px solid var(--c-pale-pink);
+  border: 1px solid #fadde1;
   position: absolute;
 
   background-color: var(--c-bg-secondary);
-  color: var(--c-secondary);
+  color: #ff5d8f;
 
   font-weight: 700;
   text-align: center;

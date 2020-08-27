@@ -14,16 +14,15 @@ export class AuthService {
 
   async register(
     authCredentialsDto: AuthCredentialsDto,
-  ): Promise<{ data: string }> {
+  ): Promise<{ accessToken: string }> {
     return await this.userService.register(authCredentialsDto);
   }
 
   async login(
-    authCredentialsDto: AuthCredentialsDto,
+    password: string,
+    email: string,
   ): Promise<{ accessToken: string }> {
-    const user = await this.userService.validateUserPassword(
-      authCredentialsDto,
-    );
+    const user = await this.userService.validateUserPassword(password, email);
 
     if (!user) {
       throw new UnauthorizedException('Invalid Credentials');

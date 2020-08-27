@@ -1,14 +1,14 @@
 import React from 'react'
 
-import cx from 'classnames'
 import styles from './Header.module.css'
 
 import Logo from '../Logo/Logo'
 import SearchBar from '../SearchBar/SearchBar'
-import Button from '../Button/Button'
+import IconButton from '../Button/IconButton'
 import UserIcon from '../Icons/UserIcon'
 import CartIcon from '../Icons/CartIcon'
 import ButtonBadge from '../Button/ButtonBadge'
+import Link from 'next/link'
 
 interface Props {}
 const Header: React.FC<Props> = ({}: Props) => {
@@ -19,12 +19,19 @@ const Header: React.FC<Props> = ({}: Props) => {
       <SearchBar className={styles.search}></SearchBar>
 
       <div className={styles.btn_group}>
-        <Button text="Alican&nbsp;Erdurmaz" icon={<UserIcon iconWidth="24" iconHeight="24"></UserIcon>}></Button>
-        <Button
+        <Link href="/auth">
+          <a>
+            <IconButton
+              text="Alican&nbsp;Erdurmaz"
+              icon={<UserIcon iconWidth="24" iconHeight="24"></UserIcon>}
+            ></IconButton>
+          </a>
+        </Link>
+        <IconButton
           bgColor="bg-secondary"
           icon={<CartIcon iconWidth="30" iconHeight="30" />}
           badge={<ButtonBadge count={0} />}
-        ></Button>
+        ></IconButton>
       </div>
     </div>
   )

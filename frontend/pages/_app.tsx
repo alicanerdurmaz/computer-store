@@ -6,7 +6,8 @@ import { ReactQueryDevtools } from 'react-query-devtools'
 import { ReactQueryConfigProvider } from 'react-query'
 
 const queryConfig = { queries: { refetchOnWindowFocus: false } }
-export default function App({ Component, pageProps }: AppProps) {
+
+export default function App({ Component, pageProps, router }: AppProps) {
   return (
     <SiteLayout>
       <Head>

@@ -9,14 +9,15 @@ export class AuthController {
   @Post('/register')
   async register(
     @Body(ValidationPipe) authCredentialsDto: AuthCredentialsDto,
-  ): Promise<{ data: string }> {
+  ): Promise<{ accessToken: string }> {
     return await this.authService.register(authCredentialsDto);
   }
 
   @Post('/login')
   async login(
-    @Body(ValidationPipe) authCredentialsDto: AuthCredentialsDto,
+    @Body('password') password: string,
+    @Body('email') email: string,
   ): Promise<{ accessToken: string }> {
-    return await this.authService.login(authCredentialsDto);
+    return await this.authService.login(password, email);
   }
 }

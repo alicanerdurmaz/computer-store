@@ -6,6 +6,7 @@ import { userSchema } from './user.schema';
 import { AuthModule } from 'src/auth/auth.module';
 import { ProductModule } from 'src/product/product.module';
 import { productSchema } from 'src/product/product.schema';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -15,6 +16,9 @@ import { productSchema } from 'src/product/product.schema';
       { name: 'product', schema: productSchema },
     ]),
     AuthModule,
+    JwtModule.register({
+      secret: process.env.JWT_SECRET,
+    }),
   ],
   controllers: [UserController],
   providers: [UserService],

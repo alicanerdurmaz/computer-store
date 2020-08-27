@@ -10,27 +10,11 @@ export default {
 }
 
 export const Default = () => {
-  return (
-    <div
-      style={{
-        width: '200px',
-      }}
-    >
-      <Checkbox category="Manufacturer" value="Asus" count={12} />
-    </div>
-  )
+  return <Checkbox category="Manufacturer" value="Asus" count={12} />
 }
 
 export const List = () => {
-  return (
-    <div
-      style={{
-        width: '200px',
-      }}
-    >
-      <CheckboxList title="Manufacturer" checkboxList={getData()}></CheckboxList>
-    </div>
-  )
+  return <CheckboxList title="Manufacturer" checkboxList={getData()}></CheckboxList>
 }
 
 function getData() {

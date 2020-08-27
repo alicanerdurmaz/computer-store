@@ -3,6 +3,7 @@ import { ParsedUrlQuery } from 'querystring'
 const shouldBeString = ['Weight', 'Price', 'page', 'search', 'sort']
 
 export const addToQuery = (queryObj: ParsedUrlQuery, category: string, value: string) => {
+  console.log(window.location)
   const copyQueryObj = { ...queryObj }
 
   if (category !== 'page') {

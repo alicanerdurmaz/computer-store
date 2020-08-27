@@ -8,7 +8,7 @@ export default {
 }
 
 export const Default = () => {
-  return <div style={{ width: '220px' }}>{<Sidebar filters={getData()}></Sidebar>}</div>
+  return <Sidebar filters={getData()}></Sidebar>
 }
 
 function getData() {
