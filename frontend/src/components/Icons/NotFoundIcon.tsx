@@ -8,7 +8,7 @@ interface Props {
 const NotFoundIcon = ({ text }: Props) => {
   return (
     <div className={styles.NotFoundIcon}>
-      <h1>{text}</h1>
+      <h1 className={styles.text}>{text}</h1>
       <svg
         height="512pt"
         viewBox="0 -16 512 512"

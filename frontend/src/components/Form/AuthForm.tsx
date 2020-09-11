@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
-import styles from './index.module.css'
-import Button from '../../src/components/Button/Button'
-import { API_Login, API_Signup } from '../../src/utils/api'
-import { AuthDto } from './auth-form.dto'
+import styles from './AuthForm.module.css'
+import { API_Login, API_Signup } from 'src/utils/api'
+import { AuthDto } from 'src/utils/auth-form.dto'
+import Button from '../Button/Button'
+
 interface FormData {
   email: string
   password: string

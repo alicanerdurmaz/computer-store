@@ -4,12 +4,26 @@ import styles from './index.module.css'
 import Sidebar from '../src/components/Sidebar/Sidebar'
 import ProductListHeader from '../src/components/ProductListHeader/ProductListHeader'
 import cx from 'classnames'
+import SidebarSkeleton from 'src/components/Sidebar/SidebarSkeleton'
 
 interface Props {
   filters: Record<string, any>
 }
-export default function Home({ filters }: Props) {
+export default function Home() {
   const [sidebar, setSideBar] = useState(false)
+  const [filters, setFilters] = useState(null)
+  useEffect(() => {
+    const getFilters = async () => {
+      try {
+        const res = await fetch(`http://localhost:3001/product/filters`)
+        const data = await res.json()
+        setFilters(data)
+      } catch (error) {
+        //  @TODO Proper way to error handling
+      }
+    }
+    getFilters()
+  }, [])
 
   return (
     <>
@@ -26,7 +40,7 @@ export default function Home({ filters }: Props) {
           ></div>
         )}
         <div className={cx(styles.sidebar, sidebar ? styles.sidebar_open : null)}>
-          <Sidebar filters={filters}></Sidebar>
+          {!filters ? <SidebarSkeleton /> : <Sidebar filters={filters}></Sidebar>}
         </div>
         <div className={cx(styles.on_background)} />
         <div className={styles.content}>
@@ -36,13 +50,4 @@ export default function Home({ filters }: Props) {
       </div>
     </>
   )
-}
-
-export async function getServerSideProps() {
-  // Fetch data from external API
-  const res = await fetch(`http://localhost:3001/product/filters`)
-  const data = await res.json()
-
-  // Pass data to the page via props
-  return { props: { filters: data } }
 }

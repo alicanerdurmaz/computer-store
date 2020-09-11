@@ -8,8 +8,8 @@
   height: 200px;
   margin: 0 auto;
   text-align: center;
-  h1 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-  }
+}
+.text {
+  font-size: 2rem;
+  margin-bottom: 1rem;
 }

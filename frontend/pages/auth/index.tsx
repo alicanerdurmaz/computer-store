@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import styles from './index.module.css'
-import AuthForm from './_AuthForm'
+import AuthForm from '../../src/components/Form/AuthForm'
 import Button from 'src/components/Button/Button'
 
 const Login = () => {
