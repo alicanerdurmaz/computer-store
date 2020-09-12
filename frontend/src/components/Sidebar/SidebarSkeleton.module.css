@@ -31,6 +31,7 @@
   color: #f6f7f8;
   position: relative;
   overflow: hidden;
+  border-radius: 4px;
 }
 
 @keyframes shimmer {

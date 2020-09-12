@@ -10,6 +10,10 @@ export const AuthDto = {
     },
   },
   'Sign up': {
+    name: {
+      required: 'Name cannot be empty',
+      maxLength: { value: 30, message: 'Name can be maximum of 30 characters' },
+    },
     email: {
       required: 'Email cannot be empty',
       validate: (value: string) => {

@@ -9,9 +9,12 @@ import UserIcon from '../Icons/UserIcon'
 import CartIcon from '../Icons/CartIcon'
 import ButtonBadge from '../Button/ButtonBadge'
 import Link from 'next/link'
+import { useUserContext } from 'src/context/UserContext'
+import Button from '../Button/Button'
 
 interface Props {}
 const Header: React.FC<Props> = ({}: Props) => {
+  const { userState } = useUserContext()
   return (
     <div className={styles.header}>
       <Logo className={styles.logo}></Logo>
@@ -19,14 +22,17 @@ const Header: React.FC<Props> = ({}: Props) => {
       <SearchBar className={styles.search}></SearchBar>
 
       <div className={styles.btn_group}>
-        <Link href="/auth">
-          <a>
-            <IconButton
-              text="Alican&nbsp;Erdurmaz"
-              icon={<UserIcon iconWidth="24" iconHeight="24"></UserIcon>}
-            ></IconButton>
-          </a>
-        </Link>
+        {userState ? (
+          <IconButton text={userState.name} icon={<UserIcon iconWidth="24" iconHeight="24"></UserIcon>}></IconButton>
+        ) : (
+          <Link href="/auth">
+            <a>
+              <Button className={styles.btn_login}>
+                Log In <span style={{ color: 'var(--c-primary' }}>or</span> Sign Up
+              </Button>
+            </a>
+          </Link>
+        )}
         <IconButton
           bgColor="bg-secondary"
           icon={<CartIcon iconWidth="30" iconHeight="30" />}

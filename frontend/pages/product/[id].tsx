@@ -97,7 +97,6 @@ const Product = ({ product }: Props) => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  console.log(params)
   const res = await fetch(`http://localhost:3001/product/${params?.id}`)
   const product = await res.json()
 

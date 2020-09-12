@@ -1,9 +1,14 @@
 import React from 'react'
 
+import cx from 'classnames'
 import styles from './Spinner.module.css'
 
-const Spinner = (className: any) => {
-  return <div className={styles.spinner} aria-label="loading screen"></div>
+interface Props {
+  className?: string
+}
+
+const Spinner = ({ className }: Props) => {
+  return <div className={cx(styles.spinner, className)} aria-label="loading screen"></div>
 }
 
 export default Spinner

@@ -9,10 +9,17 @@ interface Props {
   type?: 'button' | 'submit' | 'reset' | undefined
   disabled?: boolean
   style?: React.CSSProperties | undefined
+  variant?: 'ghost' | 'primary'
 }
-const Button = ({ children, className, type = 'button', onClick, disabled, style }: Props) => {
+const Button = ({ variant = 'ghost', children, className, type = 'button', onClick, disabled, style }: Props) => {
   return (
-    <button style={style} disabled={disabled} type={type} className={cx(className, styles.button)} onClick={onClick}>
+    <button
+      style={style}
+      disabled={disabled}
+      type={type}
+      className={cx(className, styles.button, styles[variant])}
+      onClick={onClick}
+    >
       {children}
     </button>
   )

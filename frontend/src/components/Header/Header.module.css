@@ -1,7 +1,7 @@
 .header {
   grid-area: header;
   overflow: hidden;
-
+  padding: 0 1rem;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -20,6 +20,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.btn_login {
+  white-space: nowrap;
+  background: var(--c-bg-secondary);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 1rem 1rem;
+  margin: 0 1rem;
+  &:hover {
+    background: var(--c-primary-light);
+    color: var(--c-text-on-p);
+  }
 }
 
 @media only screen and (max-width: 800px) {

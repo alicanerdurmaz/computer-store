@@ -4,6 +4,9 @@
   border-radius: 8px;
   letter-spacing: 1px;
   font-weight: 600;
+}
+
+.ghost {
   color: var(--c-text);
   background: var(--c-bg-primary);
 }

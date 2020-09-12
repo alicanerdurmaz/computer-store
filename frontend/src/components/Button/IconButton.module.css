@@ -1,4 +1,5 @@
 .button {
+  color: var(--c-text);
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -33,6 +34,13 @@
 
 .text {
   text-align: start;
+  display: block;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  max-width: 170px;
+  text-align: left;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
 }
 
 .bg-primary {

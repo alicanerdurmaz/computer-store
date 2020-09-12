@@ -56,3 +56,24 @@ export const API_Signup = async (name: string, email: string, password: string) 
     return { error: 'Something went wrong. Please try again later' }
   }
 }
+
+export const API_GetUser = async (accessToken: string) => {
+  try {
+    const response = await fetch('http://localhost:3001/user', {
+      method: 'GET',
+      headers: {
+        'content-type': 'application/json',
+        authorization: 'Bearer ' + accessToken,
+      },
+    })
+
+    if (response.status === 401) {
+      return null
+    }
+    const data = await response.json()
+
+    return data
+  } catch (error) {
+    return null
+  }
+}
