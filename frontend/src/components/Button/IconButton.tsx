@@ -9,10 +9,11 @@ interface Props {
   badge?: JSX.Element
   icon?: JSX.Element
   children?: React.ReactNode
+  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
-const IconButton: React.FC<Props> = ({ icon, badge, bgColor = 'bg-primary', text }: Props) => {
+const IconButton: React.FC<Props> = ({ onClick, icon, badge, bgColor = 'bg-primary', text }: Props) => {
   return (
-    <button className={cx(styles.button, styles[bgColor])}>
+    <button onClick={onClick} className={cx(styles.button, styles[bgColor])}>
       {icon}
       {badge}
       {text ? (

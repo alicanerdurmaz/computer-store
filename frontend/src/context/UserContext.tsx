@@ -10,7 +10,7 @@ interface IUser {
 
 interface IAction {
   type: 'save' | 'delete'
-  payload: IUser
+  payload: IUser | null
 }
 interface IUserContext {
   userState: IUser | null
