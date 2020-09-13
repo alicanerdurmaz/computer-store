@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import styles from './Header.module.css'
 
@@ -9,19 +9,20 @@ import UserIcon from '../Icons/UserIcon'
 import CartIcon from '../Icons/CartIcon'
 import ButtonBadge from '../Button/ButtonBadge'
 import Link from 'next/link'
-import { useUserContext } from 'src/context/UserContext'
+import { useUserContext } from 'src/context/UserContext/UserContext'
 import Button from '../Button/Button'
 import { useRouter } from 'next/router'
+import useLocalStorage from 'src/hooks/useLocalStorage'
 
 interface Props {}
 const Header: React.FC<Props> = ({}: Props) => {
   const router = useRouter()
-  const { userState, dispatchUserState, setAccessToken } = useUserContext()
+  const { userState, cartInLocalStorage, dispatchUserState, setAccessToken } = useUserContext()
 
   const logout = () => {
     dispatchUserState({
       type: 'delete',
-      payload: null,
+      payload: userState as any,
     })
     setAccessToken(null)
   }
@@ -51,7 +52,7 @@ const Header: React.FC<Props> = ({}: Props) => {
         <IconButton
           bgColor="bg-secondary"
           icon={<CartIcon iconWidth="30" iconHeight="30" />}
-          badge={<ButtonBadge count={0} />}
+          badge={<ButtonBadge count={cartInLocalStorage ? cartInLocalStorage.length : 0} />}
         ></IconButton>
       </div>
     </div>

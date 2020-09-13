@@ -4,7 +4,7 @@ import type { AppProps } from 'next/app'
 import SiteLayout from '../src/components/Layout/SiteLayout'
 import { ReactQueryDevtools } from 'react-query-devtools'
 import { ReactQueryConfigProvider } from 'react-query'
-import { UserContextProvider } from 'src/context/UserContext'
+import { UserContextProvider } from 'src/context/UserContext/UserContext'
 
 const queryConfig = { queries: { refetchOnWindowFocus: false } }
 

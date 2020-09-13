@@ -1,8 +1,8 @@
 import React from 'react'
-import Image from '../Image/Image'
-
-import styles from './Card.module.css'
 import Link from 'next/link'
+import Image from '../Image/Image'
+import { Product } from 'src/context/UserContext/interfaces'
+import styles from './Card.module.css'
 
 interface Props {
   name: string
@@ -10,8 +10,9 @@ interface Props {
   image: string
   imageIsLazy?: 'eager' | 'lazy'
   id: string
+  addOneToCart: (obj: Product) => void
 }
-const Card = React.memo(function Card({ name, price, image, imageIsLazy, id }: Props) {
+const Card = React.memo(function Card({ addOneToCart, name, price, image, imageIsLazy, id }: Props) {
   return (
     <Link href="/product/[id]" as={`/product/${id}`}>
       <div className={styles.item} tabIndex={0}>
@@ -26,7 +27,7 @@ const Card = React.memo(function Card({ name, price, image, imageIsLazy, id }: P
               className={styles.button}
               onClick={e => {
                 e.stopPropagation()
-                alert('clicked cart')
+                addOneToCart(id)
               }}
             >
               ADD TO CART

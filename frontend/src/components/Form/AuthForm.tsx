@@ -7,7 +7,7 @@ import { AuthDto } from 'src/utils/auth-form.dto'
 import Button from '../Button/Button'
 import { useRouter } from 'next/router'
 import Spinner from '../Spinner/Spinner'
-import { useUserContext } from 'src/context/UserContext'
+import { useUserContext } from 'src/context/UserContext/UserContext'
 
 interface FormData {
   email: string

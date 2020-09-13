@@ -3,15 +3,17 @@ import React, { useEffect, useState } from 'react'
 import Card from './Card'
 import styles from './CardList.module.css'
 import { useQuery } from 'react-query'
-import Spinner from '../Spinner/Spinner'
 import NotFoundIcon from '../Icons/NotFoundIcon'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useRouter } from 'next/router'
 import { addToQuery } from '../../utils/changeQuery'
 import CardSkeleton from './CardSkeleton'
 
+import { useUserContext } from 'src/context/UserContext/UserContext'
+
 const CardList: React.FC = () => {
   const router = useRouter()
+  const { addOneToCart } = useUserContext()
 
   const { isLoading, error, data, refetch, isFetching } = useQuery('productsData', () =>
     fetch(`http://localhost:3001/product${router.asPath}`).then(res => res.json()),
@@ -43,6 +45,7 @@ const CardList: React.FC = () => {
                     price={e.Price}
                     image={e.Images[0]}
                     imageIsLazy={i > 5 ? 'lazy' : 'eager'}
+                    addOneToCart={addOneToCart}
                   ></Card>
                 </motion.div>
               )
