@@ -49,11 +49,15 @@ const Header: React.FC<Props> = ({}: Props) => {
             </a>
           </Link>
         )}
-        <IconButton
-          bgColor="bg-secondary"
-          icon={<CartIcon iconWidth="30" iconHeight="30" />}
-          badge={<ButtonBadge count={cartInLocalStorage ? cartInLocalStorage.length : 0} />}
-        ></IconButton>
+        <Link href="/cart">
+          <a>
+            <IconButton
+              bgColor="bg-secondary"
+              icon={<CartIcon iconWidth="30" iconHeight="30" />}
+              badge={<ButtonBadge count={cartInLocalStorage ? cartInLocalStorage.length : 0} />}
+            ></IconButton>
+          </a>
+        </Link>
       </div>
     </div>
   )
