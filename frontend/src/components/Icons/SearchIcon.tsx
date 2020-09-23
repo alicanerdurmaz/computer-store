@@ -12,9 +12,9 @@ const SearchIcon = ({ iconWidth = '24', iconHeight = '24' }) => {
       xmlns="http://www.w3.org/2000/svg"
       height={iconHeight}
       width={iconWidth}
-      viewBox="0 0 24 24"
-      fill="currentColor"
       className={styles.icon}
+      fill="currentColor"
+      viewBox="0 0 24 24"
       role="img"
     >
       <path d="M0 0h24v24H0V0z" fill="none" />

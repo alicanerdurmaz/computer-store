@@ -19,7 +19,6 @@ import { ProductFiltersPipe } from './pipes/product.filters-pipe';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/auth/decorators/get-user.decorator';
 import { User } from 'src/user/interfaces/user.interface';
-import { query } from 'express';
 
 @Controller('product')
 export class ProductController {
@@ -45,16 +44,16 @@ export class ProductController {
   async searchProducts(@Query('term') term: string): Promise<Product[]> {
     return this.productService.searchProducts(term);
   }
-  @Get('/test')
-  async test(@Query() query: string): Promise<any> {
-    console.log(query);
-    return;
-  }
 
   @Get('/user')
   @UseGuards(AuthGuard())
   async getUserProducts(@GetUser() user: User): Promise<Product[]> {
     return await this.productService.getUserProducts(user.id);
+  }
+
+  @Get('/find-many')
+  async getManyProduct(@Query('idArray') idArray: string): Promise<Product[]> {
+    return this.productService.getManyProduct(idArray);
   }
 
   @Get('/:id')

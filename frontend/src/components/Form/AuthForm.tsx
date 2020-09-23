@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import styles from './AuthForm.module.css'
-import { API_Login, API_Signup, API_GetUser } from 'src/utils/api'
+import { API_Login, API_Signup, API_GetUser, API_MergeLocalStorageCartWithDatabase } from 'src/utils/api'
 import { AuthDto } from 'src/utils/auth-form.dto'
 import Button from '../Button/Button'
 import { useRouter } from 'next/router'
@@ -24,7 +24,7 @@ const AuthForm = ({ activePage }: Props) => {
   const [showPassword, setShowPassword] = useState(false)
   const [serverError, setServerError] = useState<string | null>(null)
   const { register, unregister, handleSubmit, errors } = useForm<FormData>({
-    defaultValues: { email: '1alican@computerstore.com', password: 'ComputerStore!' },
+    defaultValues: { email: 'alican@computerstore.com', password: 'ComputerStore!' },
   })
   const [submitting, setSubmitting] = useState(false)
 
@@ -40,8 +40,8 @@ const AuthForm = ({ activePage }: Props) => {
       setServerError(result.error)
     } else {
       setServerError(null)
+      await API_MergeLocalStorageCartWithDatabase(result.accessToken)
       const user = await API_GetUser(result.accessToken)
-
       if (user) {
         setAccessToken(result.accessToken)
         dispatchUserState({

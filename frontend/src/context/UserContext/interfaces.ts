@@ -3,16 +3,15 @@ export interface User {
   shoppingCart: string[]
   name: string
   email: string
-
   addresses: []
 }
 
 export interface Action {
-  type: 'save' | 'delete' | 'add-to-cart-one' | 'delete-from-cart-one' | 'delete-from-cart-all' | 'save-cart'
+  type: 'save' | 'delete' | 'update-cart' | 'delete-from-cart-one' | 'delete-from-cart-all' | 'save-cart'
   payload: User | string | string[]
 }
 export interface ActionCart {
-  type: 'save' | 'delete' | 'add-to-cart-one' | 'delete-from-cart-one' | 'delete-from-cart-all'
+  type: 'add-to-cart-one' | 'delete-from-cart-one' | 'delete-from-cart-all'
   payload: string
 }
 export interface IUserContext {
@@ -20,7 +19,7 @@ export interface IUserContext {
   accessToken: string | null
   dispatchUserState: React.Dispatch<Action>
   setAccessToken: React.Dispatch<React.SetStateAction<string | null>>
-  cartInLocalStorage: string[]
+  cartInLocalStorage: string
   dispatchCartInLocalStorage: React.Dispatch<ActionCart>
   addOneToCart: (id: string) => void
   removeOneFromCart: (id: string) => void
@@ -58,4 +57,11 @@ export interface Product {
   Price: number
   SellerName: string
   Seller: string
+}
+
+export interface ProductPreview {
+  _id: string
+  Images: string[]
+  Name: string
+  Price: number
 }

@@ -6,6 +6,7 @@
 
   transition: border var(--a-60-cubic);
   border: 2px solid transparent;
+
   &:hover {
     border: 2px solid var(--c-primary-light);
   }
@@ -71,5 +72,13 @@
   &:hover {
     color: var(--c-text-on-p);
     background: var(--c-primary-light);
+  }
+}
+
+.color_pink {
+  color: #f56a79;
+  &:hover {
+    color: var(--c-text-on-p);
+    background: #f56a79;
   }
 }

@@ -25,7 +25,7 @@ export class AuthService {
     const user = await this.userService.validateUserPassword(password, email);
 
     if (!user) {
-      throw new UnauthorizedException('Invalid Credentials');
+      throw new UnauthorizedException('Email or Password is invalid');
     }
 
     const payload: JwtPayload = { email: user.email, id: user.id };

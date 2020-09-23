@@ -59,12 +59,13 @@ export class UserService {
   async addOneToShoppingCart(
     productId: string,
     userId: string,
-  ): Promise<{ data: string[] }> {
+  ): Promise<string[]> {
+    const productArray = productId.split(',');
     const updatedShoppingCart = await this.userModel.findOneAndUpdate(
       {
         _id: userId,
       },
-      { $push: { shoppingCart: productId } },
+      { $push: { shoppingCart: { $each: productArray } } },
       { new: true },
     );
 
@@ -72,12 +73,12 @@ export class UserService {
       throw new NotFoundException(`Something went wrong when updating cart`);
     }
 
-    return { data: updatedShoppingCart.shoppingCart };
+    return updatedShoppingCart.shoppingCart;
   }
   async removeOneFromShoppingCart(
     productId: string,
     userId: string,
-  ): Promise<{ data: string[] }> {
+  ): Promise<string[]> {
     const updatedShoppingCart = await this.userModel.findOneAndUpdate(
       {
         _id: userId,
@@ -90,10 +91,10 @@ export class UserService {
       throw new NotFoundException(`Something went wrong when updating cart`);
     }
 
-    return { data: updatedShoppingCart.shoppingCart };
+    return updatedShoppingCart.shoppingCart;
   }
 
-  async removeAllFromShoppingCart(userId: string): Promise<{ data: string[] }> {
+  async removeAllFromShoppingCart(userId: string): Promise<string[]> {
     const updatedShoppingCart = await this.userModel.findOneAndUpdate(
       {
         _id: userId,
@@ -105,7 +106,7 @@ export class UserService {
     if (!updatedShoppingCart) {
       throw new NotFoundException(`Something went wrong when updating cart`);
     }
-    return { data: updatedShoppingCart.shoppingCart };
+    return updatedShoppingCart.shoppingCart;
   }
   async getOrder(userId: string): Promise<User> {
     const found = (await this.userModel

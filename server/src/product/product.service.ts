@@ -87,6 +87,21 @@ export class ProductService {
     return found;
   }
 
+  async getManyProduct(idArray: string): Promise<Product[]> {
+    try {
+      const data = (await this.productModel
+        .find({
+          _id: { $in: idArray.split(',') },
+        })
+        .select('Name Price Images _id')
+        .lean()
+        .exec()) as Product[];
+      return data;
+    } catch (error) {
+      throw new NotFoundException(`Product with  not found`);
+    }
+  }
+
   async createProduct(createProductDto: CreateProductDto): Promise<Product> {
     const createdProduct = new this.productModel(createProductDto);
     this.createFilters();

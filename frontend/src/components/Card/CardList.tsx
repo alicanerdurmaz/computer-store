@@ -13,7 +13,7 @@ import { useUserContext } from 'src/context/UserContext/UserContext'
 
 const CardList: React.FC = () => {
   const router = useRouter()
-  const { addOneToCart } = useUserContext()
+  const { userState, addOneToCart, removeOneFromCart } = useUserContext()
 
   const { isLoading, error, data, refetch, isFetching } = useQuery('productsData', () =>
     fetch(`http://localhost:3001/product${router.asPath}`).then(res => res.json()),
@@ -27,6 +27,15 @@ const CardList: React.FC = () => {
   if (error) return <div>'An error has occurred: ' + error.message</div>
   if (data && !data.products?.length) return <NotFoundIcon text="Product not found" />
 
+  const checkIsInCart = (id: string) => {
+    if (userState) {
+      if (userState.shoppingCart.includes(id)) return true
+    } else {
+      if (window.localStorage.getItem('cart')?.includes(id + ',')) return true
+    }
+
+    return false
+  }
   return (
     <>
       <div className={styles.container} aria-label="product list">
@@ -46,6 +55,8 @@ const CardList: React.FC = () => {
                     image={e.Images[0]}
                     imageIsLazy={i > 5 ? 'lazy' : 'eager'}
                     addOneToCart={addOneToCart}
+                    removeOneFromCart={removeOneFromCart}
+                    isInCart={checkIsInCart(e._id)}
                   ></Card>
                 </motion.div>
               )

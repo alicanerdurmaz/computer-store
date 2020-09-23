@@ -1,18 +1,42 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
 import Image from '../Image/Image'
-import { Product } from 'src/context/UserContext/interfaces'
 import styles from './Card.module.css'
-
+import cx from 'classnames'
 interface Props {
+  isInCart: boolean
   name: string
   price: string
   image: string
   imageIsLazy?: 'eager' | 'lazy'
   id: string
-  addOneToCart: (obj: Product) => void
+  addOneToCart: (obj: string) => void
+  removeOneFromCart: (obj: string) => void
 }
-const Card = React.memo(function Card({ addOneToCart, name, price, image, imageIsLazy, id }: Props) {
+const Card = React.memo(function Card({
+  isInCart,
+  removeOneFromCart,
+  addOneToCart,
+  name,
+  price,
+  image,
+  imageIsLazy,
+  id,
+}: Props) {
+  const [isLoading, setIsLoading] = useState(false)
+
+  const removeHandler = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    setIsLoading(true)
+    e.stopPropagation()
+    await removeOneFromCart(id)
+    setIsLoading(false)
+  }
+  const addHandler = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    setIsLoading(true)
+    e.stopPropagation()
+    await addOneToCart(id)
+    setIsLoading(false)
+  }
   return (
     <Link href="/product/[id]" as={`/product/${id}`}>
       <div className={styles.item} tabIndex={0}>
@@ -23,15 +47,20 @@ const Card = React.memo(function Card({ addOneToCart, name, price, image, imageI
           </h1>
           <div className={styles.footer}>
             <h1 className={styles.price}>${price}</h1>
-            <button
-              className={styles.button}
-              onClick={e => {
-                e.stopPropagation()
-                addOneToCart(id)
-              }}
-            >
-              ADD TO CART
-            </button>
+
+            {isInCart ? (
+              <button
+                disabled={isLoading}
+                className={cx(styles.button, styles.color_pink)}
+                onClick={e => removeHandler(e)}
+              >
+                Remove from cart
+              </button>
+            ) : (
+              <button disabled={isLoading} className={styles.button} onClick={e => addHandler(e)}>
+                ADD TO CART
+              </button>
+            )}
           </div>
         </div>
       </div>

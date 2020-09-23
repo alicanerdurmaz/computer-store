@@ -77,3 +77,69 @@ export const API_GetUser = async (accessToken: string) => {
     return null
   }
 }
+
+export const API_GetProducts = async (cartArray: string) => {
+  try {
+    const response = await fetch(`http://localhost:3001/product/find-many?idArray=${cartArray}`)
+    const data = await response.json()
+
+    if (data.error) {
+      return []
+    }
+
+    return data
+  } catch (error) {
+    return []
+  }
+}
+
+export const API_MergeLocalStorageCartWithDatabase = async (accessToken: string) => {
+  try {
+    const cart = window.localStorage.getItem('cart')
+    if (!cart) return
+
+    await fetch(`http://localhost:3001/user/cart/add?productId=${cart.slice(0, -1)}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: 'Bearer ' + accessToken,
+      },
+    })
+    window.localStorage.removeItem('cart')
+  } catch (error) {}
+}
+
+export const API_AddOneToCart = async (id: string, accessToken: string) => {
+  try {
+    const response = await fetch(`http://localhost:3001/user/cart/add?productId=${id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: 'Bearer ' + accessToken,
+      },
+    })
+    const data = await response.json()
+
+    if (data.error) {
+      return null
+    } else {
+      return data
+    }
+  } catch (error) {}
+}
+
+export const API_RemoveOneFromCart = async (id: string, accessToken: string) => {
+  try {
+    const result = await fetch(`http://localhost:3001/user/cart/remove?productId=${id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: 'Bearer ' + accessToken,
+      },
+    })
+    const data = await result.json()
+    return data
+  } catch (error) {
+    return null
+  }
+}

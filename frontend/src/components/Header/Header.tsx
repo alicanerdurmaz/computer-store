@@ -11,20 +11,39 @@ import ButtonBadge from '../Button/ButtonBadge'
 import Link from 'next/link'
 import { useUserContext } from 'src/context/UserContext/UserContext'
 import Button from '../Button/Button'
-import { useRouter } from 'next/router'
-import useLocalStorage from 'src/hooks/useLocalStorage'
 
-interface Props {}
-const Header: React.FC<Props> = ({}: Props) => {
-  const router = useRouter()
-  const { userState, cartInLocalStorage, dispatchUserState, setAccessToken } = useUserContext()
+const Header = () => {
+  const [badgeCount, setBadgeCount] = useState(0)
+  const {
+    userState,
+    dispatchUserState,
+    dispatchCartInLocalStorage,
+    setAccessToken,
+    cartInLocalStorage,
+  } = useUserContext()
 
   const logout = () => {
     dispatchUserState({
       type: 'delete',
-      payload: userState as any,
+      payload: null as any,
+    })
+    dispatchCartInLocalStorage({
+      type: 'delete-from-cart-all',
+      payload: null as any,
     })
     setAccessToken(null)
+  }
+
+  useEffect(() => {
+    calculateCartLength()
+  }, [cartInLocalStorage, userState])
+
+  const calculateCartLength = () => {
+    if (userState) {
+      setBadgeCount(userState.shoppingCart.length)
+    } else {
+      setBadgeCount(cartInLocalStorage.split(',').length - 1)
+    }
   }
   return (
     <div className={styles.header}>
@@ -54,7 +73,7 @@ const Header: React.FC<Props> = ({}: Props) => {
             <IconButton
               bgColor="bg-secondary"
               icon={<CartIcon iconWidth="30" iconHeight="30" />}
-              badge={<ButtonBadge count={cartInLocalStorage ? cartInLocalStorage.length : 0} />}
+              badge={userState ? <ButtonBadge count={badgeCount} /> : undefined}
             ></IconButton>
           </a>
         </Link>

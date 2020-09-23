@@ -38,7 +38,7 @@ export class UserController {
   async addOneToShoppingCart(
     @GetUser() user: User,
     @Query('productId') productId: string,
-  ): Promise<{ data: string[] }> {
+  ): Promise<string[]> {
     return await this.userService.addOneToShoppingCart(productId, user.id);
   }
 
@@ -46,14 +46,12 @@ export class UserController {
   async removeOneFromShoppingCart(
     @GetUser() user: User,
     @Query('productId') productId: string,
-  ): Promise<{ data: string[] }> {
+  ): Promise<string[]> {
     return await this.userService.removeOneFromShoppingCart(productId, user.id);
   }
 
   @Post('/cart/remove-all')
-  async removeAllFromShoppingCart(
-    @GetUser() user: User,
-  ): Promise<{ data: string[] }> {
+  async removeAllFromShoppingCart(@GetUser() user: User): Promise<string[]> {
     return await this.userService.removeAllFromShoppingCart(user.id);
   }
 
