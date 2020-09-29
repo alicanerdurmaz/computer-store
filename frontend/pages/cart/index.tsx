@@ -16,6 +16,7 @@ const index = () => {
 
   const deleteHandler = async (id: string) => {
     removeOneFromCart(id)
+    getProducts()
   }
 
   async function getProducts() {
