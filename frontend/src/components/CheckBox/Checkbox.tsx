@@ -1,27 +1,24 @@
-import React, { useState, useEffect } from 'react'
-
+import React, { useEffect, useState } from 'react'
 import styles from './Checkbox.module.css'
-import { useRouter } from 'next/router'
-import { addToQuery, deleteFromQuery } from '../../utils/changeQuery'
+import { useFilterContext } from 'src/context/FilterContext/FilterContext'
 
 interface Props {
   value: string
   count: number
   category: string
+  checked: boolean
 }
-const Checkbox: React.FC<Props> = ({ value, count, category }: Props) => {
-  const router = useRouter()
-  const [checked, setChecked] = useState(false)
+const Checkbox: React.FC<Props> = ({ value, count, category, checked }: Props) => {
+  const { filterDispatch } = useFilterContext()
 
   const onChangeHandler = () => {
     if (checked) {
-      router.push(deleteFromQuery(router.query, category, value), undefined, { shallow: true })
-      setChecked(false)
+      filterDispatch({ type: 'delete', payload: { category, value } })
     } else {
-      router.push(addToQuery(router.query, category, value), undefined, { shallow: true })
-      setChecked(true)
+      filterDispatch({ type: 'add', payload: { category, value } })
     }
   }
+
   return (
     <label className={styles.label}>
       <input

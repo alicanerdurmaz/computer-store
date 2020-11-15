@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 import styles from './CheckboxList.module.css'
 import Checkbox from './Checkbox'
+import { useFilterContext } from 'src/context/FilterContext/FilterContext'
 
 interface Props {
   title: string
@@ -9,7 +10,17 @@ interface Props {
 }
 const CheckboxList: React.FC<Props> = ({ title, checkboxList }: Props) => {
   const [searchTerm, setSearchTerm] = useState('')
+  const { filterState } = useFilterContext()
 
+  const checkIsChecked = (category: string, value: string) => {
+    if (!filterState.hasOwnProperty(category)) {
+      return false
+    } else if (filterState[category].includes(value)) {
+      return true
+    } else {
+      return false
+    }
+  }
   return (
     <div className={styles.checkboxListContainer}>
       <label className={styles.title}>{title}s</label>
@@ -28,7 +39,15 @@ const CheckboxList: React.FC<Props> = ({ title, checkboxList }: Props) => {
       <div className={styles.list}>
         {Object.keys(checkboxList).map((e: string) => {
           if (e.toLowerCase().includes(searchTerm.toLowerCase())) {
-            return <Checkbox key={e} value={e} category={title} count={checkboxList[e]}></Checkbox>
+            return (
+              <Checkbox
+                checked={checkIsChecked(title, e)}
+                key={e}
+                value={e}
+                category={title}
+                count={checkboxList[e]}
+              ></Checkbox>
+            )
           } else null
         })}
       </div>

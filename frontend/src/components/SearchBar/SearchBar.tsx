@@ -4,47 +4,38 @@ import cx from 'classnames'
 import styles from './SearchBar.module.css'
 import SearchIcon from '../Icons/SearchIcon'
 import { useDebounce } from '../../hooks/useDebounce'
-import { useRouter } from 'next/router'
-import { addToQuery, deleteFromQuery } from '../../utils/changeQuery'
+import { useFilterContext } from 'src/context/FilterContext/FilterContext'
 
 interface Props {
   className?: string
 }
 const SearchBar: React.FC<Props> = ({ className }: Props) => {
-  const router = useRouter()
+  const { filterDispatch } = useFilterContext()
   const [inputValue, setInputValue] = useState('')
   const debouncedValue = useDebounce(inputValue, 200)
 
   useEffect(() => {
-    if (debouncedValue.length >= 3) {
-      router.push(addToQuery(router.query, 'search', debouncedValue), undefined, { shallow: true })
+    if (debouncedValue.length >= 4) {
+      filterDispatch({
+        type: 'add-string',
+        payload: {
+          category: 'search',
+          value: debouncedValue,
+        },
+      })
     } else {
-      router.push(deleteFromQuery(router.query, 'search', debouncedValue), undefined, { shallow: true })
+      filterDispatch({
+        type: 'delete-string',
+        payload: {
+          category: 'search',
+          value: debouncedValue,
+        },
+      })
     }
   }, [debouncedValue])
 
-  useEffect(() => {
-    if (router.query.search) {
-      setInputValue(router.query.search as string)
-    }
-  }, [])
-
-  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    if (inputValue.length >= 3) {
-      router.push(addToQuery(router.query, 'search', debouncedValue), undefined, { shallow: true })
-    } else {
-      router.push(deleteFromQuery(router.query, 'search', debouncedValue), undefined, { shallow: true })
-    }
-  }
-
   return (
-    <form
-      className={cx(styles.form, className)}
-      aria-label="search products"
-      role="search"
-      onSubmit={e => submitHandler(e)}
-    >
+    <form className={cx(styles.form, className)} aria-label="search products" role="search">
       <input
         value={inputValue}
         className={styles.input}

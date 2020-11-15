@@ -3,8 +3,7 @@ import React, { useReducer, useRef, useEffect } from 'react'
 import cx from 'classnames'
 import styles from './Slider.module.css'
 import { useDebounce } from '../../hooks/useDebounce'
-import { useRouter } from 'next/router'
-import { deleteFromQuery, addToQuery } from '../../utils/changeQuery'
+import { useFilterContext } from 'src/context/FilterContext/FilterContext'
 interface Props {
   title: string
   minRange: number
@@ -81,11 +80,9 @@ const init = (value: string, minRange: number, maxRange: number) => {
   }
 }
 const Slider = ({ title, minRange, maxRange }: Props) => {
-  const router = useRouter()
+  const { filterDispatch } = useFilterContext()
 
-  const [sliderState, dispatchSlider] = useReducer(sliderReducer, {}, () =>
-    init(router?.query[title] as string, minRange, maxRange),
-  )
+  const [sliderState, dispatchSlider] = useReducer(sliderReducer, {}, () => init(title, minRange, maxRange))
 
   const firstSlider = useRef<HTMLInputElement>(null)
   const secondSlider = useRef<HTMLInputElement>(null)
@@ -112,9 +109,9 @@ const Slider = ({ title, minRange, maxRange }: Props) => {
     const values = debouncedValue.split(',')
 
     if (parseFloat(values[0]) === minRange && parseFloat(values[1]) === maxRange) {
-      router.push(deleteFromQuery(router.query, title, debouncedValue), undefined, { shallow: true })
+      filterDispatch({ type: 'delete-string', payload: { category: title, value: debouncedValue } })
     } else {
-      router.push(addToQuery(router.query, title, debouncedValue), undefined, { shallow: true })
+      filterDispatch({ type: 'add-string', payload: { category: title, value: debouncedValue } })
     }
   }, [debouncedValue])
 

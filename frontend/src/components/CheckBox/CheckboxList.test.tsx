@@ -3,25 +3,44 @@ import user from '@testing-library/user-event'
 import { render } from '@testing-library/react'
 
 import CheckboxList from './CheckboxList'
+import { FilterContextProvider } from 'src/context/FilterContext/FilterContext'
+
+jest.mock('next/router', () => ({
+  useRouter: jest.fn().mockImplementation(() => ({
+    push: jest.fn(() => null),
+  })),
+}))
+
+const Wrapper: React.FC = ({ children }) => {
+  return <FilterContextProvider>{children}</FilterContextProvider>
+}
 
 test('checkbox list renders properly, ', () => {
   const data = listTestData()
   const { getAllByRole, getByText, getByRole, queryByPlaceholderText, rerender } = render(
-    <CheckboxList title={data.title} checkboxList={data.list} />,
+    <Wrapper>
+      <CheckboxList title={data.title} checkboxList={data.list} />
+    </Wrapper>,
   )
 
   expect(getByText(data.title + 's')).toBeInTheDocument()
   expect(getAllByRole('checkbox').length).toEqual(Object.keys(data.list).length)
   expect(getByRole('searchbox')).toBeInTheDocument()
 
-  rerender(<CheckboxList title={data.title} checkboxList={{ Asus: 30 }} />)
+  rerender(
+    <Wrapper>
+      <CheckboxList title={data.title} checkboxList={{ Asus: 30 }} />
+    </Wrapper>,
+  )
   expect(queryByPlaceholderText(/search/i)).not.toBeInTheDocument()
 })
 
 test('checkbox list search, ', () => {
   const data = listTestData()
   const { getAllByRole, queryByPlaceholderText, queryAllByRole } = render(
-    <CheckboxList title={data.title} checkboxList={data.list} />,
+    <Wrapper>
+      <CheckboxList title={data.title} checkboxList={data.list} />
+    </Wrapper>,
   )
 
   const input = queryByPlaceholderText(/search/i) as HTMLInputElement

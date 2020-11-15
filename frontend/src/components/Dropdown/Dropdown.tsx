@@ -1,12 +1,17 @@
 import React from 'react'
+import { useFilterContext } from 'src/context/FilterContext/FilterContext'
 import styles from './Dropdown.module.css'
-import { addToQuery } from '../../utils/changeQuery'
-import { useRouter } from 'next/router'
 
 const Dropdown = () => {
-  const router = useRouter()
+  const { filterDispatch } = useFilterContext()
   const handleChangeSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    router.push(addToQuery(router.query, 'sort', event.currentTarget.value), undefined, { shallow: true })
+    filterDispatch({
+      type: 'toggle',
+      payload: {
+        category: 'sort',
+        value: event.currentTarget.value,
+      },
+    })
   }
   return (
     <label className={styles.title}>

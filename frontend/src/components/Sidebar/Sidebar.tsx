@@ -5,7 +5,8 @@ import styles from './Sidebar.module.css'
 import Slider from '../Slider/Slider'
 import CheckboxList from '../CheckBox/CheckboxList'
 import Dropdown from '../Dropdown/Dropdown'
-import SidebarSkeleton from './SidebarSkeleton'
+import { useFilterContext } from 'src/context/FilterContext/FilterContext'
+
 interface Props {
   filters: Record<string, any>
 }

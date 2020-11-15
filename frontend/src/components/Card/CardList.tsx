@@ -6,13 +6,13 @@ import { useQuery } from 'react-query'
 import NotFoundIcon from '../Icons/NotFoundIcon'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useRouter } from 'next/router'
-import { addToQuery } from '../../utils/changeQuery'
 import CardSkeleton from './CardSkeleton'
 
 import { useUserContext } from 'src/context/UserContext/UserContext'
 
 const CardList: React.FC = () => {
   const router = useRouter()
+
   const { userState, addOneToCart, removeOneFromCart } = useUserContext()
 
   const { isLoading, error, data, refetch, isFetching } = useQuery('productsData', () =>
@@ -77,7 +77,6 @@ const CardList: React.FC = () => {
                   top: 0,
                   behavior: 'smooth',
                 })
-                router.push(addToQuery(router.query, 'page', pageNumber.toString()), undefined, { shallow: true })
               }}
             >
               {pageNumber}
