@@ -7,6 +7,7 @@ import Link from 'next/link'
 import ErrorPage from 'next/error'
 import { motion, AnimatePresence } from 'framer-motion'
 import { stagger, fadeInUp } from 'src/components/Animations/Animations'
+import { BASE_URL } from 'src/utils/api'
 interface Props {
   product: any
 }
@@ -97,14 +98,14 @@ const Product = ({ product }: Props) => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const res = await fetch(`http://localhost:3001/product/${params?.id}`)
+  const res = await fetch(`${BASE_URL}/product/${params?.id}`)
   const product = await res.json()
 
   return { props: { product } }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const res = await fetch('http://localhost:3001/product/get-all-ids')
+  const res = await fetch(`${BASE_URL}/product/get-all-ids`)
   const ids = await res.json()
 
   const paths = ids.map((id: string) => ({

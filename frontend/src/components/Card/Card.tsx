@@ -10,8 +10,8 @@ interface Props {
   image: string
   imageIsLazy?: 'eager' | 'lazy'
   id: string
-  addOneToCart: (obj: string) => void
-  removeOneFromCart: (obj: string) => void
+  addOneToCart: (obj: string) => Promise<void>
+  removeOneFromCart: (obj: string) => Promise<void>
 }
 const Card = React.memo(function Card({
   isInCart,

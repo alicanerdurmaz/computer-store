@@ -5,6 +5,7 @@ import SidebarSkeleton from 'src/components/Sidebar/SidebarSkeleton'
 import Sidebar from 'src/components/Sidebar/Sidebar'
 import ProductListHeader from 'src/components/ProductListHeader/ProductListHeader'
 import CardList from 'src/components/Card/CardList'
+import { BASE_URL } from 'src/utils/api'
 
 const Home = () => {
   const [sidebar, setSideBar] = useState(false)
@@ -13,7 +14,7 @@ const Home = () => {
   useEffect(() => {
     const getFilters = async () => {
       try {
-        const res = await fetch(`http://localhost:3001/product/filters`)
+        const res = await fetch(`${BASE_URL}/product/filters`)
         const data = await res.json()
         setFilters(data)
       } catch (error) {}

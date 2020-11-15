@@ -1,6 +1,8 @@
+export const BASE_URL = 'https://computer-store-demo.herokuapp.com'
+
 export const API_Login = async (email: string, password: string) => {
   try {
-    const response = await fetch('http://localhost:3001/auth/login', {
+    const response = await fetch(`${BASE_URL}/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -26,7 +28,7 @@ export const API_Login = async (email: string, password: string) => {
 }
 export const API_Signup = async (name: string, email: string, password: string) => {
   try {
-    const response = await fetch('http://localhost:3001/auth/register', {
+    const response = await fetch(`${BASE_URL}/auth/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -59,7 +61,7 @@ export const API_Signup = async (name: string, email: string, password: string) 
 
 export const API_GetUser = async (accessToken: string) => {
   try {
-    const response = await fetch('http://localhost:3001/user', {
+    const response = await fetch(`${BASE_URL}/user`, {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
@@ -80,7 +82,7 @@ export const API_GetUser = async (accessToken: string) => {
 
 export const API_GetProducts = async (cartArray: string) => {
   try {
-    const response = await fetch(`http://localhost:3001/product/find-many?idArray=${cartArray}`)
+    const response = await fetch(`${BASE_URL}/product/find-many?idArray=${cartArray}`)
     const data = await response.json()
 
     if (data.error) {
@@ -98,7 +100,7 @@ export const API_MergeLocalStorageCartWithDatabase = async (accessToken: string)
     const cart = window.localStorage.getItem('cart')
     if (!cart) return
 
-    await fetch(`http://localhost:3001/user/cart/add?productId=${cart.slice(0, -1)}`, {
+    await fetch(`${BASE_URL}/user/cart/add?productId=${cart.slice(0, -1)}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -111,7 +113,7 @@ export const API_MergeLocalStorageCartWithDatabase = async (accessToken: string)
 
 export const API_AddOneToCart = async (id: string, accessToken: string) => {
   try {
-    const response = await fetch(`http://localhost:3001/user/cart/add?productId=${id}`, {
+    const response = await fetch(`${BASE_URL}/user/cart/add?productId=${id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -130,7 +132,7 @@ export const API_AddOneToCart = async (id: string, accessToken: string) => {
 
 export const API_RemoveOneFromCart = async (id: string, accessToken: string) => {
   try {
-    const result = await fetch(`http://localhost:3001/user/cart/remove?productId=${id}`, {
+    const result = await fetch(`${BASE_URL}/user/cart/remove?productId=${id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -146,7 +148,7 @@ export const API_RemoveOneFromCart = async (id: string, accessToken: string) => 
 
 export const API_RemoveAllFromCart = async (accessToken: string) => {
   try {
-    const result = await fetch(`http://localhost:3001/user/cart/remove-all`, {
+    const result = await fetch(`${BASE_URL}/user/cart/remove-all`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 import CardSkeleton from './CardSkeleton'
 
 import { useUserContext } from 'src/context/UserContext/UserContext'
+import { BASE_URL } from 'src/utils/api'
 
 const CardList: React.FC = () => {
   const router = useRouter()
@@ -16,7 +17,7 @@ const CardList: React.FC = () => {
   const { userState, addOneToCart, removeOneFromCart } = useUserContext()
 
   const { isLoading, error, data, refetch, isFetching } = useQuery('productsData', () =>
-    fetch(`http://localhost:3001/product${router.asPath}`).then(res => res.json()),
+    fetch(`${BASE_URL}/product${router.asPath}`).then(res => res.json()),
   )
 
   useEffect(() => {

@@ -10,7 +10,7 @@ export default {
 }
 
 export const Default = () => {
-  return <Checkbox category="Manufacturer" value="Asus" count={12} />
+  return <Checkbox checked={true} category="Manufacturer" value="Asus" count={12} />
 }
 
 export const List = () => {
