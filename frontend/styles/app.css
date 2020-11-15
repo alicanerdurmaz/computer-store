@@ -49,3 +49,12 @@ a:active,
 a:hover {
   outline: 0;
 }
+
+dialog {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.25);
+}

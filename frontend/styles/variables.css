@@ -22,4 +22,6 @@
   --shadow: rgba(0, 0, 0, 0.2);
 
   --a-60-cubic: 60ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+
+  --green500: #48bb78;
 }

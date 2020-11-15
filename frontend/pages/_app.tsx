@@ -5,6 +5,7 @@ import SiteLayout from '../src/components/Layout/SiteLayout'
 import { ReactQueryDevtools } from 'react-query-devtools'
 import { ReactQueryConfigProvider } from 'react-query'
 import { UserContextProvider } from 'src/context/UserContext/UserContext'
+import { useEffect } from 'react'
 
 const queryConfig = { queries: { refetchOnWindowFocus: false } }
 

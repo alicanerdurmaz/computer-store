@@ -46,7 +46,7 @@ const Card = React.memo(function Card({
             {name}
           </h1>
           <div className={styles.footer}>
-            <h1 className={styles.price}>${price}</h1>
+            <h1 className={styles.price}>${price.toLocaleString()}</h1>
 
             {isInCart ? (
               <button

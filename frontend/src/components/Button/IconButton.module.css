@@ -25,9 +25,7 @@
       fill: var(--c-text-on-p);
     }
   }
-  & > svg {
-    margin-right: 0.725rem;
-  }
+
   text-align: center;
   font-size: 0.825rem;
 }

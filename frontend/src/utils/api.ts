@@ -143,3 +143,19 @@ export const API_RemoveOneFromCart = async (id: string, accessToken: string) => 
     return null
   }
 }
+
+export const API_RemoveAllFromCart = async (accessToken: string) => {
+  try {
+    const result = await fetch(`http://localhost:3001/user/cart/remove-all`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: 'Bearer ' + accessToken,
+      },
+    })
+    const data = await result.json()
+    return data
+  } catch (error) {
+    return null
+  }
+}

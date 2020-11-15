@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer, useState, useEffect } from 'react'
-import { API_AddOneToCart, API_RemoveOneFromCart } from 'src/utils/api'
+import { API_AddOneToCart, API_RemoveAllFromCart, API_RemoveOneFromCart } from 'src/utils/api'
 import { IUserContext, Action, User, ActionCart } from './interfaces'
 
 export const UserContext = createContext<IUserContext | undefined>(undefined)
@@ -104,9 +104,14 @@ export const UserContextProvider: React.FC = ({ children }) => {
       dispatchCartInLocalStorage({ type: type, payload: id })
     }
   }
-  const removeAllFromCart = () => {
+  const removeAllFromCart = async () => {
     const type = 'delete-from-cart-all'
-    if (userState) {
+    if (userState && accessToken) {
+      const result = await API_RemoveAllFromCart(accessToken)
+      dispatchUserState({
+        type: 'delete-from-cart-all',
+        payload: result,
+      })
     } else {
       dispatchCartInLocalStorage({ type: type, payload: '' })
     }

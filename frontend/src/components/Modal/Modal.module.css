@@ -1,0 +1,39 @@
+.container {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.25);
+  z-index: 99;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  min-height: 200px;
+  padding: 2rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.close {
+  cursor: pointer;
+  appearance: none;
+  background-color: transparent;
+  position: absolute;
+  right: 8px;
+  top: 8px;
+
+  & > svg {
+    color: #f56565;
+  }
+}

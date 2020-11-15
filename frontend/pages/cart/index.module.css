@@ -123,3 +123,16 @@
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   }
 }
+
+.modal_content {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+}
+.modal_icon {
+  color: var(--green500);
+}
+.modal_message {
+  font-size: 2rem;
+}

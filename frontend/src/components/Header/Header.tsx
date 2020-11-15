@@ -11,9 +11,11 @@ import ButtonBadge from '../Button/ButtonBadge'
 import Link from 'next/link'
 import { useUserContext } from 'src/context/UserContext/UserContext'
 import Button from '../Button/Button'
+import { useRouter } from 'next/router'
 
 const Header = () => {
   const [badgeCount, setBadgeCount] = useState(0)
+  const router = useRouter()
   const {
     userState,
     dispatchUserState,
@@ -32,6 +34,7 @@ const Header = () => {
       payload: null as any,
     })
     setAccessToken(null)
+    router.push('/')
   }
 
   useEffect(() => {
@@ -73,7 +76,7 @@ const Header = () => {
             <IconButton
               bgColor="bg-secondary"
               icon={<CartIcon iconWidth="30" iconHeight="30" />}
-              badge={userState ? <ButtonBadge count={badgeCount} /> : undefined}
+              badge={<ButtonBadge count={badgeCount} />}
             ></IconButton>
           </a>
         </Link>

@@ -19,7 +19,7 @@ const Chip = ({ category, value, onClick, leftIcon }: Props) => {
 
       <div className={styles.text}>
         <div className={styles.category}>{category}</div>
-        <div className={styles.value}>{value.replace(',', ' - ')}</div>
+        <div className={styles.value}>{value}</div>
       </div>
     </div>
   )

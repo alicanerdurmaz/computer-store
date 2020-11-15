@@ -21,9 +21,9 @@ export interface IUserContext {
   setAccessToken: React.Dispatch<React.SetStateAction<string | null>>
   cartInLocalStorage: string
   dispatchCartInLocalStorage: React.Dispatch<ActionCart>
-  addOneToCart: (id: string) => void
-  removeOneFromCart: (id: string) => void
-  removeAllFromCart: () => void
+  addOneToCart: (id: string) => Promise<void>
+  removeOneFromCart: (id: string) => Promise<void>
+  removeAllFromCart: () => Promise<void>
 }
 
 export interface Product {
