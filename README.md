@@ -4,9 +4,9 @@
   Computer Store
 </h1>
 
-> 🚨 Workin progress.
+> 🚨  This is not a commercial project. I did it to improve my knowledge
 > 
-> This is not a commercial project. I did it to improve my knowledge
+
 
 ##  Tech Stack 
 Frontend
@@ -20,5 +20,13 @@ Frontend
 - Typescript 
 - MongoDB / Mongoose
 - JSON Web Tokens
+
+
+## How to use
+
+```bash
+cd frontend && yarn dev
+cd server && yarn start:dev
+```
 
 <!-- prettier-ignore-end -->
