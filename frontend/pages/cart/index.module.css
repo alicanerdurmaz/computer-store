@@ -136,3 +136,23 @@
 .modal_message {
   font-size: 2rem;
 }
+
+@media (max-width: 900px) {
+  .summary {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 5;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 1rem 0;
+    border-top-left-radius: 36px;
+    border-top-right-radius: 36px;
+    background: #ffffff;
+    box-shadow: -2px -9px 14px -5px rgba(0, 0, 0, 0.61);
+  }
+  .container {
+    display: flex;
+  }
+}

@@ -24,7 +24,7 @@ const AuthForm = ({ activePage }: Props) => {
   const [showPassword, setShowPassword] = useState(false)
   const [serverError, setServerError] = useState<string | null>(null)
   const { register, unregister, handleSubmit, errors } = useForm<FormData>({
-    defaultValues: { email: 'alican@computerstore.com', password: 'ComputerStore!' },
+    defaultValues: { email: '', password: '' },
   })
   const [submitting, setSubmitting] = useState(false)
 

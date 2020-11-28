@@ -4,6 +4,7 @@ import cx from 'classnames'
 import styles from './Slider.module.css'
 import { useDebounce } from '../../hooks/useDebounce'
 import { useFilterContext } from 'src/context/FilterContext/FilterContext'
+import { SliderLabelSymbols } from 'src/utils/constants'
 interface Props {
   title: string
   minRange: number
@@ -120,10 +121,10 @@ const Slider = ({ title, minRange, maxRange }: Props) => {
       <h6 className={styles.title}>{title}</h6>
       <div className={cx(styles.text)}>
         <span id="range-slider-input-one" className={cx(styles.text_range1)}>
-          ${minValue}
+          {`${minValue}${SliderLabelSymbols[title]}`}
         </span>
         <span id="range-slider-input-two" className={cx(styles.text_range2)}>
-          ${maxValue}
+          {`${maxValue}${SliderLabelSymbols[title]}`}
         </span>
       </div>
       <div className={cx(styles.slider_container)}>

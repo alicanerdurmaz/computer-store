@@ -1,6 +1,5 @@
 .header {
   grid-area: header;
-  overflow: hidden;
   padding: 0 1rem;
   display: flex;
   justify-content: flex-start;
