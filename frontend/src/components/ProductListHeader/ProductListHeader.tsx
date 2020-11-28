@@ -7,6 +7,7 @@ import { IAction, useFilterContext } from 'src/context/FilterContext/FilterConte
 import TimesIcon from '../Icons/TimesIcon'
 
 const sliders = ['Price', 'Weight']
+
 const ProductListHeader = () => {
   const { filterState, filterDispatch } = useFilterContext()
 

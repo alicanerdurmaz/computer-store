@@ -1,10 +1,12 @@
 import { useRouter } from 'next/router'
-import React, { createContext, useReducer, useContext, useEffect } from 'react'
+import React, { createContext, useReducer, useContext, useEffect, useState } from 'react'
 import { createQuery } from 'src/utils/changeQuery'
 
 interface IFilterContext {
   filterDispatch: React.Dispatch<IAction>
   filterState: any
+  pagination: number | null
+  setPagination: React.Dispatch<React.SetStateAction<number | null>>
 }
 const FilterContext = createContext<IFilterContext | undefined>(undefined)
 
@@ -79,14 +81,26 @@ const filterReducer = (state: any, action: IAction) => {
 
 export const FilterContextProvider: React.FC = ({ children }) => {
   const [filterState, filterDispatch] = useReducer(filterReducer, {})
+  const [pagination, setPagination] = useState<number | null>(null)
   const router = useRouter()
 
   useEffect(() => {
+    setPagination(null)
     const query = createQuery(filterState)
     router.push(router.pathname, query)
   }, [filterState])
 
-  return <FilterContext.Provider value={{ filterState, filterDispatch }}>{children}</FilterContext.Provider>
+  useEffect(() => {
+    if (!pagination) return
+    const query = createQuery({ ...filterState, page: pagination })
+    router.push(router.pathname, query)
+  }, [pagination])
+
+  return (
+    <FilterContext.Provider value={{ filterState, pagination, filterDispatch, setPagination }}>
+      {children}
+    </FilterContext.Provider>
+  )
 }
 
 export const useFilterContext = () => {

@@ -10,10 +10,11 @@ import CardSkeleton from './CardSkeleton'
 
 import { useUserContext } from 'src/context/UserContext/UserContext'
 import { BASE_URL } from 'src/utils/api'
+import { useFilterContext } from 'src/context/FilterContext/FilterContext'
 
 const CardList: React.FC = () => {
   const router = useRouter()
-
+  const { pagination, setPagination } = useFilterContext()
   const { userState, addOneToCart, removeOneFromCart } = useUserContext()
 
   const { isLoading, error, data, refetch, isFetching } = useQuery('productsData', () =>
@@ -37,6 +38,15 @@ const CardList: React.FC = () => {
 
     return false
   }
+
+  const changePage = (page: number) => {
+    setPagination(page)
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    })
+  }
+
   return (
     <>
       <div className={styles.container} aria-label="product list">
@@ -68,17 +78,16 @@ const CardList: React.FC = () => {
       <div className={styles.pagination_container}>
         {Array.from({ length: data?.numberOfPages }).map((e, i) => {
           const pageNumber = i + 1
+
+          let buttonStyle = styles.button_not_selected
+          if ((!pagination && pageNumber === 1) || pageNumber === pagination) buttonStyle = styles.button_selected
+
           return (
             <button
-              className={styles.button_not_selected}
+              className={buttonStyle}
               aria-label="page number"
               key={pageNumber}
-              onClick={() => {
-                window.scrollTo({
-                  top: 0,
-                  behavior: 'smooth',
-                })
-              }}
+              onClick={() => changePage(pageNumber)}
             >
               {pageNumber}
             </button>
