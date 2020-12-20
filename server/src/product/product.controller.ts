@@ -19,6 +19,7 @@ import { ProductFiltersPipe } from './pipes/product.filters-pipe';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/auth/decorators/get-user.decorator';
 import { User } from 'src/user/interfaces/user.interface';
+import { ApiResponse } from '@nestjs/swagger';
 
 @Controller('product')
 export class ProductController {
@@ -31,6 +32,10 @@ export class ProductController {
   ): Promise<{ products: Product[]; numberOfPages: number }> {
     return await this.productService.getProducts(filter);
   }
+
+  @ApiResponse({
+    description: 'Returns all the computer specs that can be filterable',
+  })
   @Get('/filters')
   getFilters(): any {
     return this.productService.getFilters();
