@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react'
-import { useFilterContext } from 'src/context/FilterContext/FilterContext'
+import React from 'react'
 
 import Home from './_home/Home'
 
