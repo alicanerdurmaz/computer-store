@@ -1,19 +1,21 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
-import Image from '../../src/components/Image/Image'
 import styles from './product-page.module.css'
 import Link from 'next/link'
 import ErrorPage from 'next/error'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { stagger, fadeInUp } from 'src/components/Animations/Animations'
 import { BASE_URL } from 'src/utils/api'
+import { useUserContext } from 'src/context/UserContext/UserContext'
 interface Props {
   product: any
 }
 
 const specFilter = ['Part', 'Type', 'Images', 'SellerName', 'Seller', 'Name', '_id']
+
 const Product = ({ product }: Props) => {
+  const { addOneToCart } = useUserContext()
   const { isFallback } = useRouter()
 
   if (!isFallback && !product?._id) {
@@ -66,7 +68,7 @@ const Product = ({ product }: Props) => {
                   className={styles.button}
                   onClick={e => {
                     e.stopPropagation()
-                    alert('clicked cart')
+                    addOneToCart(product._id)
                   }}
                 >
                   ADD TO CART
