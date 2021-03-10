@@ -1,7 +1,7 @@
-define("./workbox-32092201.js",['exports'], function (exports) { 'use strict';
+define("./workbox-d6d90c3a.js",['exports'], function (exports) { 'use strict';
 
     try {
-      self['workbox:core:6.0.2'] && _();
+      self['workbox:core:6.1.1'] && _();
     } catch (e) {}
 
     /*
@@ -10,7 +10,7 @@ define("./workbox-32092201.js",['exports'], function (exports) { 'use strict';
       license that can be found in the LICENSE file or at
       https://opensource.org/licenses/MIT.
     */
-    const logger =  (() => {
+    const logger = (() => {
       // Don't overwrite this value if it's already set.
       // See https://github.com/GoogleChrome/workbox/pull/2284#issuecomment-560470923
       if (!('__WB_DISABLE_DEV_LOGS' in self)) {
@@ -76,7 +76,7 @@ define("./workbox-32092201.js",['exports'], function (exports) { 'use strict';
       license that can be found in the LICENSE file or at
       https://opensource.org/licenses/MIT.
     */
-    const messages = {
+    const messages$1 = {
       'invalid-value': ({
         paramName,
         validValueDescription,
@@ -356,7 +356,7 @@ define("./workbox-32092201.js",['exports'], function (exports) { 'use strict';
     */
 
     const generatorFunction = (code, details = {}) => {
-      const message = messages[code];
+      const message = messages$1[code];
 
       if (!message) {
         throw new Error(`Unable to find message for code '${code}'.`);
@@ -365,7 +365,7 @@ define("./workbox-32092201.js",['exports'], function (exports) { 'use strict';
       return message(details);
     };
 
-    const messageGenerator =  generatorFunction;
+    const messageGenerator = generatorFunction;
 
     /*
       Copyright 2018 Google LLC
@@ -466,7 +466,7 @@ define("./workbox-32092201.js",['exports'], function (exports) { 'use strict';
       }
     };
 
-    const finalAssertExports =  {
+    const finalAssertExports = {
       hasMethod,
       isArray,
       isInstance,
@@ -476,7 +476,7 @@ define("./workbox-32092201.js",['exports'], function (exports) { 'use strict';
     };
 
     try {
-      self['workbox:routing:6.0.2'] && _();
+      self['workbox:routing:6.1.1'] && _();
     } catch (e) {}
 
     /*
@@ -599,6 +599,16 @@ define("./workbox-32092201.js",['exports'], function (exports) { 'use strict';
         this.handler = normalizeHandler(handler);
         this.match = match;
         this.method = method;
+      }
+      /**
+       *
+       * @param {module:workbox-routing-handlerCallback} handler A callback
+       * function that returns a Promise resolving to a Response
+       */
+
+
+      setCatchHandler(handler) {
+        this.catchHandler = normalizeHandler(handler);
       }
 
     }
@@ -928,24 +938,54 @@ define("./workbox-32092201.js",['exports'], function (exports) { 'use strict';
           });
         } catch (err) {
           responsePromise = Promise.reject(err);
-        }
+        } // Get route's catch handler, if it exists
 
-        if (responsePromise instanceof Promise && this._catchHandler) {
-          responsePromise = responsePromise.catch(err => {
-            {
-              // Still include URL here as it will be async from the console group
-              // and may not make sense without the URL
-              logger.groupCollapsed(`Error thrown when responding to: ` + ` ${getFriendlyURL(url)}. Falling back to Catch Handler.`);
-              logger.error(`Error thrown by:`, route);
-              logger.error(err);
-              logger.groupEnd();
+
+        const catchHandler = route && route.catchHandler;
+
+        if (responsePromise instanceof Promise && (this._catchHandler || catchHandler)) {
+          responsePromise = responsePromise.catch(async err => {
+            // If there's a route catch handler, process that first
+            if (catchHandler) {
+              {
+                // Still include URL here as it will be async from the console group
+                // and may not make sense without the URL
+                logger.groupCollapsed(`Error thrown when responding to: ` + ` ${getFriendlyURL(url)}. Falling back to route's Catch Handler.`);
+                logger.error(`Error thrown by:`, route);
+                logger.error(err);
+                logger.groupEnd();
+              }
+
+              try {
+                return await catchHandler.handle({
+                  url,
+                  request,
+                  event,
+                  params
+                });
+              } catch (catchErr) {
+                err = catchErr;
+              }
             }
 
-            return this._catchHandler.handle({
-              url,
-              request,
-              event
-            });
+            if (this._catchHandler) {
+              {
+                // Still include URL here as it will be async from the console group
+                // and may not make sense without the URL
+                logger.groupCollapsed(`Error thrown when responding to: ` + ` ${getFriendlyURL(url)}. Falling back to global Catch Handler.`);
+                logger.error(`Error thrown by:`, route);
+                logger.error(err);
+                logger.groupEnd();
+              }
+
+              return this._catchHandler.handle({
+                url,
+                request,
+                event
+              });
+            }
+
+            throw err;
           });
         }
 
@@ -1447,7 +1487,7 @@ define("./workbox-32092201.js",['exports'], function (exports) { 'use strict';
     }
 
     try {
-      self['workbox:strategies:6.0.2'] && _();
+      self['workbox:strategies:6.1.1'] && _();
     } catch (e) {}
 
     function toRequest(input) {
@@ -1552,8 +1592,8 @@ define("./workbox-32092201.js",['exports'], function (exports) { 'use strict';
       }
       /**
        * Fetches a given request (and invokes any applicable plugin callback
-       * methods) using the `fetchOptions` and `plugins` defined on the strategy
-       * object.
+       * methods) using the `fetchOptions` (for non-navigation requests) and
+       * `plugins` defined on the `Strategy` object.
        *
        * The following plugin lifecycle methods are invoked when using this method:
        * - `requestWillFetch()`
@@ -1725,7 +1765,9 @@ define("./workbox-32092201.js",['exports'], function (exports) { 'use strict';
        * - cacheDidUpdate()
        *
        * @param {Request|string} key The request or URL to use as the cache key.
-       * @param {Promise<void>} response The response to cache.
+       * @param {Response} response The response to cache.
+       * @return {Promise<boolean>} `false` if a cacheWillUpdate caused the response
+       * not be cached, and `true` otherwise.
        */
 
 
@@ -1762,7 +1804,7 @@ define("./workbox-32092201.js",['exports'], function (exports) { 'use strict';
             logger.debug(`Response '${getFriendlyURL(effectiveRequest.url)}' ` + `will not be cached.`, responseToCache);
           }
 
-          return;
+          return false;
         }
 
         const {
@@ -1800,6 +1842,8 @@ define("./workbox-32092201.js",['exports'], function (exports) { 'use strict';
             event: this.event
           });
         }
+
+        return true;
       }
       /**
        * Checks the list of plugins for the `cacheKeyWillBeUsed` callback, and
@@ -2034,8 +2078,9 @@ define("./workbox-32092201.js",['exports'], function (exports) { 'use strict';
        * @param {Array<Object>} [options.plugins] [Plugins]{@link https://developers.google.com/web/tools/workbox/guides/using-plugins}
        * to use in conjunction with this caching strategy.
        * @param {Object} [options.fetchOptions] Values passed along to the
-       * [`init`]{@link https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters}
-       * of all fetch() requests made by this strategy.
+       * [`init`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters)
+       * of [non-navigation](https://github.com/GoogleChrome/workbox/issues/1796)
+       * `fetch()` requests made by this strategy.
        * @param {Object} [options.matchOptions] The
        * [`CacheQueryOptions`]{@link https://w3c.github.io/ServiceWorker/#dictdef-cachequeryoptions}
        * for any `cache.match()` or `cache.put()` calls made by this strategy.
@@ -2261,7 +2306,7 @@ define("./workbox-32092201.js",['exports'], function (exports) { 'use strict';
       license that can be found in the LICENSE file or at
       https://opensource.org/licenses/MIT.
     */
-    const messages$1 = {
+    const messages = {
       strategyStart: (strategyName, request) => `Using ${strategyName} to respond to '${getFriendlyURL(request.url)}'`,
       printFinalResponse: response => {
         if (response) {
@@ -2300,7 +2345,8 @@ define("./workbox-32092201.js",['exports'], function (exports) { 'use strict';
        * to use in conjunction with this caching strategy.
        * @param {Object} [options.fetchOptions] Values passed along to the
        * [`init`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters)
-       * of all fetch() requests made by this strategy.
+       * of [non-navigation](https://github.com/GoogleChrome/workbox/issues/1796)
+       * `fetch()` requests made by this strategy.
        * @param {number} [options.networkTimeoutSeconds] If set, any network requests
        * that fail to respond within the timeout will result in a network error.
        */
@@ -2348,7 +2394,7 @@ define("./workbox-32092201.js",['exports'], function (exports) { 'use strict';
         }
 
         {
-          logger.groupCollapsed(messages$1.strategyStart(this.constructor.name, request));
+          logger.groupCollapsed(messages.strategyStart(this.constructor.name, request));
 
           if (response) {
             logger.log(`Got response from network.`);
@@ -2356,7 +2402,7 @@ define("./workbox-32092201.js",['exports'], function (exports) { 'use strict';
             logger.log(`Unable to get a response from the network.`);
           }
 
-          messages$1.printFinalResponse(response);
+          messages.printFinalResponse(response);
           logger.groupEnd();
         }
 
@@ -2395,4 +2441,4 @@ define("./workbox-32092201.js",['exports'], function (exports) { 'use strict';
     exports.registerRoute = registerRoute;
 
 });
-//# sourceMappingURL=workbox-32092201.js.map
+//# sourceMappingURL=workbox-d6d90c3a.js.map
