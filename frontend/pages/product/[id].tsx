@@ -8,6 +8,7 @@ import { motion } from 'framer-motion'
 import { stagger, fadeInUp } from 'src/components/Animations/Animations'
 import { BASE_URL } from 'src/utils/api'
 import { useUserContext } from 'src/context/UserContext/UserContext'
+import cx from 'classnames'
 interface Props {
   product: any
 }
@@ -15,11 +16,23 @@ interface Props {
 const specFilter = ['Part', 'Type', 'Images', 'SellerName', 'Seller', 'Name', '_id']
 
 const Product = ({ product }: Props) => {
-  const { addOneToCart } = useUserContext()
+  const { addOneToCart,userState ,removeOneFromCart} = useUserContext()
   const { isFallback } = useRouter()
 
   if (!isFallback && !product?._id) {
     return <ErrorPage statusCode={404} />
+  }
+
+  const checkIsInCart = () => {
+    if(typeof window  === "undefined") return false
+
+    if (userState) {
+      if (userState.shoppingCart.includes(product._id)) return true
+    } else {
+      if (window.localStorage.getItem('cart')?.includes(product._id+ ',')) return true
+    }
+
+    return false
   }
 
   return (
@@ -64,15 +77,23 @@ const Product = ({ product }: Props) => {
               </motion.div>
               <motion.div variants={fadeInUp} className={styles.price_button}>
                 <h1 className={styles.price}>{product.Price}$</h1>
-                <button
-                  className={styles.button}
-                  onClick={e => {
-                    e.stopPropagation()
-                    addOneToCart(product._id)
-                  }}
-                >
-                  ADD TO CART
+          
+            {checkIsInCart() ? (
+                <button disabled={false}className={cx(styles.button, styles.color_pink)} onClick={e => removeOneFromCart(product._id)}>
+                   Remove from cart
                 </button>
+            ) : (
+              <button
+              disabled={false}
+              className={cx(styles.button)}
+              onClick={e => {
+                e.stopPropagation()
+                addOneToCart(product._id)
+              }}
+            >
+              ADD TO CART
+            </button>
+            )}
               </motion.div>
             </motion.div>
           </motion.div>

@@ -114,3 +114,12 @@
     padding-left: 2rem;
   }
 }
+
+
+.color_pink {
+  color: #f56a79 !important;
+  &:hover {
+    color: var(--c-text-on-p);
+    background: #f56a79;
+  }
+}

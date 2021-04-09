@@ -23,7 +23,6 @@ const index = () => {
     await removeOneFromCart(id)
     getProducts()
   }
-
   async function getProducts() {
     let cartArray = null
 
@@ -33,14 +32,19 @@ const index = () => {
       cartArray = window.localStorage.getItem('cart')?.slice(0, -1)
     }
 
-    if (!cartArray) return
+    if (!cartArray) {
+      setProducts([])
+      return 
+    }
 
     const data = await API_GetProducts(cartArray as string)
-
     if (data) {
       setProducts(data)
+    }else {
+      setProducts([])
     }
   }
+
 
   const getTotalPaymentAndProductCount = useMemo(() => {
     let total = 0
