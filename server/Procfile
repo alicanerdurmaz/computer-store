@@ -1,1 +1,1 @@
-web: npm run start:dist
+web: yarn start:prod
